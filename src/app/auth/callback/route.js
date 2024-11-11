@@ -8,7 +8,7 @@ export async function GET(request) {
 
   if (code) {
     // supabase se charge d'échange le code "contre une session"
-    const supabase = await createClient();
+    const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
 

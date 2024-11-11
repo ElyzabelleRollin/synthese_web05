@@ -1,17 +1,15 @@
-"use client";
 import { oauthSigninAction } from "@/app/_actions/auth";
 import React from "react";
+import { createClient } from "@/app/_lib/supabase/client";
+import AllButton from "@/_components/AllButton"
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const supabase =  await createClient();
+  console.log(supabase);
   return (
     <div className="p-4">
       <h1 className="text-4xl mb-4 mt-4">Page d'authentification</h1>
-      <button
-        className="bg-slate-600 p-2 rounded-lg"
-        onClick={oauthSigninAction}
-      >
-        Connexion avec Github
-      </button>
+      <AllButton name="Connexion avec Github"  action={oauthSigninAction}/>
     </div>
   );
 };
