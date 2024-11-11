@@ -1,4 +1,4 @@
-import { createClient } from "@/app/_lib/supabase/client";
+import { createClient } from "./_lib/supabase/server";
 
 export default function Home() {
   const supabase = createClient();

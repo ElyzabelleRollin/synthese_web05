@@ -1,9 +1,7 @@
 "use server";
-import { createClient } from "@/app/_lib/supabase/server";
 import { revalidatePath } from "next/navigation"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import next from "next";
 
 export const oauthSigninAction = async () => {
   const supabase = createClient();

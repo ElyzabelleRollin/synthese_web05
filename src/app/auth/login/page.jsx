@@ -1,4 +1,4 @@
-import { oauthSigninAction } from "@/app/_actions/auth";
+import { oauthSigninAction } from "../../_actions/auth";
 import React from "react";
 
 
