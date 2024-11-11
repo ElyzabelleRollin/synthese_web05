@@ -9,8 +9,13 @@ const LoginPage = async () => {
       <form action={oauthSigninAction}>
         <button>Connexion avec Github</button>
       </form>
-      <form >
+      <form>
+        <input type="email" name="email"/>
+        <input type="password" name="password" />
         <button>Connexion avec courriel</button>
+      </form>
+      <form >
+        <button>Créer un compte avec courriel</button>
       </form>
     </div>
   );

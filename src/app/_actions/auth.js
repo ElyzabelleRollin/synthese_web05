@@ -1,7 +1,9 @@
 "use server";
 import { createClient } from "@/app/_lib/supabase/server";
+import { revalidatePath } from "next/navigation"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import next from "next";
 
 export const oauthSigninAction = async () => {
   const supabase = createClient();
@@ -26,3 +28,29 @@ export const oauthSigninAction = async () => {
     return redirect(data.url);
   }
 };
+
+export const signUpNewUser = async (formData) =>{
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.get('email'),
+    password: formData.get('password'),
+    options: {
+      emailRedirectTo: '/',
+    },
+  })
+}
+
+export const signInWithEmail= async() =>{
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: 'example@email.com',
+    password: 'example-password',
+  })
+}
+
+export const logout = async () =>{
+  const supabase = createClient();
+  const { error } = await supabase.auth.signOut();
+  revalidatePath("auth/login")
+}
+
