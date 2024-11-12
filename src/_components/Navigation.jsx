@@ -5,22 +5,41 @@ import { logout } from '../app/_actions/auth';
 
 const Navigation = async () => {
     const supabase = createClient();
-
-    const {
+      const {
         data: { user },
       } = await supabase.auth.getUser();
-
+    
+      let profile; //User informations
+    
+      //If the user is connected:
+      if (user) {
+        // Get profile information of the user:
+        const { data } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+    
+        profile = data;
+      }
+      
+      
   return (
     <nav style={{display:'flex', gap:'2em', backgroundColor:'lightgray', padding:'2em'}}>
-        <li style={{listStyle:"none"}}><Link href="/">Accueil</Link></li>
-        <li style={{listStyle:"none"}}><Link href="/auth/login">Connexion</Link></li>
-        {user&& <li style={{listStyle:"none"}}><Link href={`/application/profiles/${user.id}`}>Profil</Link></li>}
+        <li style={{listStyle:"none"}}><Link href="/">Home</Link></li>
+        <li style={{listStyle:"none"}}><Link href="/auth/login">Login</Link></li>
+        {user&& <li style={{listStyle:"none"}}><Link href={`/application/profiles/${user.id}`}>Profile</Link></li>}
         <form action={logout}>
           {user&&
-          
-          <button>Déconexion</button>
+          <button>Logout</button>
           }
         </form>
+        <div className='flex'>
+          <div style={{width: "3em", height: "100%"}}>
+          <img src={profile.avatar} alt={profile.username} />
+          </div>
+          <p>{profile.username? profile.username: profile.email}</p>
+        </div>
     </nav>
   )
 }

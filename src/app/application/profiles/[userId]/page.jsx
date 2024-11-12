@@ -1,6 +1,7 @@
 import React from 'react'
 import { createClient } from '../../../_lib/supabase/server';
 import Link from 'next/link';
+import FormModifyUsername from '@/_components/FormModifyUsername';
 
 const Profile = async ({params}) => {
     const { userId } = await params; //Get the userId from the URL
@@ -22,12 +23,12 @@ const Profile = async ({params}) => {
             alt={user.username}
             style={{ width: "300px", height: "auto" }}
           />
-          <Link href="/application/upload">Changer photo</Link>
-  
+          <Link href="/application/upload">Change profile picture</Link>
           </div>
           <div>
             <h1 className="text-4xl mb-4">{user.username}</h1>
-            <p>Membre depuis: {user.created_at.split("T")[0]}</p>
+           <FormModifyUsername/>
+            <p>Member since: {user.created_at.split("T")[0]}</p>
           </div>
         </div>
       </div>

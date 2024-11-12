@@ -1,6 +1,4 @@
 import { oauthSigninAction } from "../../_actions/auth";
-import React from "react";
-
 
 const LoginPage = async () => {
   return (
