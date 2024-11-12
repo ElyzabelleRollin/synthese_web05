@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import "./normalize.css";
 import "./globals.css";
 import { logout } from "./_actions/auth";
 
@@ -24,12 +25,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <form action={logout}>
-          <button className="bg-gray-400 p-2"> Logout</button>
-        </form>
-
         {children}
-        
       </body>
     </html>
   );
