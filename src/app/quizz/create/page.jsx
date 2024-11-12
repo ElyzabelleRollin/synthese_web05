@@ -8,9 +8,6 @@ const CreateQuizzPage = () => {
 
             <CreateQuizzForm />
 
-            <QuestionType type="Compléter la suite" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Trouver l'intrus" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Identifier le son" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
         </div>
     )
 };
