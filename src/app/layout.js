@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
+import "./normalize.css";
 import "./globals.css";
 import { logout } from "./_actions/auth";
+import Header from '@/app/_components/header/header'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,9 +29,7 @@ export default function RootLayout({ children }) {
         <form action={logout}>
           <button className="bg-gray-400 p-2"> Logout</button>
         </form>
-
-        {children}
-        
+        {children} 
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
 "use server";
 import { createClient } from "@/app/_lib/supabase/server";
-import { revalidatePath } from "next/navigation"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import next from "next";
+import { revalidatePath } from "next/cache";
 
 export const oauthSigninAction = async () => {
   const supabase = createClient();
@@ -51,6 +51,6 @@ export const signInWithEmail= async() =>{
 export const logout = async () =>{
   const supabase = createClient();
   const { error } = await supabase.auth.signOut();
-  revalidatePath("auth/login")
+  revalidatePath("/auth/login")
 }
 
