@@ -1,3 +1,6 @@
+//Component pour les types de questions
+//Pour la page quizz/[quizzSlug]/edit
+
 const QuestionType = ({ type, description }) => {
     return (
         <div>

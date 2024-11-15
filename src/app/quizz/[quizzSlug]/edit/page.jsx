@@ -1,9 +1,12 @@
 "use client";
-import CreateQuestionForm from "@/app/_components/createQuestionForm";
-import QuestionType from "@/app/_components/questionType";
+import CreateQuestionForm from "@/app/_components/CreateQuestionForm";
+import QuestionType from "@/app/_components/QuestionType";
 import { UploadDropzone } from "@/utils/uploadthing";
 
-const EditQuizzPage = () => {
+const EditQuizzPage = ({ params }) => {
+    const quizzSlug = params.quizzSlug;
+
+
     return (
         <div>
             <QuestionType type="Normal multiple choice" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
@@ -11,7 +14,7 @@ const EditQuizzPage = () => {
             <QuestionType type="Identify the sound" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
 
 
-            <CreateQuestionForm />
+            <CreateQuestionForm quizzSlug={quizzSlug} />
 
 
             {/* <UploadDropzone
