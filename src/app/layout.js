@@ -1,6 +1,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "../_components/Navigation";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,9 +28,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation/>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+        <Navigation />
         {children}
-        
       </body>
     </html>
   );
