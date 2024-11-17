@@ -1,54 +1,55 @@
 "use server";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "../_lib/supabase/server";
 
-export const oauthSigninAction = async () => {
+export const oauthSigninAction = async (formData) => {
   const supabase = createClient();
 
-  // afin que l'url du site soit dynamique et facilement migrable vers un hébergeur
-  const origin = headers().get("origin");
+  // Retrieve the optional "redirectedFrom" value from the form data
+  const redirectedFrom = formData.get("redirectedFrom");
 
-  // on récupère ici l'url vers lequel envoyer l'utilisateur sur github. il n'est pas encore redirigé
+  console.log("[REDIRECTED FROM]", redirectedFrom);
+  console.log(
+    `${getURL()}auth/callback` +
+      (redirectedFrom ? `?redirectedFrom=${redirectedFrom}` : "")
+  );
+
+  // Perform the OAuth sign-in with GitHub
   const { error, data } = await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      // l'utilisateur sera redirigé avec son code à l'url suivant
-      redirectTo: `${origin}/auth/callback`,
+      // Include "redirectedFrom" in the redirectTo URL if present
+      redirectTo:
+        `${getURL()}auth/callback` +
+        (redirectedFrom ? `?redirectedFrom=${redirectedFrom}` : ""),
     },
   });
 
   if (error) {
-    console.log("[AUTH LOGIN ERROR]", err);
+    console.error("[AUTH LOGIN ERROR]", error);
+    throw new Error("Authentication failed. Please try again.");
   } else {
     console.log("[SUCCESSFUL]", data.url);
-    // on redirige finalement l'utilisateur vers github
+    // Redirect the user to GitHub
     return redirect(data.url);
   }
 };
 
-// export const signUpNewUser = async (formData) =>{
-//   const supabase = createClient();
-//   const { data, error } = await supabase.auth.signUp({
-//     email: formData.get('email'),
-//     password: formData.get('password'),
-//     options: {
-//       emailRedirectTo: '/',
-//     },
-//   })
-// }
+const getURL = () => {
+  let url = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  url = url.startsWith("http") ? url : `https://${url}`;
+  // Ensure trailing slash
+  return url.endsWith("/") ? url : `${url}/`;
+};
 
-// export const signInWithEmail= async() =>{
-//   const supabase = createClient();
-//   const { data, error } = await supabase.auth.signInWithPassword({
-//     email: 'example@email.com',
-//     password: 'example-password',
-//   })
-// }
-
-export const logout = async () =>{
+export const logout = async () => {
   const supabase = createClient();
   const { error } = await supabase.auth.signOut();
-  redirect("auth/login")
-}
 
+  if (error) {
+    console.error("[AUTH LOGOUT ERROR]", error);
+    throw new Error("Logout failed. Please try again.");
+  }
+
+  return redirect("/auth/login");
+};

@@ -45,11 +45,15 @@ export async function updateSession(request) {
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/auth") &&
     !request.nextUrl.pathname.startsWith("/api/uploadthing")
-    // &&
-    // !request.nextUrl.pathname.startsWith("/")
   ) {
-    // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
+
+    // Add the `redirectedFrom` parameter if the user is trying to access a specific page
+    if (url.pathname !== "/") {
+      url.searchParams.set("redirectedFrom", url.pathname);
+    }
+
+    // Redirect to the login page
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);
   }

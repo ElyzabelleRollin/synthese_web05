@@ -2,18 +2,23 @@ import { createClient } from "../../_lib/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  // le code est récupéré parmi les paramètres
   const requestUrl = new URL(request.url);
+
+  // Get the "code" and "redirectedFrom" parameters
   const code = requestUrl.searchParams.get("code");
-  console.log("[REQUEST URL]" + requestUrl);
-  console.log("[CODE]" + code);
+  const redirectedFrom = requestUrl.searchParams.get("redirectedFrom");
 
   if (code) {
-    // supabase se charge d'échange le code "contre une session"
+    // Exchange the code for a session
     const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  // l'utilisateur est redirigé vers la page d'accueil du site
-  return NextResponse.redirect(requestUrl.origin);
+  // Redirect to the original page or default to the homepage
+  const redirectUrl = redirectedFrom
+    ? new URL(redirectedFrom, requestUrl.origin).toString()
+    : requestUrl.origin;
+
+  console.log("[FINAL REDIRECT URL]", redirectUrl);
+  return NextResponse.redirect(redirectUrl);
 }
