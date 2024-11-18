@@ -13,8 +13,8 @@ export default function Home() {
     <div className="homepage">
       <Hero/>
       <Trending/>
-      <Fiftyfifty type="left"/>
-      <Fiftyfifty type="right"/>
+      <Fiftyfifty type="left" title={"Create, Play, and Learn"} text={"Whether you're a teacher designing lessons, a student reviewing for exams, or a group of friends looking for entertainment, our platform has everything you need to create and enjoy custom quizzes."}/>
+      <Fiftyfifty type="right" title={"Challenge Your Knowledge"} text={"Dive into fun, interactive quizzes that bring families, friends, and classrooms together. Test your skills, learn something new, and rise to the top of the leaderboard!"}/>
       <Footer/>
     </div>
   );

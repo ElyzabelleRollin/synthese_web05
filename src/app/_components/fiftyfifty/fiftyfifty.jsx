@@ -3,7 +3,7 @@ import styles from './fiftyfifty.module.css'
 import PrimaryButton from '../primarybutton/primarybutton'
 import SecondaryButton from '../secondarybutton/secondarybutton'
 
-const fiftyfifty = ({ type }) => {
+const fiftyfifty = ({ type, title, text }) => {
   return (
     <section className={styles.fiftyfifty}>
       {type === "right" ? (
@@ -13,8 +13,8 @@ const fiftyfifty = ({ type }) => {
       )}
       <div className={styles.contentcontainer}>
         <div className={styles.content}>
-          <h2 className={styles.title}>Lorem ipsum</h2>
-          <p className={styles.text}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet animi inventore et cum eum dolorem, perspiciatis voluptatum illum porro quis.</p>
+          <h2 className={styles.title}>{title}</h2>
+          <p className={styles.text}>{text}</p>
           <div className={styles.buttons}>
             <PrimaryButton text="Launch a quiz" theme="light"/>
             <SecondaryButton text="Create your account" theme="light"/>

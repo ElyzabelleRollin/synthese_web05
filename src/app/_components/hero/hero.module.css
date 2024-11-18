@@ -17,7 +17,7 @@
     }
 
     & .content{
-        width: 50vw;
+        width: 45vw;
         height: fit-content;
         margin: auto 15vw;
         color: var(--background);
