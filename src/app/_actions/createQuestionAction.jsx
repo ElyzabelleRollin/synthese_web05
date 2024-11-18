@@ -11,6 +11,8 @@ export const createQuestionAction = async (formData) => {
     //get all the choices from the form
     const choices = formData.getAll("choices");
 
+    //créer object ici
+
     //transform my choices in json to transfer to the database
     const choicesJson = JSON.stringify(choices);
 

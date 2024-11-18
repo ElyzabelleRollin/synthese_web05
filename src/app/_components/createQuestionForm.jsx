@@ -8,6 +8,12 @@ const CreateQuestionForm = ({ quizzSlug }) => {
 
     //ustestate = pour stocker les choix de réponse dynamiquement dans un tableau
     const [choices, setChoices] = useState(['', '']);
+    //deuxieme state stocker la valeur de ma bonne réponse uuid postion 0 par défaut, cocher uuid sur postion de celui cliqué
+    //trouver library généerer uuid
+    // const [choices1, setChoices1] = useState([{choice:'', uuid:}, {}]);
+
+
+
 
     //fonction pour ajouter un choix de réponse au state
     //choices.length < 6 = pour limiter le nombre de choix de réponse à 6
