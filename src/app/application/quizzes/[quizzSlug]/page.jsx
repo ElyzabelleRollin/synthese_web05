@@ -1,15 +1,19 @@
-import QuestionsList from "@/app/_components/QuestionsList";
+
+import QuestionsList from "@/_components/QuestionsList";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const QuizzPage = async ({ params }) => {
+    //récupère le slug du quizz dans l'url
     const quizzSlug = params.quizzSlug;
 
+    //communiquer avec la db
     const supabase = createClient();
 
+    //récupère le quizz depuis la db avec son slug
     const { data: quizz, error } = await supabase.from("quizzes").select().eq("slug", quizzSlug).single();
     console.log(quizz);
 
-    //how to get the questions from the quizz id ?
+    //récupère les questions depuis la db avec l'id du quizz
     const { data: questions, error: questionsError } = await supabase.from("questions").select().eq("quizz_id", quizz.id);
     console.log(questions);
 

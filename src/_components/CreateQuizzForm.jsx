@@ -1,4 +1,4 @@
-import { createQuizzAction } from "../_actions/createQuizzAction";
+import { createQuizzAction } from "@/app/_actions/createQuizzAction";
 
 const CreateQuizzForm = () => {
     return (

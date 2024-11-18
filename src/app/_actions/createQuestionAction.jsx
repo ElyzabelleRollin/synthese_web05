@@ -4,26 +4,24 @@ import { createClient } from "../_lib/supabase/server";
 
 
 export const createQuestionAction = async (formData) => {
-    //get the question title from the form
+    //récupère le titre de la question
     const title = formData.get("title");
-    //get the quizz slug from the form
-    const quizzSlug = formData.get("quizzSlug");
-    //get all the choices from the form
+    //récupère tous les choix de réponse
     const choices = formData.getAll("choices");
+    //récupère le slug du quizz en hidden input
+    const quizzSlug = formData.get("quizzSlug");
 
     //créer object ici
 
-    //transform my choices in json to transfer to the database
+    //transforme les choix de réponse en json pour les transférer à la db
     const choicesJson = JSON.stringify(choices);
 
     //pour communiquer avec la db
     const supabase = createClient();
 
-    //get the quizz id from the database from the quizz slug
+    //récupère l'id du quizz depuis la db avec le slug du quizz
     const { data: quizz, error } = await supabase.from("quizzes").select("id").eq("slug", quizzSlug).single();
-    // console.log(quizzSlug);
     console.log("here!");
-    // console.log(error);
     console.log(choices);
 
     //INSERT INTO questions
@@ -32,6 +30,6 @@ export const createQuestionAction = async (formData) => {
         answers: choicesJson,
         quizz_id: quizz.id
     });
-    console.log(questionError);
+    // console.log(questionError);
 };
 

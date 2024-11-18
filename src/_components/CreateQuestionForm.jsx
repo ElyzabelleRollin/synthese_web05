@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createQuestionAction } from "../_actions/createQuestionAction";
+import { createQuestionAction } from "@/app/_actions/createQuestionAction";
 
 
 const CreateQuestionForm = ({ quizzSlug }) => {

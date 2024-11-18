@@ -1,5 +1,5 @@
-import CreateQuizzForm from "@/app/_components/CreateQuizzForm";
-import QuestionType from "@/app/_components/QuestionType";
+import CreateQuizzForm from "@/_components/CreateQuizzForm";
+import QuestionType from "@/_components/QuestionType";
 
 const CreateQuizzPage = () => {
     return (

@@ -1,4 +1,4 @@
-import QuizzesList from "./_components/QuizzesList";
+import QuizzesList from "../_components/QuizzesList";
 import { createClient } from "./_lib/supabase/server";
 
 export default function Home() {

@@ -1,13 +1,11 @@
-import { createClient } from "../_lib/supabase/server";
+import { createClient } from "@/app/_lib/supabase/server";
 import Quizz from "./Quizz";
 
 const QuizzesList = async () => {
     const supabase = createClient();
 
     const { data: quizzes, error } = await supabase.from("quizzes").select();
-    console.log(quizzes);
-
-
+    // console.log(quizzes);
 
     return (
         <div>
