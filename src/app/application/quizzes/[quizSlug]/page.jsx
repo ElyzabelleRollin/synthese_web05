@@ -5,6 +5,11 @@ import { createClient } from "@/app/_lib/supabase/server";
 const QuizPage = async ({ params }) => {
   const { quizSlug } = params;
   const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data: quiz, error } = await supabase
     .from("quizzes")
     .select("*")
@@ -20,7 +25,7 @@ const QuizPage = async ({ params }) => {
     <div>
       <h1>{quiz.name}</h1>
       <p>{quiz.description}</p>
-      <QuestionsList questions={questions} quizId={quiz.id} />
+      <QuestionsList questions={questions} quizId={quiz.id} userID={user.id} />
     </div>
   );
 };

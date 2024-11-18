@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { addQuizScore } from "@/app/_actions/create";
-import { averageScore } from "@/app/_actions/create";
+import { addQuizScore } from "@/app/_actions/quiz";
+import { averageScore } from "@/app/_actions/quiz";
+import Link from "next/link";
 
-const QuestionsList = ({ questions, quizId }) => {
+const QuestionsList = ({ questions, quizId, userID }) => {
   // State to store user's answers
   const [userAnswers, setUserAnswers] = useState(questions.map(() => ""));
 
@@ -95,6 +96,10 @@ const QuestionsList = ({ questions, quizId }) => {
               ? `${average} out of ${questions.length}`
               : "Loading..."}
           </p>
+          <Link href="/application/quizzes">Go back to the quizzes</Link>
+          <Link href={`/application/profiles/${userID}`}>
+            Go to your profile
+          </Link>
         </div>
       )}
     </div>

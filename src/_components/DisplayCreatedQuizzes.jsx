@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { averageScore } from "@/app/_actions/create";
+import { averageScore } from "@/app/_actions/quiz";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const DisplayCreatedQuizzes = async ({ quizzes }) => {

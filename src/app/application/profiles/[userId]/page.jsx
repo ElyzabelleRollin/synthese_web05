@@ -21,14 +21,10 @@ const Profile = async ({ params }) => {
     .select("*")
     .eq("created_by", userId);
 
-  // console.log(quizzes);
-
   const { data: playedQuizzes } = await superbase
     .from("results")
     .select("*, quizzes(*)")
     .eq("user_id", userId);
-
-  // console.log(playedQuizzes);
 
   return (
     <div className="p-4 w-3/4 mx-auto">
