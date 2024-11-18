@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { createClient } from "@/app/_lib/supabase/server";
 import FormModifyUsername from "@/_components/FormModifyUsername";
+import DisplayQuizzes from "@/_components/DisplayQuizzes";
+import DisplayCreatedQuizzes from "@/_components/DisplayCreatedQuizzes";
 
 const Profile = async ({ params }) => {
   const { userId } = await params; //Get the userId from the URL
@@ -13,6 +15,20 @@ const Profile = async ({ params }) => {
     .select("*")
     .eq("id", userId)
     .single();
+
+  const { data: quizzes } = await superbase
+    .from("quizzes")
+    .select("*")
+    .eq("created_by", userId);
+
+  // console.log(quizzes);
+
+  const { data: playedQuizzes } = await superbase
+    .from("results")
+    .select("*, quizzes(*)")
+    .eq("user_id", userId);
+
+  // console.log(playedQuizzes);
 
   return (
     <div className="p-4 w-3/4 mx-auto">
@@ -30,6 +46,14 @@ const Profile = async ({ params }) => {
           <FormModifyUsername />
           <p>Member since: {user.created_at.split("T")[0]}</p>
         </div>
+      </div>
+      <div>
+        <h2 className="text-2xl mb-4">Quizzes created</h2>
+        <DisplayCreatedQuizzes quizzes={quizzes} />
+      </div>
+      <div>
+        <h2 className="text-2xl mb-4">Quizzes played</h2>
+        <DisplayQuizzes quizzes={playedQuizzes} />
       </div>
     </div>
   );
