@@ -8,6 +8,7 @@ const QuestionsList = ({ questions, quizId, userID }) => {
   // State to store user's answers
   const [userAnswers, setUserAnswers] = useState(questions.map(() => ""));
 
+
   // State to track quiz completion
   const [quizCompleted, setQuizCompleted] = useState(false);
 
@@ -31,8 +32,9 @@ const QuestionsList = ({ questions, quizId, userID }) => {
     // Calculate the score by comparing user answers with correct answers
     let calculatedScore = 0;
     questions.forEach((question, index) => {
+      const answers = JSON.parse(question.answers);
       // If the answer is correct, increment score
-      if (userAnswers[index] === question.correctAnswer) {
+      if (userAnswers[index] === answers.correct_answer) {
         calculatedScore++;
       }
     });
@@ -42,17 +44,17 @@ const QuestionsList = ({ questions, quizId, userID }) => {
     setQuizCompleted(true);
   };
 
-  // Fetch the average score after quiz completion
-  useEffect(() => {
-    const fetchAverageScore = async () => {
-      if (quizCompleted) {
-        const avg = await averageScore(quizId);
-        setAverage(avg);
-      }
-    };
+  // // Fetch the average score after quiz completion
+  // useEffect(() => {
+  //   const fetchAverageScore = async () => {
+  //     if (quizCompleted) {
+  //       const avg = await averageScore(quizId);
+  //       setAverage(avg);
+  //     }
+  //   };
 
-    fetchAverageScore();
-  }, [quizCompleted, quizId]); // Trigger when quiz is completed
+  //   fetchAverageScore();
+  // }, [quizCompleted, quizId]); // Trigger when quiz is completed
 
   return (
     <div>
@@ -66,16 +68,16 @@ const QuestionsList = ({ questions, quizId, userID }) => {
               <div key={question.id}>
                 <h2>{question.text}</h2>
                 <ul>
-                  {answers.map((answer, idx) => (
+                  {answers.choices.map((answer, idx) => (
                     <li key={idx}>
                       <input
                         type="radio"
                         name={`question-${index}`}
-                        value={answer}
-                        onChange={() => handleAnswerChange(index, answer)}
-                        checked={userAnswers[index] === answer}
+                        value={answer.uuid}
+                        onChange={() => handleAnswerChange(index, answer.uuid)}
+                        checked={userAnswers[index] === answer.uuid}
                       />
-                      {answer}
+                      {answer.choice}
                     </li>
                   ))}
                 </ul>
@@ -92,9 +94,9 @@ const QuestionsList = ({ questions, quizId, userID }) => {
           </p>
           <p>
             The average score is:{" "}
-            {average !== null
+            {/* {average !== null
               ? `${average} out of ${questions.length}`
-              : "Loading..."}
+              : "Loading..."} */}
           </p>
           <Link href="/application/quizzes">Go back to the quizzes</Link>
           <Link href={`/application/profiles/${userID}`}>

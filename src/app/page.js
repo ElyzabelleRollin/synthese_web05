@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="p-2">
       <h1 className="text-4xl">Home</h1>
-      <QuizzesList />
+      {/* <QuizzesList /> */}
     </div>
   );
 }

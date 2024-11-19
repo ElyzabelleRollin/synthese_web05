@@ -15,6 +15,9 @@ const QuizPage = async ({ params }) => {
         .select("*")
         .eq("slug", quizzSlug)
         .single();
+    
+
+        console.log(quiz.id)
 
     const { data: questions } = await supabase
         .from("questions")
