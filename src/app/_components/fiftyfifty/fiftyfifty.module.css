@@ -1,0 +1,42 @@
+.fiftyfifty {
+    display: flex;
+    height: 110vh;
+    margin: 0;
+
+    & .contentcontainer {
+        display: flex;
+        flex-wrap: wrap;
+        width: 50vw;
+        min-width: 20rem;
+        background-color: var(--foreground);
+        color: var(--background);
+        
+        & .content {
+            margin: auto;
+            width: 35vw;
+            
+            & .title {
+                font-size: 2.5rem;
+                font-weight: 600;
+            }
+            
+            & .text {
+                margin-bottom: 2rem;
+            }
+            
+            & .buttons {
+                display: flex;
+                column-gap: 2rem;
+                row-gap: 1rem;
+                flex-wrap: wrap;
+            }
+        }
+    }
+    
+    & .img {
+        width: 50vw;
+        min-width: 20rem;
+        object-fit: cover;
+        pointer-events: none;
+    }
+}

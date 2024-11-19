@@ -1,0 +1,41 @@
+.hero{
+    position: relative;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    /* background-color: var(--foreground); */
+
+    & .herobg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        object-fit: cover;
+        /* filter: brightness(0.5); */
+    }
+
+    & .content{
+        width: 45vw;
+        height: fit-content;
+        margin: auto 15vw;
+        color: var(--background);
+
+        & .title{
+            font-size: 4rem;
+            font-weight: 600;
+        }
+
+        & .text{
+            margin-bottom: 2rem;
+        }
+
+        & .buttons{
+            display: flex;
+            column-gap: 2rem;
+            row-gap: 1rem;
+            flex-wrap: wrap;
+        }
+    }
+}

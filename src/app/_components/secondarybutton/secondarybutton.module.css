@@ -1,0 +1,38 @@
+.secondarybutton{
+    height: 3.5rem;
+    border-radius: 4rem;
+    font-weight: 600;
+    
+    &.light {
+        border: 2px solid var(--background);
+        color: var(--background);
+        transition: background-color .25s ease-out, color .25s ease-out;
+
+        &:hover{
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+    }
+    &.dark {
+        border: 2px solid var(--foreground);
+        color: var(--foreground);
+        transition: background-color .25s ease-out, color .25s ease-out;
+
+        &:hover{
+            background-color: var(--foreground);
+            color: var(--background);
+        }
+    }
+    
+    & .link{
+        display: flex;
+        width: fit-content;
+        padding: 0 2rem;
+        height: 100%;
+        border-radius: 4rem;
+
+        & .label{
+            margin: auto;
+        }
+    }
+}
