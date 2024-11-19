@@ -2,6 +2,7 @@ import { createClient } from "@/app/_lib/supabase/server";
 import React from "react";
 import Link from "next/link";
 import Quizcard from "@/_components/Quizcard";
+import Quizzeslist from "@/_components/QuizzesList";
 
 // Search bar component for server-side filtering
 const SearchBar = ({ searchQuery }) => {
@@ -46,9 +47,7 @@ const QuizzesPage = async ({ searchParams }) => {
       {/* Display quizzes based on the search */}
       {quizzes && quizzes.length > 0 ? (
         <div>
-          {quizzes.map((quizz) => (
-              <Quizcard cardkey={quizz.id} title={quizz.name} description={quizz.description} link={`/application/quizzes/${quizz.slug}`}/>
-          ))}
+          <Quizzeslist quizzes={quizzes}/>
         </div>
       ) : (
         <p>No quizzes found</p>
