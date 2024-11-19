@@ -1,0 +1,19 @@
+.trending{
+    margin: 10rem 5vw;
+
+    & .titlebar{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 4vh;
+
+        & .title{
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        & .button{
+            margin-left: auto;
+        }
+    }
+}

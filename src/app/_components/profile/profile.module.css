@@ -1,0 +1,87 @@
+.profile {
+	display: flex;
+	gap: 5rem;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+
+	& .leftpanel {
+        position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+        padding: 2rem;
+        width: 20vw;
+        height: 30vw;
+        border-radius: 1vw;
+        background-color: var(--background);
+        box-shadow: 0 0 2rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+
+		& .editavatar {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+			width: 4rem;
+			cursor: pointer;
+			border-radius: 1rem;
+
+			& .icon {
+				width: 2rem;
+
+				& * {
+					stroke: var(--foreground);
+				}
+			}
+		}
+
+        & .avatar{
+            border-radius: 50rem;
+            object-fit: cover;
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
+
+        & .username{
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        & .infos{
+            display: flex;
+            flex-direction: row;
+            margin-top: 1rem;
+            font-size: .8vw;
+            letter-spacing: .5pt;
+
+            & .titles{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: left;
+                font-weight: 700;
+            }
+            & .data{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-left: auto;
+                text-align: right;
+            }
+        }
+	}
+
+    & .rightpanel {
+        display: flex;
+		flex-direction: column;
+		gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        width: 50vw;
+        height: 30vw;
+        border-radius: 1vw;
+        background-color: var(--background);
+        box-shadow: 0 0 2rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+    }
+}

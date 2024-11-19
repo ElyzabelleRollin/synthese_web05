@@ -1,0 +1,22 @@
+.tertiarybutton {
+    height: 2rem;
+
+    &.light {
+        color: var(--background);
+    }
+    &.dark {
+        color: var(--foreground);
+    }
+
+    & .link {
+        display: flex;
+        width: fit-content;
+        height: 100%;
+        padding-left: 2rem;
+        border-radius: 4rem;
+
+        & .label {
+            margin: auto;
+        }
+    }
+}
