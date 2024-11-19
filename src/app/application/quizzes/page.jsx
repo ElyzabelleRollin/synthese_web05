@@ -3,24 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Quizcard from "@/_components/Quizcard";
 import Quizzeslist from "@/_components/QuizzesList";
-
-// Search bar component for server-side filtering
-const SearchBar = ({ searchQuery }) => {
-  return (
-    <form action="" method="GET" className="mb-4">
-      <input
-        type="text"
-        name="query"
-        defaultValue={searchQuery}
-        placeholder="Search quizzes..."
-        className="border p-2 w-full"
-      />
-      <button type="submit" className="mt-2 p-2 bg-blue-500 text-white">
-        Search
-      </button>
-    </form>
-  );
-};
+import SearchBar from "@/_components/SearchBar";
 
 const QuizzesPage = async ({ searchParams }) => {
   const supabase = createClient();
@@ -42,13 +25,10 @@ const QuizzesPage = async ({ searchParams }) => {
     <div>
       {/* Search bar */}
       <SearchBar searchQuery={searchQuery} />
-      <h1>Quizzes</h1>
 
       {/* Display quizzes based on the search */}
       {quizzes && quizzes.length > 0 ? (
-        <div>
           <Quizzeslist quizzes={quizzes}/>
-        </div>
       ) : (
         <p>No quizzes found</p>
       )}

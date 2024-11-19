@@ -9,7 +9,7 @@ export default function Home() {
     <div className="p-2">
       <h1 className="text-4xl">Home</h1>
       <Link href="/application/quizzes/create">Create your own quizz</Link>
-      <QuizzesList />
+      {/* <QuizzesList /> */}
     </div>
   );
 }
