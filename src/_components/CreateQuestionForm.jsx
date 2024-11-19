@@ -66,6 +66,8 @@ const CreateQuestionForm = ({ quizzSlug }) => {
                             placeholder={`Choice ${i + 1}`}
                         />
 
+                        <input type="hidden" name="choices_uuid" value={choiceObject.uuid} />
+
                         {/*---Bouton : sert à supprimer un choix de réponse*/}
                         {/*---choices.length > 2 = pour limiter le nombre de choix de réponse à minimum 2*/}
                         {/*---onClick : appelle RemoveChoice pour supprimer le choix de réponse cliqué*/}
