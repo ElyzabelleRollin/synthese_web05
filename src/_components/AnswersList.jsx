@@ -4,11 +4,11 @@ const AnswersList = ({ answers }) => {
 
     return (
         <div>
-            {answers.map((answer, i) => (
+            {/* {answers.map((answer, i) => (
                 <div>
                     {answers[i]}
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 };

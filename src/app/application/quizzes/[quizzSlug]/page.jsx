@@ -1,5 +1,5 @@
 
-import QuestionsList from "@/_components/QuestionsList";
+import QuestionsList from "@/_components/QuestionsList2";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const QuizzPage = async ({ params }) => {
@@ -22,6 +22,7 @@ const QuizzPage = async ({ params }) => {
             <h1>{quizz.name}</h1>
             <p>{quizz.description}</p>
             <QuestionsList questions={questions} />
+
         </div>
     );
 

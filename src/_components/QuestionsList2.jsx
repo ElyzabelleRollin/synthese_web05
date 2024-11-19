@@ -14,7 +14,7 @@ const QuestionsList = ({ questions }) => {
                     <h2>{question.text}</h2>
                     {/* {JSON.parse(question.answers)} */}
                     <AnswersList answers={JSON.parse(question.answers)} />
-                    {console.log(JSON.parse(question.answers))}
+                    {console.log('à modfier', JSON.parse(question.answers))}
                 </div>
             ))}
         </div>

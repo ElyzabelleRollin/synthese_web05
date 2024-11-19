@@ -12,6 +12,7 @@ export const createQuestionAction = async (formData) => {
     const quizzSlug = formData.get("quizzSlug");
     //récupère la bonne réponse en hidden input?
     const correctAnswer = formData.get("correctAnswer");
+    console.log(correctAnswer);
 
     //créer object ici
     const answersObject = {
@@ -22,7 +23,7 @@ export const createQuestionAction = async (formData) => {
 
     //pour mardi le 19 nov : change choices pour answersObject, puis modifier le reste
     //transforme les choix de réponse en json pour les transférer à la db
-    const choicesJson = JSON.stringify(choices);
+    const choicesJson = JSON.stringify(answersObject);
 
     //pour communiquer avec la db
     const supabase = createClient();
