@@ -8,18 +8,41 @@ export const createQuestionAction = async (formData) => {
     const title = formData.get("title");
     //récupère tous les choix de réponse
     const choices = formData.getAll("choices");
+    //récupère tous les uuid des choix de réponse
+    const choices_uuid = formData.getAll("choices_uuid");
     //récupère le slug du quizz en hidden input
     const quizzSlug = formData.get("quizzSlug");
     //récupère la bonne réponse en hidden input?
     const correctAnswer = formData.get("correctAnswer");
     console.log(correctAnswer);
 
-    //créer object ici
+    //tableau vide pour reconstruitre les choix de réponse avec leurs uuid
+    const TableauChoix = [];
+
+    //boucle for sur choices, le tableau des choix de réponse
+    for (let i = 0; i < choices.length; i++) {
+        //push dans le tableau TableauChoix
+        TableauChoix.push({
+            choice: choices[i],
+            uuid: choices_uuid[i]
+        });
+    }
+
+
+    //reconstruire
     const answersObject = {
-        choices: choices,
+        choices: TableauChoix,
         correct_answer: correctAnswer
-    };
-    console.log(answersObject);
+    }
+
+
+
+    //créer object ici
+    // const answersObject = {
+    //     choices: choices,
+    //     correct_answer: correctAnswer
+    // };
+    // console.log(answersObject);
 
     //pour mardi le 19 nov : change choices pour answersObject, puis modifier le reste
     //transforme les choix de réponse en json pour les transférer à la db

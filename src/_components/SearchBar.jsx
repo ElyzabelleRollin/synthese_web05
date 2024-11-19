@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import styles from "./SearchBar.module.css";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -21,15 +22,15 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mb-4">
+    <form onSubmit={handleSearch} className={styles.search}>
       <input
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search..."
-        className="border p-2 w-full"
+        className={styles.input}
       />
-      <button type="submit" className="mt-2 p-2 bg-blue-500 text-white">
+      <button type="submit" className={styles.button}>
         Search
       </button>
     </form>
