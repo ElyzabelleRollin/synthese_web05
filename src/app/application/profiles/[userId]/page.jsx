@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/app/_lib/supabase/server";
 import FormModifyUsername from "@/_components/FormModifyUsername";
 import styles from "../profile.module.css";
+import DisplayQuizzes from "@/_components/DisplayQuizzes";
+import DisplayCreatedQuizzes from "@/_components/DisplayCreatedQuizzes";
 
 const Profile = async ({ params }) => {
 	const { userId } = await params; //Get the userId from the URL
@@ -76,14 +78,14 @@ const Profile = async ({ params }) => {
 			<div className={styles.rightpanel}>
 				<FormModifyUsername />
 			</div>
-      <div>
+      {/* <div>
         <h2 className="text-2xl mb-4">Quizzes created</h2>
         <DisplayCreatedQuizzes quizzes={quizzes} />
       </div>
       <div>
         <h2 className="text-2xl mb-4">Quizzes played</h2>
         <DisplayQuizzes quizzes={playedQuizzes} />
-      </div>
+      </div> */}
 		</div>
 	);
 };
