@@ -1,4 +1,4 @@
-import Dropzone from "@/_components/Dropzone";
+import Dropzone from "@/app/_components/dropzone/Dropzone";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const UploadPage = async () => {

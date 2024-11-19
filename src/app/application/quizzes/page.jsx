@@ -1,10 +1,8 @@
 import { createClient } from "@/app/_lib/supabase/server";
 import React from "react";
-import QuizzesList from "@/_components/QuizzesList";
 import Link from "next/link";
-import Quizcard from "@/_components/Quizcard";
-import Quizzeslist from "@/_components/QuizzesList";
-import SearchBar from "@/_components/SearchBar";
+import QuizzesList from "@/app/_components/quizzes/QuizzesList";
+import SearchBar from "@/app/_components/searchbar/SearchBar";
 
 const QuizzesPage = async ({ searchParams }) => {
   const supabase = createClient();
@@ -29,7 +27,7 @@ const QuizzesPage = async ({ searchParams }) => {
 
       {/* Display quizzes based on the search */}
       {quizzes && quizzes.length > 0 ? (
-          <Quizzeslist quizzes={quizzes}/>
+          <QuizzesList quizzes={quizzes}/>
       ) : (
         <p>No quizzes found</p>
       )}

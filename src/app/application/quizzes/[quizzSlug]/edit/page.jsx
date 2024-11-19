@@ -1,6 +1,6 @@
 "use client";
-import CreateQuestionForm from "@/_components/CreateQuestionForm";
-import QuestionType from "@/_components/QuestionType";
+import CreateQuestionForm from "@/app/_components/questions/CreateQuestionForm";
+import QuestionType from "@/app/_components/questions/QuestionType";
 import { UploadDropzone } from "@/utils/uploadthing";
 
 const EditQuizzPage = ({ params }) => {

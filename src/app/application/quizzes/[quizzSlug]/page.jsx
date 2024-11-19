@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionsList from "../../../../_components/QuestionsList";
+import QuestionsList from "../../../_components/questions/QuestionsList";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const QuizPage = async ({ params }) => {

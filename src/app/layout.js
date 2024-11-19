@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "./normalize.css";
 import "./globals.css";
 import Header from '@/app/_components/header/header'
-import Navigation from "../_components/Navigation";
+import Navigation from "./_components/header/Navigation";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 

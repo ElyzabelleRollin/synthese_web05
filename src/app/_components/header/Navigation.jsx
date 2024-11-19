@@ -1,7 +1,7 @@
 import React from "react";
-import { createClient } from "../app/_lib/supabase/server";
+import { createClient } from "@/app/_lib/supabase/server";
 import Link from "next/link";
-import { logout } from "../app/_actions/auth";
+import { logout } from "@/app/_actions/auth";
 
 const Navigation = async () => {
   const supabase = createClient();

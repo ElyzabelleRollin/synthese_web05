@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { createClient } from "@/app/_lib/supabase/server";
-import FormModifyUsername from "@/_components/FormModifyUsername";
-import styles from "../profile.module.css";
-import DisplayQuizzes from "@/_components/DisplayQuizzes";
-import DisplayCreatedQuizzes from "@/_components/DisplayCreatedQuizzes";
+import FormModifyUsername from "@/app/_components/profile/FormModifyUsername";
+import styles from "@/app/_components/profile/profile.module.css";
+import DisplayQuizzes from "@/app/_components/quizzes/DisplayQuizzes";
+import DisplayCreatedQuizzes from "@/app/_components/quizzes/DisplayCreatedQuizzes";
 
 const Profile = async ({ params }) => {
 	const { userId } = await params; //Get the userId from the URL
