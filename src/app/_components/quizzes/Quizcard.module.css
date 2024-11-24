@@ -1,32 +1,33 @@
-.card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 16rem;
-    min-height: 16rem;
-    width: 20vw;
-    height: 20vw;
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: var(--background);
-    box-shadow: 0 0 1rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 16rem;
+  min-height: 16rem;
+  width: 20vw;
+  height: 20vw;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--background);
+  box-shadow: 0 0 1rem
+    color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
 
-    & .title{
-        margin-top: 4rem;
-        font-size: 1.5rem;
-        line-height: 1.8rem;
-        font-weight: 600;
-        margin-bottom: .5rem;
-    }
+  & .title {
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
 
-    & .description{
-        font-size: 1rem;
-        font-weight: 400;
-        margin-bottom: 1rem;
-    }
+  & .description {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
 
-    & .link{
-        margin-top: auto;
-        margin-bottom: 1rem;
-    }
+  & .link {
+    margin-top: auto;
+    margin-bottom: 1rem;
+  }
 }

@@ -27,9 +27,9 @@ const QuizzesPage = async ({ searchParams }) => {
 
       {/* Display quizzes based on the search */}
       {quizzes && quizzes.length > 0 ? (
-          <QuizzesList quizzes={quizzes}/>
+        <QuizzesList quizzes={quizzes} />
       ) : (
-        <p>No quizzes found</p>
+        <p>No quizzes yet</p>
       )}
 
       {/* Optionally, you can display profiles based on the search */}
