@@ -33,7 +33,14 @@ const header = async () => {
 			</Link>
 			<nav className={styles.nav}>
 				<li className={styles.item}>
-					<Secondarybutton text="Login" theme="dark" link={"/auth/login"} />
+					{!user && <Secondarybutton text="Login" theme="dark" link={"/auth/login"} />}
+				</li>
+				<li className={styles.item}>
+					{user && (
+						<form action={logout}>
+							{user && <Secondarybutton text="Logout" theme="dark" />}
+						</form>
+					)}
 				</li>
 				<li className={styles.item}>
 					<Primarybutton
