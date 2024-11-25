@@ -23,6 +23,8 @@
         line-height: 1.6rem;
         font-weight: 400;
         margin-bottom: 1rem;
+        text-wrap: wrap;
+        word-break: break-all;
     }
 
     & .link{

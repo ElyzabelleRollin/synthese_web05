@@ -1,0 +1,47 @@
+.createform{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 60vw;
+    height: 60vh;
+    padding: 4rem;
+    border-radius: 2rem;
+    background-color: var(--background);
+    box-shadow: 0 0 1rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+
+    & .title{
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    & .label{
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: .2rem;
+    }
+
+    & .input{
+        margin-bottom: 3rem;
+        padding: 0 2rem;
+        height: 3.5rem;
+        border-radius: .5rem;
+
+        &:focus{
+            border: 2px solid var(--primary1);
+        }
+    }
+
+    & #description{
+        height: 10rem;
+        padding: 1rem 2rem;
+        resize: none;
+    }
+
+    & .button{
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+    }
+}
