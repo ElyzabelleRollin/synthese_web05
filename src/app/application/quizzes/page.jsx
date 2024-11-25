@@ -6,6 +6,7 @@ import SearchBar from "@/app/_components/searchbar/SearchBar";
 import Footer from "@/app/_components/footer/footer";
 import styles from "@/app/_components/quizzes/QuizzesPage.module.css";
 import Tertiarybutton from "@/app/_components/tertiarybutton/tertiarybutton";
+import Hero from '@/app/_components/hero/hero';
 
 const QuizzesPage = async ({ searchParams }) => {
 	const supabase = createClient();
@@ -25,6 +26,8 @@ const QuizzesPage = async ({ searchParams }) => {
 
 	return (
 		<div className={styles.quizzespage}>
+
+			<Hero/>
 			<div className={styles.content}>
 				{/* Search bar */}
 				<SearchBar searchQuery={searchQuery} />

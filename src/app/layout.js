@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         className={`${nunitoSans.className} antialiased`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <Navigation />
+        <Header />
         {children}
       </body>
     </html>
