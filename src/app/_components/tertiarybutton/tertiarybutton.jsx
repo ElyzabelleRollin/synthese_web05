@@ -2,12 +2,16 @@ import React from 'react'
 import styles from './tertiarybutton.module.css'
 import Link from 'next/link'
 
-const tertiarybutton = ({ text, iconleft, iconright, theme }) => {
+const tertiarybutton = ({ text, iconleft, iconright, theme, link }) => {
   const buttonClass = `${styles.tertiarybutton} ${theme ? styles[theme] : ''}`;
-  
+  if (!link) {
+    link = '/'
+  }
+
+
   return (
     <div className={buttonClass}>
-      <Link href="/" className={styles.link}>
+      <Link href={link} className={styles.link}>
         {iconleft ? (
           <img src={iconleft} alt="icon" />
         ) : (
