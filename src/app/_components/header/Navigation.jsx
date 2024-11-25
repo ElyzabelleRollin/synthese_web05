@@ -41,6 +41,9 @@ const Navigation = async () => {
       <li style={{ listStyle: "none" }}>
         <Link href="/application/quizzes">Quizzes</Link>
       </li>
+      <li style={{ listStyle: "none" }}>
+        <Link href="/application/quizzes/create">Create a Quiz</Link>
+      </li>
       {user && (
         <li style={{ listStyle: "none" }}>
           <Link href={`/application/profiles/${user.id}`}>Profile</Link>

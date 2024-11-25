@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { averageScore } from "@/app/_actions/quiz";
 import { createClient } from "@/app/_lib/supabase/server";
+import { deleteQuiz } from "@/app/_actions/delete";
 
 const DisplayCreatedQuizzes = async ({ quizzes }) => {
   const supabase = createClient();
@@ -27,6 +28,16 @@ const DisplayCreatedQuizzes = async ({ quizzes }) => {
               <Link href={`/application/quizzes/${quiz.slug}`}>
                 Go to the quiz
               </Link>
+              {quiz.created_by == user.id && (
+                <div>
+                  <Link href={`/application/quizzes/${quiz.slug}/edit`}>
+                    Edit
+                  </Link>
+                  <form action={deleteQuiz(quiz.id)}>
+                    <button type="submit">Delete</button>
+                  </form>
+                </div>
+              )}
             </div>
           ))}
         </div>

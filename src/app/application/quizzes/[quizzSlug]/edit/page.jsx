@@ -2,22 +2,32 @@
 import CreateQuestionForm from "@/app/_components/questions/CreateQuestionForm";
 import QuestionType from "@/app/_components/questions/QuestionType";
 import { UploadDropzone } from "@/utils/uploadthing";
+import CreateAQuizToggle from "@/app/_components/questions/CreateAQuizToggle";
 
 const EditQuizzPage = ({ params }) => {
-    const quizzSlug = params.quizzSlug;
+  const quizzSlug = params.quizzSlug;
 
+  return (
+    <div>
+      <CreateAQuizToggle quizzSlug={quizzSlug} />
+      {/* <div className="flex gap-4 p-4">
+        <QuestionType
+          type="Normal multiple choice"
+          description="You have to choose the correct answer"
+        />
+        <QuestionType
+          type="Find the intruder"
+          description="You have to find the intruder"
+        />
+        <QuestionType
+          type="Identify the sound"
+          description="A sound is played. You have to identify the sound"
+        />
+      </div>
 
-    return (
-        <div>
-            <QuestionType type="Normal multiple choice" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Find the intruder" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Identify the sound" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
+      <CreateQuestionForm quizzSlug={quizzSlug} /> */}
 
-
-            <CreateQuestionForm quizzSlug={quizzSlug} />
-
-
-            {/* <UploadDropzone
+      {/* <UploadDropzone
                 endpoint="imageUploader"
                 onClientUploadComplete={(res) => {
                     // Do something with the response
@@ -40,8 +50,8 @@ const EditQuizzPage = ({ params }) => {
                     });
                 }}
             /> */}
-        </div>
-    )
+    </div>
+  );
 };
 
 export default EditQuizzPage;
