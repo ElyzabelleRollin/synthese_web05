@@ -14,7 +14,8 @@ export const createQuestionAction = async (formData) => {
   const quizzSlug = formData.get("quizzSlug");
   //récupère la bonne réponse en hidden input?
   const correctAnswer = formData.get("correctAnswer");
-  console.log(correctAnswer);
+  
+  console.log("[CHOICES:]", choices);
 
   //tableau vide pour reconstruitre les choix de réponse avec leurs uuid
   const TableauChoix = [];
@@ -54,7 +55,6 @@ export const createQuestionAction = async (formData) => {
     .select("id")
     .eq("slug", quizzSlug)
     .single();
-  console.log("here!");
   console.log(choices);
 
   //INSERT INTO questions

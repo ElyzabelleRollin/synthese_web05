@@ -5,11 +5,16 @@ import { createQuestionAction } from "@/app/_actions/createQuestionAction";
 import Dropzone from "../dropzone/Dropzone";
 
 const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
+
   //---useState = pour stocker les choix de réponse avec leur uuid dynamiquement dans un tableau d'object.
-  const [choices, setChoices] = useState([
-    { choice: "", uuid: crypto.randomUUID() },
-    { choice: "", uuid: crypto.randomUUID() },
-  ]);
+  const [choices, setChoices] = useState(questionType== "Normal multiple choice"?[
+    { choice: "", imageKey: "", uuid: crypto.randomUUID() },
+    { choice: "", imageKey: "", uuid: crypto.randomUUID() },
+  ]: null);
+
+  const addImageChoice = (imageKey) => {
+    setChoices(current => [...current, {choice: '', imageKey, uuid: crypto.randomUUID()}]);
+  };
 
   //---fonction pour ajouter un choix de réponse au state.
   //---choices.length < 6 = pour limiter le nombre de choix de réponse à 6 (peut être changer si besoin).
@@ -25,6 +30,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
   const removeChoice = (index) => {
     const newChoices = choices.filter((_, i) => i !== index);
     setChoices(newChoices);
+    // DecreaseKey();
   };
 
   //---fonction pour modifier un choix de réponse.
@@ -34,7 +40,6 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
     newChoices[index] = { ...newChoices[index], choice: value };
     setChoices(newChoices);
   };
-
   return (
     <div style={{ border: "1px solid red" }}>
       <form action={createQuestionAction}>
@@ -45,7 +50,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
           className="bg-slate-500 rounded-xl p-2 hover:bg-slate-600 "
         />
         <label htmlFor="title">Question title:</label>
-        <input type="text" id="title" name="title" />
+        <input required type="text" id="title" name="title" />
         <input
           type="hidden"
           id="quizzSlug"
@@ -55,8 +60,9 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 
         {/*---Label pour les choix, peut être enlever si besoin.*/}
         <label>Choices:</label>
-        {questionType == "Find the intruder" && <Dropzone />}
-        {choices.map((choiceObject, i) => (
+        {questionType == "Find the intruder" && <Dropzone updateProfile={false} uploadQuestionImage={true} addChoiceFn={addImageChoice} />}
+        
+        {choices && choices.map((choiceObject, i) => (
           <div key={choiceObject.uuid}>
             {/*---Bouton radio : sert à cocher la bonne réponse*/}
             <input
@@ -80,16 +86,12 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
               />
             )}
             {questionType == "Find the intruder" && (
-              <input
-                type="image"
-                src="https://via.placeholder.com/150"
-                value={choiceObject.choice}
-                name="choices"
-                //---onChange = chaque fois que l'utilisateur change la valeur de l'input, la fonction
-                //   handleChoiceChange est appelée avec l'index du choix et sa nouvelle valeur.
-                onChange={(e) => handleChoiceChange(i, e.target.value)}
-                placeholder={`Choice ${i + 1}`}
-              />
+              <div>
+                {/* Send the key to the server*/}
+                <input type="hidden" value={`https://utfs.io/f/${choiceObject.imageKey}`} name="choices"/>
+                {/* Only to show the image */}
+                <img src={choiceObject.imageKey !== "" ? `https://utfs.io/f/${choiceObject.imageKey}` : "https://placehold.co/400"}/>
+              </div>
             )}
 
             <input
@@ -112,7 +114,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
         {/*---Bouton : sert à ajouter un choix de réponse*/}
         {/*---type="button" : pour pas submit le form*/}
         {/*---onClick : appelle addChoice pour ajouter un choix de réponse*/}
-        {choices.length < 6 && (
+        {choices && choices.length < 6 && (
           <button type="button" onClick={addChoice}>
             Add a choice
           </button>

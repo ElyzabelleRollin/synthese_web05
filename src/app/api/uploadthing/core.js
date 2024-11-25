@@ -19,7 +19,7 @@ export const ourFileRouter = {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
       // updateProfilePicture(file.url, metadata.userId);
-
+      
       // !!! Whatever is returned here is sent to the clientside onClientUploadComplete callback
       return { uploadedBy: metadata.userId, message: "successful" };
     }),
