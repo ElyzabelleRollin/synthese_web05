@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import QuizzesList from "@/app/_components/quizzes/QuizzesList";
 import SearchBar from "@/app/_components/searchbar/SearchBar";
+import styles from '@/app/_components/quizzes/QuizzesPage.module.css';
 
 const QuizzesPage = async ({ searchParams }) => {
   const supabase = createClient();
@@ -21,7 +22,7 @@ const QuizzesPage = async ({ searchParams }) => {
     .ilike("username", `%${searchQuery}%`);
 
   return (
-    <div>
+    <div className={styles.quizzespage}>
       {/* Search bar */}
       <SearchBar searchQuery={searchQuery} />
 
