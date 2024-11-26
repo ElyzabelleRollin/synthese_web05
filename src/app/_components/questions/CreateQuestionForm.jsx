@@ -7,13 +7,17 @@ import Dropzone from "../dropzone/Dropzone";
 const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 
   //---useState = pour stocker les choix de réponse avec leur uuid dynamiquement dans un tableau d'object.
-  const [choices, setChoices] = useState(questionType== "Normal multiple choice"?[
+  const [choices, setChoices] = useState(questionType== "Normal multiple choice" ?[
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
   ]: []);
 
   const addImageChoice = (imageKey) => {
     setChoices(current => [...current, {choice: '', imageKey, uuid: crypto.randomUUID()}]);
+  };
+  const [sound, setSound] = useState();
+  const addSoundChoice = (soundKey) => {
+    setSound(soundKey)
   };
 
   //---fonction pour ajouter un choix de réponse au state.
@@ -64,7 +68,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 
         {/*---Label pour les choix, peut être enlever si besoin.*/}
         <label>Choices:</label>
-        {questionType == "Find the intruder" && <Dropzone updateProfile={false} uploadQuestionImage={true} addChoiceFn={addImageChoice} />}
+        {questionType == "Find the intruder" || "Identify the sound" && <Dropzone updateProfile={false} uploadQuestionImage={true} addChoiceFn={addImageChoice} />}
         
         {choices && choices.map((choiceObject, i) => (
           <div key={choiceObject.uuid}>
@@ -96,6 +100,17 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
                 {/* Only to show the image */}
                 <img src={choiceObject.imageKey !== "" ? `https://utfs.io/f/${choiceObject.imageKey}` : "https://placehold.co/400"}/>
               </div>
+            )}
+
+            {questionType == "Identify the sound" && (
+              <div>
+                <Dropzone  amIASound={true}  addSoundFn={addSoundChoice}/>
+                <audio ></audio>
+              {/* Send the key to the server*/}
+              <input type="hidden" value={`https://utfs.io/f/${choiceObject.imageKey}`} name="choices"/>
+              {/* Only to show the image */}
+              <img src={choiceObject.imageKey !== "" ? `https://utfs.io/f/${choiceObject.imageKey}` : "https://placehold.co/400"}/>
+            </div>         
             )}
 
             <input

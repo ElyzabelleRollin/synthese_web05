@@ -3,7 +3,7 @@ import { UploadDropzone } from "@/utils/uploadthing";
 import { updateProfilePicture } from "@/app/_actions/update";
 import { act } from "react";
 
-const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, questionUuid }) => {
+const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, questionUuid, amIASound, addSoundFn }) => {
 
   const onUploadHandler = (res) => {
     if (updateProfile) {
@@ -13,7 +13,9 @@ const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, que
     if (uploadQuestionImage && res[0].key) {
       addChoiceFn(res[0].key);
     }
-    alert("Upload Completed");
+    if(amIASound){
+      addSoundFn(res[0].key);
+    }
   };
 
   return (

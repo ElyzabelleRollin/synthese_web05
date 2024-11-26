@@ -15,14 +15,13 @@ const QuizPage = async ({ params }) => {
         .select("*")
         .eq("slug", quizzSlug)
         .single();
+        if(error)console.log("[PAGE QUIZ SLUG, QUIZ FETCH]", error)
     
-
-        console.log(quiz.id)
-
     const { data: questions } = await supabase
         .from("questions")
         .select("*")
         .eq("quizz_id", quiz.id);
+        if(error)console.log("[PAGE QUIZ SLUG, QUESTION FETCH]", error)
 
     return (
         <div>
