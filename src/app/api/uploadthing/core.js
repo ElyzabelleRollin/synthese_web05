@@ -1,8 +1,6 @@
 import { createUploadthing } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { createClient } from "@/app/_lib/supabase/server";
-import { updateProfilePicture } from "@/app/_actions/update";
-
 const f = createUploadthing();
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
@@ -21,7 +19,7 @@ export const ourFileRouter = {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
       // updateProfilePicture(file.url, metadata.userId);
-
+      
       // !!! Whatever is returned here is sent to the clientside onClientUploadComplete callback
       return { uploadedBy: metadata.userId, message: "successful" };
     }),

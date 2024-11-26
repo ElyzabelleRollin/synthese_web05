@@ -38,7 +38,7 @@ const QuestionsList = ({ questions, quizId, userID }) => {
         calculatedScore++;
       }
     });
-
+    console.log(calculatedScore);
     setScore(calculatedScore);
     await addQuizScore(calculatedScore, quizId);
     setQuizCompleted(true);
