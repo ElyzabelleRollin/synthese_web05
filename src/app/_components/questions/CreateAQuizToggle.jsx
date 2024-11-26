@@ -3,6 +3,7 @@ import React from "react";
 import CreateQuestionForm from "./CreateQuestionForm";
 import QuestionType from "./QuestionType";
 import { useState } from "react";
+import styles from "./CreateAQuizToggle.module.css";
 
 const CreateAQuizToggle = ({ quizzSlug }) => {
   const [show, setShow] = useState(true); //Toggle between create a type of question and create a question
@@ -14,9 +15,9 @@ const CreateAQuizToggle = ({ quizzSlug }) => {
     setShow(false);
   }
   return (
-    <div>
+    <div className={styles.questiontypescontainer}>
       {show && (
-        <div className="flex gap-4 p-4">
+        <div className={styles.questiontypes}>
           <QuestionType
             type="Normal multiple choice"
             description="You have to choose the correct answer"

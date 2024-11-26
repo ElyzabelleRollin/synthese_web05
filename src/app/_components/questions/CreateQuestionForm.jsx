@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createQuestionAction } from "@/app/_actions/createQuestionAction";
 import Dropzone from "../dropzone/Dropzone";
+import styles from "./CreateQuestionForm.module.css";
 
 const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 
@@ -44,7 +45,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
     setChoices(newChoices);
   };
   return (
-    <div style={{ border: "1px solid red" }}>
+    <div className={styles.createquestionform}>
       <form action={choices.length >= 2? createQuestionAction: errorMessage}>
         {/*---Bouton pour ajouter une question et sauvgarder les données dans la database.*/}
         <input
