@@ -13,11 +13,10 @@ const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, que
     if (uploadQuestionImage && res[0].key) {
       addChoiceFn(res[0].key);
     }
-    alert("Upload Completed");
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main >
       <UploadDropzone
         endpoint="imageUploader"
         onClientUploadComplete={onUploadHandler}

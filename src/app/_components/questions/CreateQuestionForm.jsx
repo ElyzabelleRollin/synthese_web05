@@ -2,19 +2,23 @@
 
 import { useState } from "react";
 import { createQuestionAction } from "@/app/_actions/createQuestionAction";
+import { createQuestionActionFinish } from "@/app/_actions/createQuestionAction";
 import Dropzone from "../dropzone/Dropzone";
 import styles from "./CreateQuestionForm.module.css";
+import Primarybutton from "../primarybutton/primarybutton";
+import Secondarybutton from "../secondarybutton/secondarybutton";
+import Tertiarybutton from "../tertiarybutton/tertiarybutton";
 
 const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 
   //---useState = pour stocker les choix de réponse avec leur uuid dynamiquement dans un tableau d'object.
-  const [choices, setChoices] = useState(questionType== "Normal multiple choice"?[
+  const [choices, setChoices] = useState(questionType == "Normal multiple choice" ? [
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
-  ]: []);
+  ] : []);
 
   const addImageChoice = (imageKey) => {
-    setChoices(current => [...current, {choice: '', imageKey, uuid: crypto.randomUUID()}]);
+    setChoices(current => [...current, { choice: '', imageKey, uuid: crypto.randomUUID() }]);
   };
 
   //---fonction pour ajouter un choix de réponse au state.
@@ -25,7 +29,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
     }
   };
 
-  function errorMessage(){
+  function errorMessage() {
     console.log("Error")
   }
 
@@ -44,88 +48,117 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
     newChoices[index] = { ...newChoices[index], choice: value };
     setChoices(newChoices);
   };
+
+  const [state, setState] = useState(false);
+
+  const do2shits = (formData) => {
+    createQuestionAction(formData);
+    action();
+  }
+
+
+
   return (
     <div className={styles.createquestionform}>
-      <form action={choices.length >= 2? createQuestionAction: errorMessage}>
-        {/*---Bouton pour ajouter une question et sauvgarder les données dans la database.*/}
-        <input
-          type="submit"
-          value="Add a question"
-          className="bg-slate-500 rounded-xl p-2 hover:bg-slate-600 "
-        />
-        <input type="hidden" name="questionType" value={questionType}/>
-        <label htmlFor="title">Question title:</label>
-        <input required type="text" id="title" name="title" />
-        <input
-          type="hidden"
-          id="quizzSlug"
-          name="quizzSlug"
-          value={quizzSlug}
-        />
+      <form className={styles.form} action={choices.length >= 2 ? (state ? createQuestionActionFinish : do2shits) : errorMessage}>
+        <div className={styles.backbtn}>
+          <Tertiarybutton text="Back to types" theme="dark" clickaction={action} />
+        </div>
+        <div className={styles.create}>
+          {
+            questionType === "Normal multiple choice" ? (
+              <label className={styles.choicelabel}>Add the chain elements. (max. 4)</label>
+            ) : questionType === "Find the intruder" ? (
+              <label className={styles.choicelabel}>Add the comparison elements. (max. 5)</label>
+            ) : questionType === "Identify the sound" ? (
+              <label className={styles.choicelabel}>Add the sound to identify.</label>
+            ) : null
+          }
 
-        {/*---Label pour les choix, peut être enlever si besoin.*/}
-        <label>Choices:</label>
-        {questionType == "Find the intruder" && <Dropzone updateProfile={false} uploadQuestionImage={true} addChoiceFn={addImageChoice} />}
-        
-        {choices && choices.map((choiceObject, i) => (
-          <div key={choiceObject.uuid}>
-            {/*---Bouton radio : sert à cocher la bonne réponse*/}
-            <input
-              type="radio"
-              id="correctAnswer"
-              name="correctAnswer"
-              value={choiceObject.uuid}
-              required
-            />
+          <div className={styles.choices}>
+            {questionType == "Find the intruder" && <div className={styles.dropzone}>
+              <Dropzone updateProfile={false} uploadQuestionImage={true} addChoiceFn={addImageChoice} />
+            </div>}
 
-            {/*---Input : sert à remplir les choix de réponse*/}
-            {questionType == "Normal multiple choice" && (
-              <input
-                type="text"
-                value={choiceObject.choice}
-                name="choices"
-                //---onChange = chaque fois que l'utilisateur change la valeur de l'input, la fonction
-                //   handleChoiceChange est appelée avec l'index du choix et sa nouvelle valeur.
-                onChange={(e) => handleChoiceChange(i, e.target.value)}
-                placeholder={`Choice ${i + 1}`}
-              />
-            )}
-            {questionType == "Find the intruder" && (
-              <div>
-                {/* Send the key to the server*/}
-                <input type="hidden" value={`https://utfs.io/f/${choiceObject.imageKey}`} name="choices"/>
-                {/* Only to show the image */}
-                <img src={choiceObject.imageKey !== "" ? `https://utfs.io/f/${choiceObject.imageKey}` : "https://placehold.co/400"}/>
+            {choices && choices.map((choiceObject, i) => (
+              <div className={styles.choicecontainer} key={choiceObject.uuid}>
+                {/*---Bouton radio : sert à cocher la bonne réponse*/}
+                <label className={styles.label}>
+                  <span className={styles.letter}>{i == 0 ? "A." : i == 1 ? "B." : i == 2 ? "C." : i == 3 ? "D." : "E."}</span>
+                  <input
+                    type="radio"
+                    id="correctAnswer"
+                    name="correctAnswer"
+                    checked
+                    value={choiceObject.uuid}
+                    required
+                    className={styles.radio}
+                  
+                  />
+                  <span className={styles.checkmark}></span>
+                  <div className={styles.remove}>
+                    <Tertiarybutton text="Remove" theme="dark" clickaction={() => removeChoice(i)} />
+                  </div>
+                </label>
+
+                {/*---Input : sert à remplir les choix de réponse*/}
+                {questionType == "Normal multiple choice" && (
+                  <input
+                    type="text"
+                    value={choiceObject.choice}
+                    name="choices"
+                    //---onChange = chaque fois que l'utilisateur change la valeur de l'input, la fonction
+                    //   handleChoiceChange est appelée avec l'index du choix et sa nouvelle valeur.
+                    onChange={(e) => handleChoiceChange(i, e.target.value)}
+                    placeholder={`Choice ${i + 1}`}
+                  />
+                )}
+                {questionType == "Find the intruder" && (
+                  <div className={styles.choice}>
+                    {/* Send the key to the server*/}
+                      <input className={styles.radio} type="hidden" value={`https://utfs.io/f/${choiceObject.imageKey}`} name="choices" />
+                    {/* Only to show the image */}
+                    <img className={styles.image} src={choiceObject.imageKey !== "" ? `https://utfs.io/f/${choiceObject.imageKey}` : "https://placehold.co/400"} />
+                  </div>
+                )}
+
+                <input
+                  type="hidden"
+                  name="choices_uuid"
+                  value={choiceObject.uuid}
+                />
               </div>
-            )}
-
-            <input
-              type="hidden"
-              name="choices_uuid"
-              value={choiceObject.uuid}
-            />
-
-            {/*---Bouton : sert à supprimer un choix de réponse*/}
-            {/*---choices.length > 2 = pour limiter le nombre de choix de réponse à minimum 2*/}
-            {/*---onClick : appelle RemoveChoice pour supprimer le choix de réponse cliqué*/}
-            {choices.length > 2 && (
-              <button type="button" onClick={() => removeChoice(i)}>
-                Remove
-              </button>
-            )}
+            ))}
           </div>
-        ))}
 
-        {/*---Bouton : sert à ajouter un choix de réponse*/}
-        {/*---type="button" : pour pas submit le form*/}
-        {/*---onClick : appelle addChoice pour ajouter un choix de réponse*/}
-        {choices && choices.length < 6 && (
-          <button type="button" onClick={addChoice}>
-            Add a choice
-          </button>
-        )}
+
+          {/*---Bouton : sert à ajouter un choix de réponse*/}
+          {/*---type="button" : pour pas submit le form*/}
+          {/*---onClick : appelle addChoice pour ajouter un choix de réponse*/}
+          {choices && choices.length < 6 && questionType == "Normal multiple choice" && (
+            <button type="button" onClick={addChoice}>
+              Add a choice
+            </button>
+          )}
+        </div>
+
+        <div className={styles.submitmenu}>
+          <input type="hidden" name="questionType" value={questionType} />
+          <label className={styles.title} htmlFor="title">Title:</label>
+          <input className={styles.input} required type="text" id="title" placeholder="Ask your question..." name="title" />
+          <input
+            type="hidden"
+            id="quizzSlug"
+            name="quizzSlug"
+            value={quizzSlug}
+          />
+          <div className={styles.btncontainer}>
+            {/*---Bouton pour ajouter une question et sauvgarder les données dans la database.*/}
+            <Secondarybutton text="Add a question" theme="dark" clickaction={() => setState(false)} />
+            <Primarybutton text="Finish quiz" theme="dark" clickaction={() => setState(true)} />
+          </div>
+        </div>
       </form>
-      <button onClick={action}>Go back to question types</button>
     </div>
   );
 };
