@@ -24,13 +24,16 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
     }
   };
 
+  function errorMessage(){
+    console.log("Error")
+  }
+
   //---fonction pour supprimer un choix de réponse du state.
   //---choices.filter = pour filtrer les choix de réponse et supprimer le choix
   //   de réponse associé au bouton cliqué.
   const removeChoice = (index) => {
     const newChoices = choices.filter((_, i) => i !== index);
     setChoices(newChoices);
-    // DecreaseKey();
   };
 
   //---fonction pour modifier un choix de réponse.
@@ -42,13 +45,14 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
   };
   return (
     <div style={{ border: "1px solid red" }}>
-      <form action={createQuestionAction}>
+      <form action={choices.length >= 2? createQuestionAction: errorMessage}>
         {/*---Bouton pour ajouter une question et sauvgarder les données dans la database.*/}
         <input
           type="submit"
           value="Add a question"
           className="bg-slate-500 rounded-xl p-2 hover:bg-slate-600 "
         />
+        <input type="hidden" name="questionType" value={questionType}/>
         <label htmlFor="title">Question title:</label>
         <input required type="text" id="title" name="title" />
         <input

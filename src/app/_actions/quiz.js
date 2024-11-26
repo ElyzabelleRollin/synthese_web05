@@ -17,9 +17,7 @@ export const addQuizScore = async (score, quizId) => {
   .single();
   if (error) {
     console.log("[ADD QUIZ SCORE 1]:", error);
-    return;
   }
-  console.log("[ADDSCORE]");
 
   // If no previous score, insert a new score
   if (!data) {

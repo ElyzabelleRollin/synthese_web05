@@ -14,8 +14,7 @@ export const createQuestionAction = async (formData) => {
   const quizzSlug = formData.get("quizzSlug");
   //récupère la bonne réponse en hidden input?
   const correctAnswer = formData.get("correctAnswer");
-  
-  console.log("[CHOICES:]", choices);
+  const questionType = formData.get("questionType");
 
   //tableau vide pour reconstruitre les choix de réponse avec leurs uuid
   const TableauChoix = [];
@@ -62,6 +61,7 @@ export const createQuestionAction = async (formData) => {
     text: title,
     answers: choicesJson,
     quizz_id: quizz.id,
+    type: questionType,
   });
   // console.log(questionError);
   revalidatePath(`/application/quizzes/${quizzSlug}/edit`);
