@@ -12,7 +12,8 @@ const QuizzesPage = async ({ searchParams }) => {
   const { data: quizzes } = await supabase
     .from("quizzes")
     .select("*")
-    .ilike("name", `%${searchQuery}%`);
+    .ilike("name", `%${searchQuery}%`)
+    .range(0,20)
 
   // Fetch profiles based on the search query in the username column
   const { data: profiles } = await supabase

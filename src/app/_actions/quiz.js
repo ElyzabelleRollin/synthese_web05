@@ -56,23 +56,23 @@ export const addQuizScore = async (score, quizId) => {
 export const averageScore = async (quizId) => {
   const supabase = createClient();
   let sum = 0; // Initialize sum to 0
-
+  
   // Fetch all the scores for the quiz
   const { data, error } = await supabase
-    .from("results")
-    .select("result")
-    .eq("quiz_id", quizId);
+  .from("results")
+  .select("result")
+  .eq("quiz_id", quizId);
   if (error) {
     console.log("[AVERAGE SCORE]:", error);
     return 0; // Return 0 in case of error
   }
-
+  
   // If no results found, return 0
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
     return 0;
   }
-
+  
   // Calculate the sum of all scores
   data.forEach((score) => {
     const result = score.result;
@@ -80,8 +80,23 @@ export const averageScore = async (quizId) => {
       sum += result; // Accumulate the valid scores
     }
   });
-
+  
   // Calculate the average
   const average = sum / data.length;
   return average.toFixed(2); // Return average rounded to 2 decimal places
 };
+
+export const fetchQuizzes = (min, max, searchQuery) => {
+  const supabase = createClient();
+  console.log("[MIN]" + min)
+  // const { data: quizzes } = supabase
+  //   .from("quizzes")
+  //   .select("*")
+  //   .ilike("name", `%${searchQuery}%`)
+  //   .range(min, max);
+
+  return quizzes;
+};
+
+
+

@@ -11,6 +11,7 @@
   background-color: var(--background);
   box-shadow: 0 0 1rem
     color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+    word-wrap: break-word;
 
   & .title {
     margin-top: 4rem;

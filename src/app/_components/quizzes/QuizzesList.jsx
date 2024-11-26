@@ -3,37 +3,44 @@ import Quizcard from "@/app/_components/quizzes/Quizcard";
 import styles from "./QuizzesList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
+import { fetchQuizzes } from "@/app/_actions/quiz";
 
-const QuizzesList = ({ quizzes }) => {
-  const [items, setItems] = useState(quizzes.slice(0, 20)); // Show the first 20 items
-  const [hasMore, setHasMore] = useState(quizzes.length > 20); // Check if there are more items
+const QuizzesList = ({ searchQuery, quizzes}) => {
+  const [min, setMin] = useState(20); // Min value for pagination
+  const range = 20;
+  const [items, setItems] = useState(quizzes); // List of quizzes
 
   // Function to fetch more items:
-  const fetchMoreData = () => {
-    if (items.length >= quizzes.length) {
-      setHasMore(false);
-      return;
-    }
-    // Simulate fetching more data:
-    setTimeout(() => {
-      const newItems = quizzes.slice(items.length, items.length + 20);
+  const fetchMoreData = async () => {
+    setMin(prevMin => prevMin + range);
+    try {
+      // Fetch quizzes based on min, max, and search query
+      const newItems = await fetchQuizzes(min, (min + range), searchQuery);
+      
+      // Update state with the newly fetched items
       setItems((prevItems) => [...prevItems, ...newItems]);
-    }, 500);
+    } catch (error) {
+      console.error("Error fetching quizzes:", error);
+    }
   };
-
+  
   return (
     <InfiniteScroll
       className={styles.list}
-      dataLength={items.length}
-      next={fetchMoreData}
-      hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
-      height={400} //Height of the container
-      endMessage={<p>Yay! You have seen it all</p>}
+      dataLength={items.length} // number of items in the list
+      next={fetchMoreData} // function to call when more data is needed
+      loader={<h4>Loading...</h4>} // Loading spinner or message
+      height={400} // Height of the scrollable area
+      
+      endMessage={<p>Yay! You have seen it all</p>} // End of the list message
     >
-      {items.map((quiz) => (
-        <Quizcard key={quiz.id} quiz={quiz} />
-      ))}
+    {items.length > 0 ? (
+  items.map((quiz) => (
+    <Quizcard key={quiz.id} quiz={quiz} />
+  ))
+) : (
+  <p>No quizzes created yet</p>
+)}
     </InfiniteScroll>
   );
 };
