@@ -10,7 +10,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
   const [choices, setChoices] = useState(questionType== "Normal multiple choice"?[
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
     { choice: "", imageKey: "", uuid: crypto.randomUUID() },
-  ]: null);
+  ]: []);
 
   const addImageChoice = (imageKey) => {
     setChoices(current => [...current, {choice: '', imageKey, uuid: crypto.randomUUID()}]);
