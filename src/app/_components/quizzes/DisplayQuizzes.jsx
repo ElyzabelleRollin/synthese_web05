@@ -1,8 +1,21 @@
 import React from "react";
 import Link from "next/link"; // Make sure Link is imported
+
+import ScoreRealTime from "./ScoreRealTime";
 import { createClient } from "@/app/_lib/supabase/server";
 
 const DisplayQuizzes = async ({ quizzes }) => {
+  const supabase = createClient();
+
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
+  // const { data: { user } } = await supabase.auth.getUser();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div>
       {quizzes && quizzes.length > 0 ? (
@@ -11,11 +24,13 @@ const DisplayQuizzes = async ({ quizzes }) => {
             <div key={quizz.id} className="border p-4 bg-slate-400">
               <h2>{quizz.quizzes.name}</h2>
 
-              <p>
+              {/* <p>
                 Highest score: {quizz.result} /{" "}
                 {getNbQuestions(quizz.quizzes.id)}
               </p>
-              <p>Number of attempts: {quizz.attempts}</p>
+              <p>Number of attempts: {quizz.attempts}</p> */}
+
+              <ScoreRealTime highestScore={quizz.result} attempts={quizz.attempts} nbQuestions={getNbQuestions(quizz.quizzes.id)} userId={user.id} />
 
               {quizz.quizzes ? (
                 <Link href={`/application/quizzes/${quizz.quizzes.slug}`}>
@@ -35,6 +50,8 @@ const DisplayQuizzes = async ({ quizzes }) => {
     </div>
   );
 };
+
+
 
 const getNbQuestions = async (quizId) => {
   const supabase = createClient();

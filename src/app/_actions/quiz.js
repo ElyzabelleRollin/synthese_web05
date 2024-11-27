@@ -7,17 +7,16 @@ export const addQuizScore = async (score, quizId) => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  
+
   // Fetch existing score data for the quiz
   const { data, error } = await supabase
-  .from("results")
-  .select("*")
-  .eq("user_id", user.id)
-  .eq("quiz_id", quizId)
-  .single();
+    .from("results")
+    .select("*")
+    .eq("user_id", user.id)
+    .eq("quiz_id", quizId)
+    .single();
   if (error) {
     console.log("[ADD QUIZ SCORE 1]:", error);
-    return;
   }
   console.log("[ADDSCORE]");
 
