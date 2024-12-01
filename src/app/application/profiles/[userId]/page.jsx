@@ -85,11 +85,9 @@ const Profile = async ({ params }) => {
         </div>
       </div>
       <div>
-        <h2 className="text-2xl mb-4">Quizzes created</h2>
         <DisplayCreatedQuizzes quizzes={quizzes} />
       </div>
       <div>
-        <h2 className="text-2xl mb-4">Quizzes played</h2>
         <DisplayQuizzes quizzes={playedQuizzes} />
       </div>
     </div>

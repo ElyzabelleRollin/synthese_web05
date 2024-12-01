@@ -111,10 +111,11 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
                     //   handleChoiceChange est appelée avec l'index du choix et sa nouvelle valeur.
                     onChange={(e) => handleChoiceChange(i, e.target.value)}
                     placeholder={`Choice ${i + 1}`}
+                    className={styles.inputtxt}
                   />
                 )}
                 {questionType == "Find the intruder" && (
-                  <div className={styles.choice}>
+                  <div className={styles.selection}>
                     {/* Send the key to the server*/}
                       <input className={styles.radio} type="hidden" value={`https://utfs.io/f/${choiceObject.imageKey}`} name="choices" />
                     {/* Only to show the image */}

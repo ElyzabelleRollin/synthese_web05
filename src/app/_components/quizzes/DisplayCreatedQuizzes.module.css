@@ -1,0 +1,76 @@
+.createdlist {
+	padding: 0 10rem;
+    margin-bottom: 8rem;
+
+	& .title {
+		margin-bottom: 2rem;
+		font-size: 3rem;
+		font-weight: 700;
+	}
+
+	& .createdquizzes {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+
+		& .card {
+			padding: 2rem;
+			border-radius: 2rem;
+			background-color: var(--background);
+			box-shadow: 0 0 1rem
+				color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+
+			.quiztitle {
+				margin-bottom: 1rem;
+				font-size: 1.5rem;
+				font-weight: 700;
+			}
+
+			& .stats {
+				display: flex;
+				gap: 2rem;
+				margin-bottom: 2rem;
+			}
+
+			& .buttons {
+				display: flex;
+				gap: 2rem;
+				align-items: center;
+
+				& .play {
+					margin-left: auto;
+				}
+
+				& .btnContainer {
+					height: 3.5rem;
+					border-radius: 4rem;
+					font-weight: 600;
+					width: fit-content;
+
+					border: 2px solid red;
+					background-color: red;
+					color: var(--background);
+					transition:
+						background-color 0.25s ease-out,
+						color 0.25s ease-out;
+
+					&:hover {
+						background-color: color-mix(in srgb, red 75%, black 25%);
+					}
+
+					& .button {
+						display: flex;
+						width: fit-content;
+						padding: 0 2rem;
+						height: 100%;
+						border-radius: 4rem;
+
+						& .label {
+							margin: auto;
+						}
+					}
+				}
+			}
+		}
+	}
+}

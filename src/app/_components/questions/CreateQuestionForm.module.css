@@ -39,6 +39,11 @@
                     width: 10rem;
                     height: fit-content;
 
+                    & .inputtxt{
+                        width: 10rem;
+                        margin-bottom: 4rem;
+                    }
+
                     & .label{
                         display: flex;
                         align-items: center;
@@ -58,7 +63,7 @@
                     }
 
 
-                    & .choice {
+                    & .selection {
                         bottom: 0;
                         left: 0;
                         width: 100%;
