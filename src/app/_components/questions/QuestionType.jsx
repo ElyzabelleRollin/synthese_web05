@@ -12,7 +12,7 @@ const QuestionType = ({ type, description, action }) => {
       {/* <button onClick={() => setClicked(type)}>Add this question</button> */}
       {/* <button className={styles.btn} onClick={action}>Add this type of question</button> */}
       <div className={styles.btn}>
-        <Tertiarybutton text="Add this type of question" theme="dark" clickaction={action} />
+        <Tertiarybutton text="Add this type of question" iconright="ArrowRight" theme="dark" clickaction={action} />
       </div>
     </div>
   );

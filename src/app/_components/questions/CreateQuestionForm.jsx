@@ -13,10 +13,7 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 	//---useState = pour stocker les choix de réponse avec leur uuid dynamiquement dans un tableau d'object.
 	const [choices, setChoices] = useState(
 		questionType == "Normal multiple choice"
-			? [
-					{ choice: "", imageKey: "", uuid: crypto.randomUUID() },
-					{ choice: "", imageKey: "", uuid: crypto.randomUUID() },
-				]
+			? []
 			: []
 	);
 
@@ -75,7 +72,12 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 				}
 			>
 				<div className={styles.backbtn}>
-					<Tertiarybutton text="Back to types" theme="dark" clickaction={action} />
+					<Tertiarybutton
+						text="Back to types"
+						iconleft="ArrowLeft"
+						theme="dark"
+						clickaction={action}
+					/>
 				</div>
 				<div className={styles.create}>
 					{questionType === "Normal multiple choice" ? (
@@ -119,15 +121,15 @@ const CreateQuestionForm = ({ quizzSlug, questionType, action }) => {
 											required
 											className={`${styles.radio} ${questionType == "Find the intruder" ? styles.intruder : styles.normal}`}
 										/>
-										<span className={styles.checkmark}></span>
-										<div className={styles.remove}>
-											<Tertiarybutton
-												text="Remove"
-												theme="dark"
-												clickaction={() => removeChoice(i)}
-											/>
-										</div>
 									</label>
+									<div className={styles.remove}>
+										<Tertiarybutton
+											text=""
+											iconright="TrashCan"
+											theme="dark"
+											clickaction={() => removeChoice(i)}
+										/>
+									</div>
 
 									{/*---Input : sert à remplir les choix de réponse*/}
 									{questionType == "Normal multiple choice" && (

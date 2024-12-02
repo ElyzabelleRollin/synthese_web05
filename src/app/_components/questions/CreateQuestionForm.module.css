@@ -61,16 +61,24 @@
 						align-items: center;
 						height: 2rem;
 						margin-bottom: 0.5rem;
+						pointer-events: none;
 
 						& .letter {
 							font-size: 2rem;
 							font-weight: 700;
 						}
+					}
 
-						& .remove {
-							position: absolute;
-							top: 0;
-							right: 0;
+					& .remove {
+						position: absolute;
+						top: 0;
+						right: 0;
+						pointer-events: all;
+						z-index: 2;
+
+						& * {
+							fill: red;
+							stroke: red;
 						}
 					}
 
@@ -94,6 +102,11 @@
 						width: 2rem;
 						height: 2rem;
 						z-index: 1;
+						pointer-events: all;
+
+						&:hover {
+							cursor: pointer;
+						}
 
 						&.normal {
 							bottom: 0;

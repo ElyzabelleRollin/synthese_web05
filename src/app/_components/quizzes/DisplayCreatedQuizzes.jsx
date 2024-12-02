@@ -34,22 +34,21 @@ const DisplayCreatedQuizzes = async ({ quizzes }) => {
 								<div className={styles.buttons}>
 									<Primarybutton
 										text="Edit"
+										iconleft="Edit"
 										theme="dark"
 										link={`/application/quizzes/${quiz.slug}/edit`}
 									/>
 
 									<form action={deleteQuiz(quiz.id)}>
-										<div className={styles.btnContainer}>
-											<button className={styles.button} type="submit">
-												{/* <img src="" alt="icon" /> */}
-												<p className={styles.label}>Delete</p>
-											</button>
+										<div className={styles.deletebtn}>
+											<Primarybutton text="Delete" iconleft="TrashCan" theme="dark" />
 										</div>
 									</form>
 
 									<div className={styles.play}>
 										<Tertiarybutton
 											text="Play"
+											iconright="ArrowRight"
 											theme="dark"
 											link={`/application/quizzes/${quiz.slug}`}
 										/>

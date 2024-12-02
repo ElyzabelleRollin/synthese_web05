@@ -20,9 +20,19 @@ const DisplayQuizzes = async ({ quizzes }) => {
 								<p>Times played: {quizz.attempts}</p>
 							</div>
 							{quizz.quizzes ? (
-                <Tertiarybutton text="Play" link={`/application/quizzes/${quizz.quizzes.slug}`} />
+								<Tertiarybutton
+									text="Play"
+									iconright="ArrowRight"
+									theme="dark"
+									link={`/application/quizzes/${quizz.quizzes.slug}`}
+								/>
 							) : (
-                <Tertiarybutton text="Play" link={`/application/quizzes/${quizz.slug}`} />
+								<Tertiarybutton
+									text="Play"
+									iconright="ArrowRight"
+									theme="dark"
+									link={`/application/quizzes/${quizz.slug}`}
+								/>
 							)}
 						</div>
 					))}
