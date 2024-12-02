@@ -48,17 +48,28 @@ const QuestionsList = ({ questions, quizId, userID }) => {
     fetchAverageScore(); // Call the function
   }, [quizCompleted, quizId]); // Trigger when quiz is completed
 
+    //Play the sound
+    function playSound(sound) {
+      if (!sound) {
+        console.error("No sound available to play!");
+        return;
+      }
+      const audio = new Audio(sound);
+      audio.play().catch((err) => console.error("Error playing audio:", err));
+    }
+
   return (
     <div>
       {!quizCompleted ? (
         <form onSubmit={handleSubmit}>
           {questions.map((question, index) => {
             // Parse the answers from JSON string to an array:
-            const answers = JSON.parse(question.answers);
-
+            const answers = JSON.parse(question.answers)
+            
             return (
               <div key={question.id}>
                 <h2>{question.text}</h2>
+                  {question.type === 'Identify the sound' && <button type="button" onClick={() => playSound(answers.sound)}>Play sound</button>}
                 <ul>
                   {answers.choices.map((answer, idx) => (
                     <li key={idx}>

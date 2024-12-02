@@ -41,7 +41,7 @@ const Dropzone = ({
               newFile = new File([blob], userID + file.name.split(".").pop(), {
                 type: file.type,
               });
-            } else if (uploadQuestionImage) {
+            } else if (uploadQuestionImage || uploadSound) {
               newFile = new File([blob], file.name.split(".").pop(), {
                 type: file.type,
               });
