@@ -4,31 +4,35 @@ import styles from "./QuizzesList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
 import { fetchQuizzes } from "@/app/_actions/quiz";
+import { NB_QUIZ_PAGE } from "@/app/constants/quiz"
+
 
 const QuizzesList = ({ searchQuery, quizzes}) => {
-  const [min, setMin] = useState(20); // Min value for pagination
-  const range = 20;
+  const range = NB_QUIZ_PAGE;
+  const [min, setMin] = useState(range); // Min value for pagination
   const [items, setItems] = useState(quizzes); // List of quizzes
+  //Define is there's more quizzes to fetch:
+  const [hasMoreQuizzes, sethasMoreQuizzes] = useState(true); 
 
-  // Function to fetch more items:
-  const fetchMoreData = async () => {
-    setMin(prevMin => prevMin + range);
-    try {
-      // Fetch quizzes based on min, max, and search query
-      const newItems = await fetchQuizzes(min, (min + range), searchQuery);
-      
-      // Update state with the newly fetched items
-      setItems((prevItems) => [...prevItems, ...newItems]);
-    } catch (error) {
-      console.error("Error fetching quizzes:", error);
-    }
-  };
-  
+  //Function to fetch new quizzes:
+  async function loadThings (){
+    //Fetch new quizzes:
+    // +1 is used to not fetch the same quiz 2 times
+    const newItems = await fetchQuizzes(min + 1, (min + NB_QUIZ_PAGE), searchQuery);
+    //There's no more quizzes:
+    if(newItems.length < NB_QUIZ_PAGE) sethasMoreQuizzes(false);
+    //Insert new quizzes inside the state:
+    setItems((prevItems) => [...prevItems, ...newItems]);
+    // Increase index:
+    setMin(min + NB_QUIZ_PAGE)
+  }
+
   return (
     <InfiniteScroll
       className={styles.list}
       dataLength={items.length} // number of items in the list
-      next={fetchMoreData} // function to call when more data is needed
+      next={loadThings} // function to call when more data is needed
+      hasMore={hasMoreQuizzes}
       loader={<h4>Loading...</h4>} // Loading spinner or message
       height={400} // Height of the scrollable area
       

@@ -86,17 +86,29 @@ export const averageScore = async (quizId) => {
   return average.toFixed(2); // Return average rounded to 2 decimal places
 };
 
-export const fetchQuizzes = (min, max, searchQuery) => {
+export const fetchQuizzes = async (min, max, searchQuery) => {
   const supabase = createClient();
-  console.log("[MIN]" + min)
-  // const { data: quizzes } = supabase
-  //   .from("quizzes")
-  //   .select("*")
-  //   .ilike("name", `%${searchQuery}%`)
-  //   .range(min, max);
 
+  const { data: quizzes } = await supabase
+    .from("quizzes")
+    .select("*")
+    // .ilike("name", `%${searchQuery}%`)
+    .range(min, max);
+
+  // console.log("[FETCH QUIZZES]" , quizzes)
   return quizzes;
 };
 
 
-
+  // Function to fetch more items:
+  export const fetchMoreData = async (range, min, searchQuery, itemFn, minFn) => {
+    minFn(prevMin => prevMin + range);
+    try {
+      // Fetch quizzes based on min, max, and search query
+      const newItems = await fetchQuizzes(min, (min + range), searchQuery);
+      // Update state with the newly fetched items
+      itemFn((prevItems) => [...prevItems, ...newItems]);
+    } catch (error) {
+      console.error("Error fetching quizzes:", error);
+    }
+  };

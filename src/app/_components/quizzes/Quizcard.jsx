@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './Quizcard.module.css'
 
-const Quizcard = async ({quiz}) => {
+const Quizcard = ({quiz}) => {
   return (
     <div className={styles.card}>
         <h2 className={styles.title}>{quiz.name}</h2>

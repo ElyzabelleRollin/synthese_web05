@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import QuizzesList from "@/app/_components/quizzes/QuizzesList";
 import SearchBar from "@/app/_components/searchbar/SearchBar";
+import { NB_QUIZ_PAGE } from "@/app/constants/quiz"
 
 const QuizzesPage = async ({ searchParams }) => {
   const supabase = createClient();
@@ -13,7 +14,7 @@ const QuizzesPage = async ({ searchParams }) => {
     .from("quizzes")
     .select("*")
     .ilike("name", `%${searchQuery}%`)
-    .range(0,20)
+    .range(0, NB_QUIZ_PAGE)
 
   // Fetch profiles based on the search query in the username column
   const { data: profiles } = await supabase
