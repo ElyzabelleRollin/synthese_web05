@@ -4,10 +4,19 @@ import { createClient } from "../_lib/supabase/server";
 
 export const deleteQuiz = async (id) => {
   const supabase = createClient();
+
+  // Authenticate user server-side
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // Delete the quiz
   const { error } = await supabase.from("quizzes").delete().eq("id", id);
-  console.log("[QUIZ DELETED]:", error);
-  revalidatePath("/application/profiles/" + user.id);
+  if (error) {
+    console.error("[DELETE ERROR]:", error);
+    throw new Error("Failed to delete quiz.");
+  }
+
+  // Revalidate the user profile path
+  revalidatePath(`/application/profiles/${user.id}`);
 };

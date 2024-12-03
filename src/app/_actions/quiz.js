@@ -56,6 +56,7 @@ export const addQuizScore = async (score, quizId) => {
       console.log("[ADD QUIZ SCORE | Update attempts]:", error);
     }
   }
+  averageScore(quizId);
 };
 
 // Calculate average score for a specific quiz:
@@ -72,7 +73,6 @@ export const averageScore = async (quizId) => {
     console.log("[AVERAGE SCORE]:", error);
     return 0; // Return 0 in case of error
   }
-
   // If no results found, return 0:
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
@@ -88,6 +88,26 @@ export const averageScore = async (quizId) => {
   });
 
   // Calculate the average:
-  const average = sum / data.length;
-  return average.toFixed(2); // Return average rounded to 2 decimal places
+  const average = (sum / data.length).toFixed(2);
+  
+  //Insert average in database:
+  const { error : averageError } = await supabase
+  .from("quizzes")
+  .update({
+    average: average,
+  })
+  .eq("id", quizId);
+  if(averageError){
+    console.log("[QUIZ || averageScore]", averageError)
+  }
+};
+
+export const getNbQuestions = async (quizId) => {
+  const supabase = createClient();
+  const { data: questions, error } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("quizz_id", quizId);
+  if (error) console.log("[GET NB QUESTIONS:]", error);
+  return questions.length;
 };
