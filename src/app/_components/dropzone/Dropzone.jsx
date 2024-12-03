@@ -1,10 +1,15 @@
 "use client";
 import { UploadDropzone } from "@/utils/uploadthing";
 import { updateProfilePicture } from "@/app/_actions/update";
-import { act } from "react";
 
-const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, questionUuid }) => {
-
+const Dropzone = ({
+  userID,
+  updateProfile,
+  uploadQuestionImage,
+  addChoiceFn,
+  uploadSound,
+  addSoundFn,
+}) => {
   const onUploadHandler = (res) => {
     if (updateProfile) {
       updateProfilePicture(res[0].appUrl);
@@ -13,12 +18,16 @@ const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, que
     if (uploadQuestionImage && res[0].key) {
       addChoiceFn(res[0].key);
     }
+    //Give the key to client here!!
+    if (uploadSound && res[0].key) {
+      addSoundFn(res[0].key);
+    }
   };
 
   return (
-    <main >
+    <main>
       <UploadDropzone
-        endpoint="imageUploader"
+        endpoint={uploadSound ? "audioUploader" : "imageUploader"}
         onClientUploadComplete={onUploadHandler}
         onUploadError={(error) => {
           // Do something with the error.
@@ -28,19 +37,14 @@ const Dropzone = ({ userID, updateProfile, uploadQuestionImage, addChoiceFn, que
           return files.map((file) => {
             const blob = file.slice(0, file.size, file.type);
             let newFile;
-            if(updateProfile){
-              newFile = new File(
-                [blob],
-                userID + file.name.split(".").pop(),
-                { type: file.type }
-              );
-            }
-            else if(uploadQuestionImage){
-              newFile = new File(
-                [blob],
-                file.name.split(".").pop(),
-                { type: file.type }
-              );
+            if (updateProfile) {
+              newFile = new File([blob], userID + file.name.split(".").pop(), {
+                type: file.type,
+              });
+            } else if (uploadQuestionImage || uploadSound) {
+              newFile = new File([blob], file.name.split(".").pop(), {
+                type: file.type,
+              });
             }
             return newFile;
           });
