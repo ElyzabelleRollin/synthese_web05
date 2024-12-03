@@ -6,138 +6,150 @@
 		position: relative;
 		height: 100%;
 
-		& .backbtn {
+		.backbtn {
 			position: absolute;
 			top: 1rem;
 			left: 0;
 		}
 
-		& .create {
+		.create {
 			display: flex;
 			justify-content: center;
 			flex-direction: column;
 			height: calc(100% - 15vh);
+		}
 
-			& .choicelabel {
-				font-size: 2rem;
-				font-weight: 800;
+		.create .choicelabel {
+			font-size: 2rem;
+			font-weight: 800;
+		}
+
+		.create .choices {
+			display: flex;
+			gap: 4rem;
+			align-items: center;
+			margin-top: 2rem;
+		}
+
+		.dropzone {
+			height: 15.375rem;
+			width: 18rem;
+			margin: 2rem 0;
+		}
+
+		.choices .choicecontainer {
+			position: relative;
+			height: fit-content;
+		}
+
+		.choices .choicecontainer.normal {
+			width: 20rem;
+		}
+
+		.choices .playsoundbtn{
+			display: flex;
+			width: 8rem;
+			height: 8rem;
+			background-color: var(--foreground);
+			border-radius: 8rem;
+
+			& .playicon{
+				margin: auto;
+				width: 5rem;
+				height: 5rem;
 			}
 
-			& .choices {
-				display: flex;
-				gap: 4rem;
-				align-items: center;
-                margin-top: 2rem;
-
-				& .dropzone {
-					height: 15.375rem;
-					width: 18rem;
-					margin: 2rem 0;
-				}
-
-				& .choicecontainer {
-					position: relative;
-					height: fit-content;
-
-					&.normal {
-						width: 20rem;
-					}
-
-					&.intruder {
-						width: 10rem;
-					}
-
-					&.sound {
-						width: 10rem;
-					}
-
-					& .inputtxt {
-						width: 16rem;
-                        margin-bottom: .2rem;
-					}
-
-					& .label {
-						display: flex;
-						align-items: center;
-						height: 2rem;
-						margin-bottom: 0.5rem;
-						pointer-events: none;
-
-						& .letter {
-							font-size: 2rem;
-							font-weight: 700;
-						}
-					}
-
-					& .remove {
-						position: absolute;
-						top: 0;
-						right: 0;
-						pointer-events: all;
-						z-index: 2;
-
-						& * {
-							fill: red;
-							stroke: red;
-						}
-					}
-
-					& .selection {
-						bottom: 0;
-						left: 0;
-						width: 100%;
-						aspect-ratio: 1/1;
-
-						& .image {
-							pointer-events: none;
-							width: 100%;
-							height: 100%;
-							object-fit: cover;
-							border-radius: 2rem;
-						}
-					}
-
-					& .radio {
-						position: absolute;
-						width: 2rem;
-						height: 2rem;
-						z-index: 1;
-						pointer-events: all;
-
-						&:hover {
-							cursor: pointer;
-						}
-
-						&.normal {
-							bottom: 0;
-							right: 0;
-						}
-
-						&.intruder {
-							bottom: 1rem;
-							right: 1rem;
-						}
-
-						&.sound {
-							bottom: 1rem;
-							right: 1rem;
-						}
-					}
-				}
-
-                & .addbtn{
-                    width: 4rem;
-                    height: 4rem;
-                    border-radius: 2rem;
-
-                    &:hover{
-                        filter: brightness(0.8);
-                    }
-                }
+			&:hover{
+				cursor: pointer;
+				background-color: color-mix(in srgb, var(--foreground) 70%, #000 30%);
 			}
 		}
 
-		& .submitmenu {
+		.choices .choicecontainer.intruder,
+		.choices .choicecontainer.sound {
+			width: 10rem;
+		}
+
+		.choicecontainer .inputtxt {
+			width: 16rem;
+			margin-bottom: 0.2rem;
+		}
+
+		.choicecontainer .label {
+			display: flex;
+			align-items: center;
+			height: 2rem;
+			margin-bottom: 0.5rem;
+			pointer-events: none;
+		}
+
+		.choicecontainer .label .letter {
+			font-size: 2rem;
+			font-weight: 700;
+		}
+
+		.choicecontainer .remove {
+			position: absolute;
+			top: 0;
+			right: 0;
+			pointer-events: all;
+			z-index: 2;
+			
+			& *{
+				fill: red !important;
+				stroke: red !important;
+			}
+		}
+
+		.choicecontainer .selection {
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			aspect-ratio: 1/1;
+		}
+
+		.selection .image {
+			pointer-events: none;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 2rem;
+		}
+
+		.choicecontainer .radio {
+			position: absolute;
+			width: 2rem;
+			height: 2rem;
+			z-index: 1;
+			pointer-events: all;
+		}
+
+		.radio:hover {
+			cursor: pointer;
+		}
+
+		.radio.normal {
+			bottom: 0;
+			right: 0;
+		}
+
+		.radio.intruder,
+		.radio.sound {
+			bottom: 1rem;
+			right: 1rem;
+		}
+
+		.choices .addbtn {
+			width: 4rem;
+			height: 4rem;
+			border-radius: 2rem;
+		}
+
+		.addbtn:hover {
+			filter: brightness(0.8);
+		}
+
+		.submitmenu {
 			position: absolute;
 			left: -10vw;
 			bottom: 0;
@@ -149,31 +161,31 @@
 			box-shadow: 0 -0.2rem 1rem rgba(0, 0, 0, 0.3);
 			padding: 1rem 4vw;
 			margin-top: auto;
+		}
 
-			& .title {
-				font-size: 2rem;
-				font-weight: 800;
-			}
+		.submitmenu .title {
+			font-size: 2rem;
+			font-weight: 800;
+		}
 
-			& .input {
-				margin-left: 1rem;
-				height: 3.5rem;
-				width: 40rem;
-				background-color: var(--background);
-				border-bottom: 2px solid var(--foreground);
-				outline: none;
+		.submitmenu .input {
+			margin-left: 1rem;
+			height: 3.5rem;
+			width: 40rem;
+			background-color: var(--background);
+			border-bottom: 2px solid var(--foreground);
+			outline: none;
+		}
 
-				&:focus {
-					border-bottom: 2px solid var(--primary1);
-				}
-			}
+		.submitmenu .input:focus {
+			border-bottom: 2px solid var(--primary1);
+		}
 
-			& .btncontainer {
-				display: flex;
-				flex-direction: row;
-				gap: 2rem;
-				margin-left: auto;
-			}
+		.submitmenu .btncontainer {
+			display: flex;
+			flex-direction: row;
+			gap: 2rem;
+			margin-left: auto;
 		}
 	}
 }
