@@ -8,7 +8,6 @@ const QuestionsList = ({ questions, quizId, userID }) => {
   // State to store user's answers
   const [userAnswers, setUserAnswers] = useState(questions.map(() => ""));
 
-
   // State to track quiz completion
   const [quizCompleted, setQuizCompleted] = useState(false);
 
