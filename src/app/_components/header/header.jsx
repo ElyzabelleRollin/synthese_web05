@@ -29,7 +29,7 @@ const header = async () => {
 	return (
 		<div className={styles.header}>
 			<Link href="/" className={styles.logo}>
-				<img src="https://placehold.co/300x100" alt="hoothoot logo" />
+				<img src="https://utfs.io/f/7ixYXIUQkVedUo8zBoZYmcDdAI86bMeKsjlPa0RLOGXuotWf" alt="hoothoot logo" className={styles.logo} />
 			</Link>
 			<nav className={styles.nav}>
 				<li className={styles.item}>
@@ -43,11 +43,19 @@ const header = async () => {
 					)}
 				</li>
 				<li className={styles.item}>
-					<Primarybutton
-						text="Launch a quiz"
+					<Secondarybutton
+						text="Find a quiz"
 						iconright="ArrowRight"
 						theme="dark"
 						link={"/application/quizzes"}
+					/>
+				</li>
+				<li className={styles.item}>
+					<Primarybutton
+						text="Create a quiz"
+						iconright="ArrowRight"
+						theme="dark"
+						link={"/application/quizzes/create"}
 					/>
 				</li>
 

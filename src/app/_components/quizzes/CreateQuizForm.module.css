@@ -1,4 +1,5 @@
 .createform{
+    position: relative;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -61,5 +62,13 @@
         margin-top: auto;
         display: flex;
         justify-content: center;
+    }
+
+    & .error{
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: red;
     }
 }

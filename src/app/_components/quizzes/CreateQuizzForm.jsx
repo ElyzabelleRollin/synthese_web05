@@ -46,7 +46,7 @@ const CreateQuizzForm = () => {
 				<Primarybutton text="Create" theme="dark" />
 			</div>
 			{/* afficher l'erreur ZOD */}
-			<p>{stateFromServer.error}</p>
+			<p className={styles.error}>{stateFromServer.error}</p>
 		</form>
 	);
 };

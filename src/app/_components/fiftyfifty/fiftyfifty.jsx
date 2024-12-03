@@ -16,8 +16,8 @@ const fiftyfifty = ({ type, title, text, img }) => {
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{text}</p>
           <div className={styles.buttons}>
-            <PrimaryButton text="Launch a quiz" iconright="ArrowRight" theme="light"/>
-            <SecondaryButton text="Create your account" theme="light"/>
+            <PrimaryButton text="Find a quiz" iconright="ArrowRight" theme="light" link="/application/quizzes"/>
+            <SecondaryButton text="Create your account" theme="light" link={"/auth/login"}/>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const hero = () => {
                 <h1 className={styles.title}>Interactive Quizzes, Unlimited Fun!</h1>
                 <p className={styles.text}>Engage with exciting, real-time quizzes designed to bring people together. Whether you're at home, in the classroom, or hosting a virtual event, our platform offers endless possibilities to learn, connect, and compete. Create your own custom quizzes, explore trending topics, or challenge friends and family to see who comes out on top.</p>
                 <div className={styles.buttons}>
-                    <PrimaryButton text="Launch a quiz" iconright="ArrowRight" theme="light" link="/application/quizzes"/>
+                    <PrimaryButton text="Find a quiz" iconright="ArrowRight" theme="light" link="/application/quizzes"/>
                     <SecondaryButton text="Create your own quiz!" iconright="ArrowRight" theme="light" link={"/application/quizzes/create"}/>
                 </div>
             </div>
