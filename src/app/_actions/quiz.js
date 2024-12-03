@@ -65,16 +65,6 @@ export const averageScore = async (quizId) => {
   let sum = 0; // Initialize sum to 0
 
   // Fetch all the scores for the quiz:
-  const { data: quiz, errorQuiz } = await supabase
-    .from("quizzes")
-    .select("name")
-    .eq("id", quizId)
-    .single();
-  if (errorQuiz) {
-    console.log("[QUIZ | AVERAGE SCORE]", errorQuiz)
-  }
-
-  // Fetch all the scores for the quiz:
   const { data, error } = await supabase
     .from("results")
     .select("result")
@@ -83,7 +73,6 @@ export const averageScore = async (quizId) => {
     console.log("[AVERAGE SCORE]:", error);
     return 0; // Return 0 in case of error
   }
-
   // If no results found, return 0:
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");

@@ -99,7 +99,7 @@ const QuestionsList = ({ questions, quiz, userID }) => {
             The average score is:{" "}
             {quiz.average !== null
               ? `${quiz.average} out of ${questions.length}`
-              : "Loading..."}
+              : `0 out of ${questions.length}`}
           </p>
           <Link href="/application/quizzes">Go back to the quizzes</Link>
           <Link href={`/application/profiles/${userID}`}>
