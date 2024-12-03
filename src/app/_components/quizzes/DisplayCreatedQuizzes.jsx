@@ -1,4 +1,4 @@
-import React from "react";
+// import React, { useState } from "react";
 import Link from "next/link";
 import { averageScore } from "@/app/_actions/quiz";
 import { createClient } from "@/app/_lib/supabase/server";
@@ -11,13 +11,20 @@ const DisplayCreatedQuizzes = async ({ quizzes }) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  //here add state
 
-  // here add realtime component??
-  <RealTime />
+  //here add state for object containing attempts and averageScore in parent component
+  // const [currentScore, setCurrentScore] = useState({
+  //   attempts: 0,
+  //   averageScore: 0,
+  // });
+
 
   return (
     <div>
+
+      {/* here add realtime component */}
+      <RealTime />
+
       {quizzes && quizzes.length > 0 ? (
         <div className="grid grid-cols-3 gap-4">
           {quizzes.map((quiz) => (

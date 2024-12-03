@@ -18,7 +18,7 @@ export const addQuizScore = async (score, quizId) => {
   if (error) {
     console.log("[ADD QUIZ SCORE 1]:", error);
   }
-  console.log("[ADDSCORE]");
+  console.log("[ADDSCORE] A");
 
   // If no previous score, insert a new score
   if (!data) {
@@ -30,8 +30,9 @@ export const addQuizScore = async (score, quizId) => {
     if (error) {
       console.log("[ADD QUIZ SCORE 2]:", error);
     }
-    return;
   }
+
+  console.log("[TESTING] B");
 
   // If the new score is greater than the old one, update it
   if (score > data.result) {
@@ -51,6 +52,8 @@ export const addQuizScore = async (score, quizId) => {
   }
 };
 
+console.log("[TESTING] C");
+
 // Calculate average score for a specific quiz
 export const averageScore = async (quizId) => {
   const supabase = createClient();
@@ -63,14 +66,16 @@ export const averageScore = async (quizId) => {
     .eq("quiz_id", quizId);
   if (error) {
     console.log("[AVERAGE SCORE]:", error);
-    return 0; // Return 0 in case of error
   }
+
+  console.log("[TESTING] D");
 
   // If no results found, return 0
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
-    return 0;
   }
+
+  console.log("[TESTING] E");
 
   // Calculate the sum of all scores
   data.forEach((score) => {
@@ -80,7 +85,33 @@ export const averageScore = async (quizId) => {
     }
   });
 
+  console.log("[TESTING] F");
+
   // Calculate the average
   const average = sum / data.length;
+
+
+  console.log("[TESTING] G");
+
+  //Envoyer le average ds base de donnée
+  const averageScore = average.toFixed(2);
+  console.log("[AVERAGE SCORE]:", averageScore);
+
+
+  const { error: averageError } = await supabase
+    .from("quizzes")
+    .insert
+    ({
+      average: averageScore,
+    })
+    .eq("quiz_id", quizId)
+  if (averageError) {
+    console.log("[AVERAGE SCORE error]:", averageError);
+
+  };
+
+  console.log("[TESTING] H");
+
+
   return average.toFixed(2); // Return average rounded to 2 decimal places
 };
