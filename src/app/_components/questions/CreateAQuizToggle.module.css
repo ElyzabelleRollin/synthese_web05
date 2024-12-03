@@ -1,0 +1,14 @@
+.questiontypescontainer {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    height: 85vh;
+    padding: 0 10vw;
+
+    .questiontypes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        gap: 5vw;
+    }
+}

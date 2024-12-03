@@ -1,26 +1,29 @@
+//Imports:
 "use server";
 import { createClient } from "../_lib/supabase/server";
 
-// Add or update the quiz score
+// Add or update the quiz score:
 export const addQuizScore = async (score, quizId) => {
-  const supabase = createClient();
+  const supabase = createClient(); //Access the Supabase
   const {
     data: { user },
-  } = await supabase.auth.getUser();
-
+  } = await supabase.auth.getUser(); //Get user
+  
   // Fetch existing score data for the quiz
   const { data, error } = await supabase
-    .from("results")
-    .select("*")
-    .eq("user_id", user.id)
-    .eq("quiz_id", quizId)
-    .single();
+      .from("results")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("quiz_id", quizId)
+      .single();
   if (error) {
-    console.log("[ADD QUIZ SCORE 1]:", error);
+    console.log(
+      "[ADD QUIZ SCORE | Check existing score]: no data found for user"
+    );
   }
-  console.log("[ADDSCORE] A");
+  console.log("[ADDSCORE]");
 
-  // If no previous score, insert a new score
+  // If no previous score, insert the new score:
   if (!data) {
     const { error } = await supabase.from("results").insert({
       user_id: user.id,
@@ -28,13 +31,11 @@ export const addQuizScore = async (score, quizId) => {
       quiz_id: quizId,
     });
     if (error) {
-      console.log("[ADD QUIZ SCORE 2]:", error);
+      console.log("[ADD QUIZ SCORE | Insert new score]:", error);
     }
   }
 
-  console.log("[TESTING] B");
-
-  // If the new score is greater than the old one, update it
+  // If the new score is greater than the old one, update it:
   if (score > data.result) {
     const { error } = await supabase
       .from("results")
@@ -42,24 +43,39 @@ export const addQuizScore = async (score, quizId) => {
       .eq("user_id", user.id)
       .eq("quiz_id", quizId);
     if (error) {
-      console.log("[ADD QUIZ SCORE 3]:", error);
+      console.log("[ADD QUIZ SCORE | Update score]:", error);
     }
-  } else if (score < data.result) {
+  }
+  // If the new score is less than the old one, update the attempts:
+  else if (score < data.result) {
     const { error } = await supabase
       .from("results")
-      .update({ result: data.result })
+      .update({ result: data.result }) // Keep the old score
       .eq("user_id", user.id);
+    if (error) {
+      console.log("[ADD QUIZ SCORE | Update attempts]:", error);
+    }
   }
+  averageScore(quizId);
 };
 
-console.log("[TESTING] C");
 
-// Calculate average score for a specific quiz
+// Calculate average score for a specific quiz:
 export const averageScore = async (quizId) => {
-  const supabase = createClient();
+  const supabase = createClient(); //Access the Supabase
   let sum = 0; // Initialize sum to 0
 
-  // Fetch all the scores for the quiz
+  // Fetch all the scores for the quiz:
+  const { data: quiz, errorQuiz } = await supabase
+    .from("quizzes")
+    .select("name")
+    .eq("id", quizId)
+    .single();
+  if (errorQuiz) {
+    console.log("[QUIZ | AVERAGE SCORE]", errorQuiz)
+  }
+
+  // Fetch all the scores for the quiz:
   const { data, error } = await supabase
     .from("results")
     .select("result")
@@ -68,16 +84,14 @@ export const averageScore = async (quizId) => {
     console.log("[AVERAGE SCORE]:", error);
   }
 
-  console.log("[TESTING] D");
 
-  // If no results found, return 0
+  // If no results found, return 0:
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
   }
 
-  console.log("[TESTING] E");
 
-  // Calculate the sum of all scores
+  // Calculate the sum of all scores:
   data.forEach((score) => {
     const result = score.result;
     if (typeof result === "number") {
@@ -87,31 +101,27 @@ export const averageScore = async (quizId) => {
 
   console.log("[TESTING] F");
 
-  // Calculate the average
-  const average = sum / data.length;
+  // Calculate the average:
+  const average = (sum / data.length).toFixed(2);
+  
+  //Insert average in database:
+  const { error : averageError } = await supabase
+  .from("quizzes")
+  .update({
+    average: average,
+  })
+  .eq("id", quizId);
+  if(averageError){
+    console.log("[QUIZ || averageScore]", averageError)
+  }
+};
 
-
-  console.log("[TESTING] G");
-
-  //Envoyer le average ds base de donnée
-  const averageScore = average.toFixed(2);
-  console.log("[AVERAGE SCORE]:", averageScore);
-
-
-  const { error: averageError } = await supabase
-    .from("quizzes")
-    .insert
-    ({
-      average: averageScore,
-    })
-    .eq("quiz_id", quizId)
-  if (averageError) {
-    console.log("[AVERAGE SCORE error]:", averageError);
-
-  };
-
-  console.log("[TESTING] H");
-
-
-  return average.toFixed(2); // Return average rounded to 2 decimal places
+export const getNbQuestions = async (quizId) => {
+  const supabase = createClient();
+  const { data: questions, error } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("quizz_id", quizId);
+  if (error) console.log("[GET NB QUESTIONS:]", error);
+  return questions.length;
 };

@@ -1,0 +1,52 @@
+.quizzespage {
+	& .content {
+		padding: 0 10vw;
+        margin-bottom: 10vw;
+
+		& .profileslistcontainer {
+            & .sectiontitle{
+                font-size: 3rem;
+                font-weight: 800;
+                margin-bottom: 2rem;
+            }
+
+			& .profileslist {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2rem;
+			}
+		}
+	}
+}
+
+.profilecard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 16rem;
+    min-height: 4rem;
+    aspect-ratio: 4/1;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: var(--background);
+    box-shadow: 0 0 1rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+
+    & .avatar{
+        height: 4rem;
+        aspect-ratio: 1/1;
+        border-radius: 4rem;
+        margin-right: 1rem;
+        object-fit: cover;
+    }
+
+    & .profileinfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & .username{
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+    }
+}

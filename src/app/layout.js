@@ -8,6 +8,13 @@ import { extractRouterConfig } from "uploadthing/server";
 
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 
+import { Nunito } from "next/font/google";
+
+const nunitoSans = Nunito({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700", "800"],
+});
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -28,10 +35,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${nunitoSans.className} antialiased`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <Navigation />
+        <Header />
         {children}
       </body>
     </html>

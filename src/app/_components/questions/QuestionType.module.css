@@ -1,4 +1,4 @@
-.card{
+.questiontypecard{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +27,7 @@
         word-break: break-all;
     }
 
-    & .link{
+    & .btn{
         margin-top: auto;
         margin-bottom: 2rem;
     }

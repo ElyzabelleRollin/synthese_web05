@@ -28,7 +28,7 @@ const QuizPage = async ({ params }) => {
         <div>
             <h1>{quiz.name}</h1>
             <p>{quiz.description}</p>
-            <QuestionsList questions={questions} quizId={quiz.id} userID={user.id} />
+            <QuestionsList questions={questions} quiz={quiz} userID={user.id} />
         </div>
     );
 };
