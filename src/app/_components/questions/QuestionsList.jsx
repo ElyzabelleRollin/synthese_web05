@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { addQuizScore } from "@/app/_actions/quiz";
 import { averageScore } from "@/app/_actions/quiz";
 import Link from "next/link";
+import Loader from '@/app/_components/loader/loader';
 
 const QuestionsList = ({ questions, quizId, userID }) => {
   const [userAnswers, setUserAnswers] = useState(questions.map(() => "")); // State to store user's answers
@@ -99,7 +100,7 @@ const QuestionsList = ({ questions, quizId, userID }) => {
             The average score is:{" "}
             {average !== null
               ? `${average} out of ${questions.length}`
-              : "Loading..."}
+              : (<Loader />)}
           </p>
           <Link href="/application/quizzes">Go back to the quizzes</Link>
           <Link href={`/application/profiles/${userID}`}>

@@ -5,27 +5,52 @@ import FormModifyUsername from "@/app/_components/profile/FormModifyUsername";
 import styles from "@/app/_components/profile/profile.module.css";
 import DisplayQuizzes from "@/app/_components/quizzes/DisplayQuizzes";
 import DisplayCreatedQuizzes from "@/app/_components/quizzes/DisplayCreatedQuizzes";
+import { resolve } from "styled-jsx/css";
+
+const wait = (delay) => {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+};
 
 const Profile = async ({ params }) => {
   const { userId } = await params; //Get the userId from the URL
   const superbase = createClient(); //Access to the database
 
-  //Get profile information of the user:
-  const { data: user } = await superbase
+
+  const profileRequest = superbase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
 
-  const { data: quizzes } = await superbase
-    .from("quizzes")
+  const quizzesRequest = superbase
+    .from("profiles")
     .select("*")
-    .eq("created_by", userId);
+    .eq("id", userId)
+    .single();
 
-  const { data: playedQuizzes } = await superbase
+  const playedQuizzRequest = superbase
     .from("results")
     .select("*, quizzes(*)")
     .eq("user_id", userId);
+
+  const [{ data: user }, { data: quizzes }, { data: playedQuizzes }] = await Promise.all([profileRequest, quizzesRequest, playedQuizzRequest, wait(1000)])
+  console.log(user);
+  //Get profile information of the user:
+  // const { data: user } = await superbase
+  //   .from("profiles")
+  //   .select("*")
+  //   .eq("id", userId)
+  //   .single();
+
+  // const { data: quizzes } = await superbase
+  //   .from("quizzes")
+  //   .select("*")
+  //   .eq("created_by", userId);
+
+  // const { data: playedQuizzes } = await superbase
+  //   .from("results")
+  //   .select("*, quizzes(*)")
+  //   .eq("user_id", userId);
 
   return (
     <div className={styles.profilepage}>
