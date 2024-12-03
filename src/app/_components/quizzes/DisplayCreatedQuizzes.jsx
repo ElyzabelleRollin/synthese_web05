@@ -12,6 +12,8 @@ const DisplayCreatedQuizzes = async ({ quizzes }) => {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
+
+	console.log(user.id);
 	return (
 		<div className={styles.createdlist}>
 			<h2 className={styles.title}>Quizzes created</h2>
@@ -39,11 +41,11 @@ const DisplayCreatedQuizzes = async ({ quizzes }) => {
 										link={`/application/quizzes/${quiz.slug}/edit`}
 									/>
 
-									<form action={deleteQuiz(quiz.id)}>
+									{/* <form action={() => deleteQuiz(quiz.id)}>
 										<div className={styles.deletebtn}>
 											<Primarybutton text="Delete" iconleft="TrashCan" theme="dark" />
 										</div>
-									</form>
+									</form> */}
 
 									<div className={styles.play}>
 										<Tertiarybutton
