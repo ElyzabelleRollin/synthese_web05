@@ -9,7 +9,7 @@ export const addQuizScore = async (score, quizId) => {
     data: { user },
   } = await supabase.auth.getUser(); //Get user
 
-  // Fetch existing score data for the quiz:
+  // Fetch existing score data for the quiz
   const { data, error } = await supabase
     .from("results")
     .select("*")
@@ -21,6 +21,7 @@ export const addQuizScore = async (score, quizId) => {
       "[ADD QUIZ SCORE | Check existing score]: no data found for user"
     );
   }
+  console.log("[ADDSCORE]");
 
   // If no previous score, insert the new score:
   if (!data) {
@@ -32,7 +33,6 @@ export const addQuizScore = async (score, quizId) => {
     if (error) {
       console.log("[ADD QUIZ SCORE | Insert new score]:", error);
     }
-    return;
   }
 
   // If the new score is greater than the old one, update it:
@@ -59,6 +59,7 @@ export const addQuizScore = async (score, quizId) => {
   averageScore(quizId);
 };
 
+
 // Calculate average score for a specific quiz:
 export const averageScore = async (quizId) => {
   const supabase = createClient(); //Access the Supabase
@@ -71,13 +72,14 @@ export const averageScore = async (quizId) => {
     .eq("quiz_id", quizId);
   if (error) {
     console.log("[AVERAGE SCORE]:", error);
-    return 0; // Return 0 in case of error
   }
+
+
   // If no results found, return 0:
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
-    return 0;
   }
+
 
   // Calculate the sum of all scores:
   data.forEach((score) => {
@@ -87,17 +89,19 @@ export const averageScore = async (quizId) => {
     }
   });
 
+  console.log("[TESTING] F");
+
   // Calculate the average:
   const average = (sum / data.length).toFixed(2);
-  
+
   //Insert average in database:
-  const { error : averageError } = await supabase
-  .from("quizzes")
-  .update({
-    average: average,
-  })
-  .eq("id", quizId);
-  if(averageError){
+  const { error: averageError } = await supabase
+    .from("quizzes")
+    .update({
+      average: average,
+    })
+    .eq("id", quizId);
+  if (averageError) {
     console.log("[QUIZ || averageScore]", averageError)
   }
 };

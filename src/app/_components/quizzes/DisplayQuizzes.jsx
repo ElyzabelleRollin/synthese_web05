@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link"; // Make sure Link is imported
+
+import ScoreRealTime from "./ScoreRealTime";
 import { createClient } from "@/app/_lib/supabase/server";
 import styles from "./DisplayCreatedQuizzes.module.css";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
@@ -43,6 +45,8 @@ const DisplayQuizzes = async ({ quizzes }) => {
 		</div>
 	);
 };
+
+
 
 const getNbQuestions = async (quizId) => {
 	const supabase = createClient();
