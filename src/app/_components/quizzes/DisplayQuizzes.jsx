@@ -24,13 +24,11 @@ const DisplayQuizzes = async ({ quizzes }) => {
             <div key={quizz.id} className="border p-4 bg-slate-400">
               <h2>{quizz.quizzes.name}</h2>
 
-              {/* <p>
+              <p>
                 Highest score: {quizz.result} /{" "}
                 {getNbQuestions(quizz.quizzes.id)}
               </p>
-              <p>Number of attempts: {quizz.attempts}</p> */}
-
-              <ScoreRealTime highestScore={quizz.result} attempts={quizz.attempts} nbQuestions={getNbQuestions(quizz.quizzes.id)} userId={user.id} />
+              <p>Number of attempts: {quizz.attempts}</p>
 
               {quizz.quizzes ? (
                 <Link href={`/application/quizzes/${quizz.quizzes.slug}`}>

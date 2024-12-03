@@ -8,14 +8,14 @@ export const addQuizScore = async (score, quizId) => {
   const {
     data: { user },
   } = await supabase.auth.getUser(); //Get user
-  
+
   // Fetch existing score data for the quiz
   const { data, error } = await supabase
-      .from("results")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("quiz_id", quizId)
-      .single();
+    .from("results")
+    .select("*")
+    .eq("user_id", user.id)
+    .eq("quiz_id", quizId)
+    .single();
   if (error) {
     console.log(
       "[ADD QUIZ SCORE | Check existing score]: no data found for user"
@@ -103,15 +103,15 @@ export const averageScore = async (quizId) => {
 
   // Calculate the average:
   const average = (sum / data.length).toFixed(2);
-  
+
   //Insert average in database:
-  const { error : averageError } = await supabase
-  .from("quizzes")
-  .update({
-    average: average,
-  })
-  .eq("id", quizId);
-  if(averageError){
+  const { error: averageError } = await supabase
+    .from("quizzes")
+    .update({
+      average: average,
+    })
+    .eq("id", quizId);
+  if (averageError) {
     console.log("[QUIZ || averageScore]", averageError)
   }
 };

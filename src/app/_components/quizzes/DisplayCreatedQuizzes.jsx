@@ -24,18 +24,21 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
 
 
 
-  //here add state for object containing attempts and averageScore in parent component
-  // const [currentScore, setCurrentScore] = useState({
-  //   attempts: 0,
-  //   averageScore: 0,
-  // });
+  // here add state for object containing attempts and averageScore in parent component
+  const [currentScore, setCurrentScore] = useState({
+    attempts: 0,
+    average: 0,
+    id: null,
+  });
+
+  // console.log(currentScore);
 
 
   return (
     <div>
 
       {/* here add realtime component */}
-      <RealTime />
+      <RealTime userId={userId} setCurrentScore={setCurrentScore} />
 
       {quizzes && quizzes.length > 0 ? (
         <div className="grid grid-cols-3 gap-4">
@@ -43,12 +46,12 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
             <div key={quiz.id} className="border p-4 bg-slate-400">
               <h2>{quiz.name}</h2>
               {quiz.created_by == userId && (
-                <>
-                  <p>Number of attempts: {quiz.attempts ? quiz.attempts : 0}</p>
-                  <p>
-                    Average result: {quiz.average} /{" "}
-                    {questionsCount[quiz.id] || "Loading..."}
-                  </p>
+                <>{currentScore.id === quiz.id ?
+                  <ScoreQuizzes attempts={currentScore.attempts} averageScore={currentScore.average} nbQuestions={questionsCount[quiz.id]} />
+                  :
+                  <ScoreQuizzes attempts={quiz.attempts ? quiz.attempts : 0} averageScore={quiz.average ? quiz.average : 0} nbQuestions={questionsCount[quiz.id]} />
+                }
+
                 </>
               )}
               <Link href={`/application/quizzes/${quiz.slug}`}>

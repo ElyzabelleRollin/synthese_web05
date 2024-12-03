@@ -3,17 +3,11 @@
 import { createClient } from "@/app/_lib/supabase/client";
 import { useEffect } from "react";
 
-const RealTime = () => {
+const RealTime = ({ userId, setCurrentScore }) => {
 
     const supabase = createClient();
 
     useEffect(() => {
-
-        const onChangeHandler = (payload) => {
-            console.log(payload);
-            const { attempts } = payload.new;
-            //Trouver comment mettre à jour le state dans le parent component avec ces nouvelles valeurs
-        };
 
 
         const channel = supabase
@@ -21,21 +15,17 @@ const RealTime = () => {
             .on(
                 "postgres_changes",
                 {
-                    event: "INSERT",
-                    schema: "public",
-                    table: "results",
-                },
-                onChangeHandler
-            )
-            .on(
-                "postgres_changes",
-                {
                     event: "UPDATE",
                     schema: "public",
-                    table: "results",
+                    table: "quizzes",
                     // filter: `created_by=eq.${userId}`
                 },
-                onChangeHandler
+                (payload) => {
+                    console.log(payload); // les modifications s'y trouvent
+                    const { attempts, average, id } = payload.new;
+                    //Trouver comment mettre à jour le state dans le parent component avec ces nouvelles valeurs
+                    setCurrentScore({ attempts, average, id });
+                }
             )
             .subscribe();
 
