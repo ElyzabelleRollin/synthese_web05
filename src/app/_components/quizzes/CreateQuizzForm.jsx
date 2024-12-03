@@ -3,8 +3,16 @@ import { createQuizzAction } from "@/app/_actions/createQuizzAction";
 import styles from "./CreateQuizForm.module.css";
 import Primarybutton from "../primarybutton/primarybutton";
 import { useRef } from "react";
+import { useFormState } from "react-dom";
 
 const CreateQuizzForm = () => {
+
+
+	//envoyer des infos supp au server action-> { message: '', error: null } = initalState
+	//recevoir infos/feedback depuis server action -> stateFromServer
+	//recoit une nouvelle action (newCreateQuizzAction) qu'on met dans le form
+	const [stateFromServer, newCreateQuizzAction] = useFormState(createQuizzAction, { message: '', error: null });
+
 	const descriptionRef = useRef(null);
 	const wordCount = useRef(null);
 
@@ -25,7 +33,7 @@ const CreateQuizzForm = () => {
 	}
 
 	return (
-		<form action={createQuizzAction} className={styles.createform}>
+		<form action={newCreateQuizzAction} className={styles.createform}>
 			<h1 className={styles.title}>Create a new quiz</h1>
 			<label htmlFor="title" className={styles.label}>Name your quiz</label>
 			<input type="text" id="title" name="title" placeholder="Give me a title..." maxLength={18} className={styles.input} />
@@ -37,6 +45,8 @@ const CreateQuizzForm = () => {
 			<div className={styles.button}>
 				<Primarybutton text="Create" theme="dark" />
 			</div>
+			{/* afficher l'erreur ZOD */}
+			<p>{stateFromServer.error}</p>
 		</form>
 	);
 };
