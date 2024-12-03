@@ -86,11 +86,11 @@ const Profile = async ({ params }) => {
       </div>
       <div>
         <h2 className="text-2xl mb-4">Quizzes created</h2>
-        <DisplayCreatedQuizzes quizzes={quizzes} />
+        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId}/>
       </div>
       <div>
         <h2 className="text-2xl mb-4">Quizzes played</h2>
-        <DisplayQuizzes quizzes={playedQuizzes} />
+        <DisplayQuizzes quizzes={playedQuizzes}  />
       </div>
     </div>
   );

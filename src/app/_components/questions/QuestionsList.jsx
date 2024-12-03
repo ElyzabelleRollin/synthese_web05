@@ -5,7 +5,7 @@ import { addQuizScore } from "@/app/_actions/quiz";
 import { averageScore } from "@/app/_actions/quiz";
 import Link from "next/link";
 
-const QuestionsList = ({ questions, quizId, userID }) => {
+const QuestionsList = ({ questions, quiz, userID }) => {
   const [userAnswers, setUserAnswers] = useState(questions.map(() => "")); // State to store user's answers
   const [quizCompleted, setQuizCompleted] = useState(false); // State to track quiz completion
   const [score, setScore] = useState(0); // State to store score
@@ -31,7 +31,7 @@ const QuestionsList = ({ questions, quizId, userID }) => {
       }
     });
     setScore(calculatedScore); // Update score
-    await addQuizScore(calculatedScore, quizId); // Add score to Supabase
+    await addQuizScore(calculatedScore, quiz.id); // Add score to Supabase
     setQuizCompleted(true); // Set quizCompleted to true
   };
 
@@ -41,12 +41,12 @@ const QuestionsList = ({ questions, quizId, userID }) => {
     const fetchAverageScore = async () => {
       //Check if the quiz is completed:
       if (quizCompleted) {
-        const avg = await averageScore(quizId); // Fetch average score
+        const avg = await averageScore(quiz.id); // Fetch average score
         setAverage(avg); // Update average score in state to display
       }
     };
     fetchAverageScore(); // Call the function
-  }, [quizCompleted, quizId]); // Trigger when quiz is completed
+  }, [quizCompleted, quiz.id]); // Trigger when quiz is completed
 
     //Play the sound
     function playSound(sound) {
@@ -97,8 +97,8 @@ const QuestionsList = ({ questions, quizId, userID }) => {
           </p>
           <p>
             The average score is:{" "}
-            {average !== null
-              ? `${average} out of ${questions.length}`
+            {quiz.average !== null
+              ? `${quiz.average} out of ${questions.length}`
               : "Loading..."}
           </p>
           <Link href="/application/quizzes">Go back to the quizzes</Link>
