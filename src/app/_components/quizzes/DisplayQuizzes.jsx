@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link"; // Make sure Link is imported
 
-import ScoreRealTime from "./ScoreRealTime";
 import { createClient } from "@/app/_lib/supabase/server";
 import styles from "./DisplayCreatedQuizzes.module.css";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
