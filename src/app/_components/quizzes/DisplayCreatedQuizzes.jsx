@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { deleteQuiz } from "@/app/_actions/delete";
+import { deleteQuizByQuizId } from "@/app/_actions/delete";
 import { getNbQuestions } from "@/app/_actions/quiz";
 import Primarybutton from "../primarybutton/primarybutton";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
@@ -11,10 +11,6 @@ import RealTime from "./RealTime";
 
 const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
   const [questionsCount, setQuestionsCount] = useState({});
-
-  console.log("[Quizzes]", quizzes);
-  console.log("[UserId]", userId);
-
   useEffect(() => {
     // Fetch the number of questions for all quizzes
     const fetchQuestionsCounts = async () => {
@@ -34,8 +30,6 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
     average: 0,
     id: null,
   });
-
-  // console.log(currentScore);
 
   return (
     <div>
@@ -70,7 +64,7 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
                   <Link href={`/application/quizzes/${quiz.slug}/edit`}>
                     Edit
                   </Link>
-                  <form action={() => deleteQuiz(quiz.id)}>
+                  <form action={() => deleteQuizByQuizId(quiz.id)}>
                     <button type="submit">Delete</button>
                   </form>
                 </div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { addQuizScore } from "@/app/_actions/quiz";
 import { averageScore } from "@/app/_actions/quiz";
 import Link from "next/link";
-import Loader from '@/app/_components/loader/loader';
+import Loader from "@/app/_components/loader/loader";
 
 const QuestionsList = ({ questions, quiz, userID }) => {
   const [userAnswers, setUserAnswers] = useState(questions.map(() => "")); // State to store user's answers
@@ -49,15 +49,15 @@ const QuestionsList = ({ questions, quiz, userID }) => {
     fetchAverageScore(); // Call the function
   }, [quizCompleted, quiz.id]); // Trigger when quiz is completed
 
-    //Play the sound
-    function playSound(sound) {
-      if (!sound) {
-        console.error("No sound available to play!");
-        return;
-      }
-      const audio = new Audio(sound);
-      audio.play().catch((err) => console.error("Error playing audio:", err));
+  //Play the sound
+  function playSound(sound) {
+    if (!sound) {
+      console.error("No sound available to play!");
+      return;
     }
+    const audio = new Audio(sound);
+    audio.play().catch((err) => console.error("Error playing audio:", err));
+  }
 
   return (
     <div>
@@ -65,13 +65,21 @@ const QuestionsList = ({ questions, quiz, userID }) => {
         <form onSubmit={handleSubmit}>
           {questions.map((question, index) => {
             // Parse the answers from JSON string to an array:
-            const answers = JSON.parse(question.answers)
-            
+            const answers = JSON.parse(question.answers);
+            console.log("SONS", answers.sound);
+
             return (
               <div key={question.id}>
                 <h2>{question.text}</h2>
-                  {question.type === 'Identify the sound' && <button type="button" onClick={() => playSound(answers.sound)}>Play sound</button>}
                 <ul>
+                  {question.type === "Identify the sound" && (
+                    <button
+                      type="button"
+                      onClick={() => playSound(answers.sound)}
+                    >
+                      Play sound
+                    </button>
+                  )}
                   {answers.choices.map((answer, idx) => (
                     <li key={idx}>
                       <input
@@ -81,7 +89,12 @@ const QuestionsList = ({ questions, quiz, userID }) => {
                         onChange={() => handleAnswerChange(index, answer.uuid)}
                         checked={userAnswers[index] === answer.uuid}
                       />
-                      {answer.choice}
+                      {question.type === "Identify the sound" ||
+                      question.type === "Find the intruder" ? (
+                        <img src={answer.choice} />
+                      ) : (
+                        <p>{answer.choice}</p>
+                      )}
                     </li>
                   ))}
                 </ul>
