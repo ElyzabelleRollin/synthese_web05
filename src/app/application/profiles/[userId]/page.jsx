@@ -17,7 +17,6 @@ const Profile = async ({ params }) => {
   console.log(userId);
   const superbase = createClient(); //Access to the database
 
-
   // const profileRequest = superbase
   //   .from("profiles")
   //   .select("*")
@@ -49,8 +48,9 @@ const Profile = async ({ params }) => {
     .from("quizzes")
     .select("*")
     .eq("created_by", userId);
-    if (error) console.log(error);
-   
+  if (error) console.log(error);
+
+  console.log(quizzes);
 
   const { data: playedQuizzes } = await superbase
     .from("results")
@@ -115,7 +115,7 @@ const Profile = async ({ params }) => {
         </div>
       </div>
       <div>
-        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId}/>
+        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId} />
       </div>
       <div>
         <DisplayQuizzes quizzes={playedQuizzes} />

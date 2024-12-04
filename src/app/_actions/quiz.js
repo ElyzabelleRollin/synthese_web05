@@ -33,6 +33,7 @@ export const addQuizScore = async (score, quizId) => {
     if (error) {
       console.log("[ADD QUIZ SCORE | Insert new score]:", error);
     }
+    return;
   }
 
   // If the new score is greater than the old one, update it:
@@ -59,7 +60,6 @@ export const addQuizScore = async (score, quizId) => {
   averageScore(quizId);
 };
 
-
 // Calculate average score for a specific quiz:
 export const averageScore = async (quizId) => {
   const supabase = createClient(); //Access the Supabase
@@ -74,12 +74,10 @@ export const averageScore = async (quizId) => {
     console.log("[AVERAGE SCORE]:", error);
   }
 
-
   // If no results found, return 0:
   if (!data || data.length === 0) {
     console.log("[AVERAGE SCORE]: No results found for this quiz");
   }
-
 
   // Calculate the sum of all scores:
   data.forEach((score) => {
@@ -88,8 +86,6 @@ export const averageScore = async (quizId) => {
       sum += result; // Accumulate the valid scores
     }
   });
-
-  console.log("[TESTING] F");
 
   // Calculate the average:
   const average = (sum / data.length).toFixed(2);
@@ -102,7 +98,7 @@ export const averageScore = async (quizId) => {
     })
     .eq("id", quizId);
   if (averageError) {
-    console.log("[QUIZ || averageScore]", averageError)
+    console.log("[QUIZ || averageScore]", averageError);
   }
 };
 
