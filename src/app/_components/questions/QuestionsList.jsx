@@ -12,6 +12,7 @@ const QuestionsList = ({ questions, quiz, userID }) => {
   const [quizCompleted, setQuizCompleted] = useState(false); // State to track quiz completion
   const [score, setScore] = useState(0); // State to store score
   const [average, setAverage] = useState(null); // State to store the average score
+  const [earnedXp, setEarnedXp] = useState(0);
 
   // Handle change in user's answer:
   const handleAnswerChange = (questionIndex, answer) => {
@@ -68,7 +69,8 @@ const QuestionsList = ({ questions, quiz, userID }) => {
   // When the quiz is completed, calculate the XP and sent it to the action addXp
   useEffect(() => {
     if (quizCompleted) {
-      const xp = calculatePercentage(score, questions.length);
+      const xp = calculatePercentage(score * 3, questions.length);
+      setEarnedXp(xp);
       addXp(xp);
     }
   }, [quizCompleted, score, questions.length]);
@@ -115,6 +117,9 @@ const QuestionsList = ({ questions, quiz, userID }) => {
             {quiz.average !== null
               ? `${quiz.average} out of ${questions.length}`
               : `0 out of ${questions.length}`}
+          </p>
+          <p>
+            You gained {earnedXp} XP
           </p>
           <Link href="/application/quizzes">Go back to the quizzes</Link>
           <Link href={`/application/profiles/${userID}`}>
