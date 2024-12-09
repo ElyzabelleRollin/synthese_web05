@@ -38,7 +38,7 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
 
 	return (
 		<div className={styles.createdlist}>
-      <h2 className={styles.title}>Quizzes created</h2>
+			<h2 className={styles.title}>Quizzes created</h2>
 			{/* here add realtime component */}
 			<RealTime userId={userId} setCurrentScore={setCurrentScore} />
 			{quizzes && quizzes.length > 0 ? (
@@ -48,6 +48,13 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
 							<h2 className={styles.quiztitle}>{quiz.name}</h2>
 							{quiz.created_by == userId && (
 								<>
+									{/* If the quiz is banned, show the reason */}
+									{quiz.banned && (
+										<div>
+											<p>Banned</p>
+											<p>{quiz.banned_reason}</p>
+										</div>
+									)}
 									{currentScore.id === quiz.id ? (
 										<ScoreQuizzes
 											attempts={currentScore.attempts}
@@ -76,14 +83,16 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
 											<Primarybutton text="Delete" iconleft="TrashCan" theme="dark" />
 										</div>
 									</form>
-
-									<div className={styles.play}>
-										<Tertiarybutton
-											text="Play"
-											theme="dark"
-											link={`/application/quizzes/${quiz.slug}`}
-										/>
-									</div>
+									{/* If the quiz is not banned, show the link to the quiz */}
+									{!quiz.banned && (
+										<div className={styles.play}>
+											<Tertiarybutton
+												text="Play"
+												theme="dark"
+												link={`/application/quizzes/${quiz.slug}`}
+											/>
+										</div>
+									)}
 								</div>
 							)}
 						</div>
@@ -95,5 +104,3 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
 		</div>
 	);
 };
-
-export default DisplayCreatedQuizzes;
