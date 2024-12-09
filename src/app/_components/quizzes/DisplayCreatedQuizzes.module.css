@@ -26,12 +26,6 @@
 				font-weight: 700;
 			}
 
-			& .stats {
-				display: flex;
-				gap: 2rem;
-				margin-bottom: 2rem;
-			}
-
 			& .buttons {
 				display: flex;
 				gap: 2rem;
