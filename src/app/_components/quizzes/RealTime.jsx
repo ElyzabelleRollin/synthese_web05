@@ -34,12 +34,6 @@ const RealTime = ({ userId, setCurrentScore }) => {
             supabase.removeChannel(channel);
         };
     }, [supabase]);
-
-    return (
-        <div>
-            <p>RealTime?</p>
-        </div>
-    )
 }
 
 export default RealTime;
