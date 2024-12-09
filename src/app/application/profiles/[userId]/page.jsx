@@ -5,7 +5,6 @@ import FormModifyUsername from "@/app/_components/profile/FormModifyUsername";
 import styles from "@/app/_components/profile/profile.module.css";
 import DisplayQuizzes from "@/app/_components/quizzes/DisplayQuizzes";
 import DisplayCreatedQuizzes from "@/app/_components/quizzes/DisplayCreatedQuizzes";
-import { resolve } from "styled-jsx/css";
 
 const wait = (delay) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
@@ -17,23 +16,22 @@ const Profile = async ({ params }) => {
   console.log(userId);
   const superbase = createClient(); //Access to the database
 
+  const profileRequest = superbase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
 
-  // const profileRequest = superbase
-  //   .from("profiles")
-  //   .select("*")
-  //   .eq("id", userId)
-  //   .single();
+  const quizzesRequest = superbase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
 
-  // const quizzesRequest = superbase
-  //   .from("profiles")
-  //   .select("*")
-  //   .eq("id", userId)
-  //   .single();
-
-  // const playedQuizzRequest = superbase
-  //   .from("results")
-  //   .select("*, quizzes(*)")
-  //   .eq("user_id", userId);
+  const playedQuizzRequest = superbase
+    .from("results")
+    .select("*, quizzes(*)")
+    .eq("user_id", userId);
 
   // const [{ data: user }, { data: quizzes }, { data: playedQuizzes }] = await Promise.all([profileRequest, quizzesRequest, playedQuizzRequest, wait(1000)])
   // console.log(user);
@@ -49,8 +47,7 @@ const Profile = async ({ params }) => {
     .from("quizzes")
     .select("*")
     .eq("created_by", userId);
-    if (error) console.log(error);
-   
+  if (error) console.log(error);
 
   const { data: playedQuizzes } = await superbase
     .from("results")
@@ -115,7 +112,7 @@ const Profile = async ({ params }) => {
         </div>
       </div>
       <div>
-        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId}/>
+        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId} />
       </div>
       <div>
         <DisplayQuizzes quizzes={playedQuizzes} />
