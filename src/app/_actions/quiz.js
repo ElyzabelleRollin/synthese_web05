@@ -102,6 +102,19 @@ export const averageScore = async (quizId) => {
   }
 };
 
+export const fetchAverage = async (quizId) => {
+  const supabase = createClient(); //Access the Supabase
+  const { data: quiz, error } = await supabase
+    .from("quizzes")
+    .select("average")
+    .eq("id", quizId)
+    .single();
+  if (error) {
+    console.log("[FETCH AVERAGE SCORE]", error);
+  }
+  return quiz.average;
+};
+
 export const getNbQuestions = async (quizId) => {
   const supabase = createClient();
   const { data: questions, error } = await supabase
