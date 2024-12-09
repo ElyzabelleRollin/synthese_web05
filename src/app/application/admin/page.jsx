@@ -9,8 +9,7 @@ const AdminPage = async () => {
   const { data: email } = await supabase.from("profiles").select("email"); //Get emails
 
   return (
-    <div>
-      <h1>Admin page</h1>
+    <div style={{ height: "85vh", display: "flex"}}>
       <Admin quizzes={quizzes} userEmail={email} />
     </div>
   );

@@ -29,7 +29,7 @@ const header = async () => {
   return (
     <div className={styles.header}>
       <Link href="/" className={styles.logo}>
-        <img src="https://placehold.co/300x100" alt="hoothoot logo" />
+        <img src="https://utfs.io/f/7ixYXIUQkVedUo8zBoZYmcDdAI86bMeKsjlPa0RLOGXuotWf" alt="hoothoot logo" className={styles.img} />
       </Link>
       <nav className={styles.nav}>
         <li className={styles.item}>
