@@ -1,3 +1,4 @@
+//Imports:
 "use client";
 import { useState } from "react";
 import { updateQuestion } from "@/app/_actions/quiz";
@@ -5,49 +6,56 @@ import styles from "./CreateQuestionForm.module.css";
 import Primarybutton from "../primarybutton/primarybutton";
 import Secondarybutton from "../secondarybutton/secondarybutton";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
+import { deleteQuestionByQuestionId } from "@/app/_actions/delete";
 
+////Composant to edit a question of type Multiple choices:
 const EditMultipleChoices = ({ quizzSlug, questionInfos }) => {
-  const answers = JSON.parse(questionInfos.answers);
+  const answers = JSON.parse(questionInfos.answers); //Parse answers
 
-  // Initialize choices and states
+  // Initialize choices:
   const initChoices = () =>
     answers.choices.map((choice) => ({
       choice: choice.choice,
       uuid: choice.uuid,
     }));
 
-  const [choices, setChoices] = useState(initChoices);
-  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer);
-  const [title, setTitle] = useState(questionInfos.text);
+  const [choices, setChoices] = useState(initChoices); //Store the choices
+  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer); //Store the correct answer
+  const [title, setTitle] = useState(questionInfos.text); //Store the title of the question
 
+  //Function to add a new choice:
   const addChoice = () => {
     if (choices.length < 5) {
       setChoices([...choices, { choice: "", uuid: crypto.randomUUID() }]);
     }
   };
 
+  //Function to remove an existing choice:
   const removeChoice = (index) => {
     setChoices(choices.filter((_, i) => i !== index));
   };
 
+  //Function to update the value of a choice:
   const handleChoiceChange = (index, value) => {
     const updatedChoices = [...choices];
     updatedChoices[index] = { ...updatedChoices[index], choice: value };
     setChoices(updatedChoices);
   };
 
-  const submitQuestionUpdate = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    await updateQuestion(formData);
-  };
-
   return (
     <div className={styles.createquestionform}>
       <form
         className={styles.form}
-        onSubmit={choices.length >= 2 && submitQuestionUpdate}
+        action={choices.length >= 2 && updateQuestion}
       >
+        <div className={styles.backbtn}>
+          <Tertiarybutton
+            text="Back to questions"
+            iconleft="ArrowLeft"
+            theme="dark"
+            link={`/application/quizzes/${quizzSlug}/edit`}
+          />
+        </div>
         <div className={styles.create}>
           <label className={styles.choicelabel}>
             Add the chain elements. (max. 4)
@@ -152,7 +160,9 @@ const EditMultipleChoices = ({ quizzSlug, questionInfos }) => {
             <Secondarybutton
               text="Delete question"
               theme="dark"
-              action={null}
+              clickaction={() =>
+                deleteQuestionByQuestionId(questionInfos.id, quizzSlug)
+              }
             />
             <Primarybutton text="Save changes" theme="dark" />
           </div>

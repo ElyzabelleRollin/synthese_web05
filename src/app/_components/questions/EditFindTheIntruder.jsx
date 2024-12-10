@@ -7,22 +7,22 @@ import Primarybutton from "../primarybutton/primarybutton";
 import Secondarybutton from "../secondarybutton/secondarybutton";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
 import { updateQuestion } from "@/app/_actions/quiz";
+import { deleteQuestionByQuestionId } from "@/app/_actions/delete";
 
-//Composant to create a question
-//depending on the type of question:
+//Composant to edit a question of type Find the intruder:
 const EditFindTheIntruder = ({ quizzSlug, questionInfos }) => {
-  const answers = JSON.parse(questionInfos.answers);
+  const answers = JSON.parse(questionInfos.answers); //Parse answers
 
-  // Initialize choices and states
+  // Initialize choices:
   const initChoices = () =>
     answers.choices.map((choice) => ({
       choice: choice.choice,
       uuid: choice.uuid,
     }));
 
-  const [choices, setChoices] = useState(initChoices);
-  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer);
-  const [title, setTitle] = useState(questionInfos.text);
+  const [choices, setChoices] = useState(initChoices); //Store the choices
+  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer); //Store the correct answer
+  const [title, setTitle] = useState(questionInfos.text); //Store the title of the question
 
   //Add an image to a choice:
   const addImageChoice = (imageKey) => {
@@ -32,25 +32,25 @@ const EditFindTheIntruder = ({ quizzSlug, questionInfos }) => {
     ]);
   };
 
-  //---fonction pour supprimer un choix de réponse du state.
-  //---choices.filter = pour filtrer les choix de réponse et supprimer le choix
-  //   de réponse associé au bouton cliqué.
+  //Function to remove an existing choice:
   const removeChoice = (index) => {
     setChoices(choices.filter((_, i) => i !== index));
-  };
-
-  const submitQuestionUpdate = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    await updateQuestion(formData);
   };
 
   return (
     <div className={styles.createquestionform}>
       <form
         className={styles.form}
-        onSubmit={choices.length >= 2 && submitQuestionUpdate}
+        action={choices.length >= 2 && updateQuestion}
       >
+        <div className={styles.backbtn}>
+          <Tertiarybutton
+            text="Back to questions"
+            iconleft="ArrowLeft"
+            theme="dark"
+            link={`/application/quizzes/${quizzSlug}/edit`}
+          />
+        </div>
         <div className={styles.create}>
           <label className={styles.choicelabel}>
             Add the comparison elements. (max. 5)
@@ -163,7 +163,9 @@ const EditFindTheIntruder = ({ quizzSlug, questionInfos }) => {
             <Secondarybutton
               text="Delete question"
               theme="dark"
-              action={null}
+              clickaction={() =>
+                deleteQuestionByQuestionId(questionInfos.id, quizzSlug)
+              }
             />
             <Primarybutton text="Save changes" theme="dark" />
           </div>

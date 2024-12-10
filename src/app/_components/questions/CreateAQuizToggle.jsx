@@ -8,7 +8,7 @@ import styles from "./CreateAQuizToggle.module.css";
 import Link from "next/link";
 
 //Component that allows you to choose the type of question:
-const CreateAQuizToggle = ({ quizzSlug }) => {
+const CreateAQuizToggle = ({ quizzSlug, questions }) => {
   const [show, setShow] = useState(true); //Toggle between create question form and question types
   const toggle = () => setShow(!show); //Handle toggle
   const [type, setQuestionType] = useState(); //Store the type of question selected
@@ -47,9 +47,14 @@ const CreateAQuizToggle = ({ quizzSlug }) => {
           onSelectQuestionType={toggle} //Allow to go back to the question types
         />
       )}
-      <Link href={`/application/quizzes/${quizzSlug}/edit/questions`}>
-        Edit questions
-      </Link>
+      {questions.map((question, i) => (
+        <Link
+          key={i}
+          href={`/application/quizzes/${quizzSlug}/edit/${question.id}`}
+        >
+          {i + 1}
+        </Link>
+      ))}
     </div>
   );
 };

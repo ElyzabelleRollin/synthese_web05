@@ -126,6 +126,7 @@ export const getNbQuestions = async (quizId) => {
   return questions.length;
 };
 
+// Update a question:
 export const updateQuestion = async (formData) => {
   //Get the data from the form:
   const title = formData.get("title"); //Title of the question
@@ -143,12 +144,12 @@ export const updateQuestion = async (formData) => {
     return;
   }
 
-  const TableauChoix = []; //Array to rebuild the choices with their uuid
+  const QuizChoices = []; //Array to rebuild the choices with their uuid
 
   //Push the choices and uuid into the array
   for (let i = 0; i < choices.length; i++) {
     //Create an object with the choice and uuid:
-    TableauChoix.push({
+    QuizChoices.push({
       choice: choices[i],
       uuid: choices_uuid[i],
     });
@@ -160,12 +161,12 @@ export const updateQuestion = async (formData) => {
   if (questionType == "Identify the sound") {
     answersObject = {
       sound: sound,
-      choices: TableauChoix,
+      choices: QuizChoices,
       correct_answer: correctAnswer,
     };
   } else {
     answersObject = {
-      choices: TableauChoix,
+      choices: QuizChoices,
       correct_answer: correctAnswer,
     };
   }
@@ -185,5 +186,5 @@ export const updateQuestion = async (formData) => {
     console.error("[createQuestionAction | Insert question]", questionError);
     return;
   }
-  revalidatePath(`/application/quizzes/${quizzSlug}/edit/questions`); //Revalidate the page
+  revalidatePath(`/application/quizzes/${quizzSlug}/edit/${questionId}`); //Revalidate the page
 };

@@ -7,13 +7,13 @@ import Primarybutton from "../primarybutton/primarybutton";
 import Secondarybutton from "../secondarybutton/secondarybutton";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
 import { updateQuestion } from "@/app/_actions/quiz";
+import { deleteQuestionByQuestionId } from "@/app/_actions/delete";
 
-//Composant to create a question
-//depending on the type of question:
+//Composant to edit a question of type Identify the sound:
 const EditIdentifyTheSound = ({ quizzSlug, questionInfos }) => {
-  const answers = JSON.parse(questionInfos.answers);
+  const answers = JSON.parse(questionInfos.answers); //Parse answers
 
-  // Initialize choices and states
+  // Initialize choices:
   const initChoices = () =>
     answers.choices.map((choice) => ({
       choice: choice.choice,
@@ -21,9 +21,9 @@ const EditIdentifyTheSound = ({ quizzSlug, questionInfos }) => {
     }));
 
   const [sound, setSound] = useState(answers.sound); //Store the sound for Identify the sound type's questions
-  const [choices, setChoices] = useState(initChoices);
-  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer);
-  const [title, setTitle] = useState(questionInfos.text);
+  const [choices, setChoices] = useState(initChoices); //Store the choices
+  const [correctChoice, setCorrectChoice] = useState(answers.correct_answer); //Store the correct answer
+  const [title, setTitle] = useState(questionInfos.text); //Store the title of the question
 
   //Add an image to a choice:
   const addImageChoice = (imageKey) => {
@@ -33,9 +33,7 @@ const EditIdentifyTheSound = ({ quizzSlug, questionInfos }) => {
     ]);
   };
 
-  //---fonction pour supprimer un choix de réponse du state.
-  //---choices.filter = pour filtrer les choix de réponse et supprimer le choix
-  //   de réponse associé au bouton cliqué.
+  //Function to remove an existing choice:
   const removeChoice = (index) => {
     const newChoices = choices.filter((_, i) => i !== index);
     setChoices(newChoices);
@@ -59,6 +57,14 @@ const EditIdentifyTheSound = ({ quizzSlug, questionInfos }) => {
         className={styles.form}
         action={choices.length >= 2 && updateQuestion}
       >
+        <div className={styles.backbtn}>
+          <Tertiarybutton
+            text="Back to questions"
+            iconleft="ArrowLeft"
+            theme="dark"
+            link={`/application/quizzes/${quizzSlug}/edit`}
+          />
+        </div>
         <div className={styles.create}>
           {sound == null ? (
             <label className={styles.choicelabel}>
@@ -220,7 +226,9 @@ const EditIdentifyTheSound = ({ quizzSlug, questionInfos }) => {
             <Secondarybutton
               text="Delete question"
               theme="dark"
-              action={null}
+              clickaction={() =>
+                deleteQuestionByQuestionId(questionInfos.id, quizzSlug)
+              }
             />
             <Primarybutton text="Save changes" theme="dark" />
           </div>
