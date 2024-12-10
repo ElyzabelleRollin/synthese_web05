@@ -5,6 +5,7 @@ import CreateQuestionForm from "./CreateQuestionForm";
 import QuestionType from "./QuestionType";
 import { useState } from "react";
 import styles from "./CreateAQuizToggle.module.css";
+import Link from "next/link";
 
 //Component that allows you to choose the type of question:
 const CreateAQuizToggle = ({ quizzSlug }) => {
@@ -46,6 +47,9 @@ const CreateAQuizToggle = ({ quizzSlug }) => {
           onSelectQuestionType={toggle} //Allow to go back to the question types
         />
       )}
+      <Link href={`/application/quizzes/${quizzSlug}/edit/questions`}>
+        Edit questions
+      </Link>
     </div>
   );
 };

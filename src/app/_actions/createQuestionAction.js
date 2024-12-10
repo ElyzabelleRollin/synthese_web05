@@ -15,8 +15,6 @@ export const createQuestionAction = async (formData) => {
   const questionType = formData.get("questionType"); //Type of question
   const sound = formData.get("sound"); //Sound for Identify the sound type's questions
 
-  console.log("[SOUND ACTION]", sound);
-
   //Protection against errors if no sound is selected:
   if (!sound && questionType == "Identify the sound") {
     console.error("No sound available to play!");

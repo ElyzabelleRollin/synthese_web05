@@ -1,6 +1,7 @@
 //Imports:
 "use server";
 import { createClient } from "../_lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 // Add or update the quiz score:
 export const addQuizScore = async (score, quizId) => {
@@ -123,4 +124,66 @@ export const getNbQuestions = async (quizId) => {
     .eq("quizz_id", quizId);
   if (error) console.log("[GET NB QUESTIONS:]", error);
   return questions.length;
+};
+
+export const updateQuestion = async (formData) => {
+  //Get the data from the form:
+  const title = formData.get("title"); //Title of the question
+  const choices = formData.getAll("choices"); //Question choices
+  const choices_uuid = formData.getAll("choices_uuid"); //Question choices uuid
+  const quizzSlug = formData.get("quizzSlug"); //Slug of the quizz
+  const correctAnswer = formData.get("correctAnswer"); //Correct answer
+  const questionType = formData.get("questionType"); //Type of question
+  const questionId = formData.get("questionId"); //Id of the question
+  const sound = formData.get("sound"); //Sound for Identify the sound type's questions
+
+  //Protection against errors if no sound is selected:
+  if (!sound && questionType == "Identify the sound") {
+    console.error("No sound available to play!");
+    return;
+  }
+
+  const TableauChoix = []; //Array to rebuild the choices with their uuid
+
+  //Push the choices and uuid into the array
+  for (let i = 0; i < choices.length; i++) {
+    //Create an object with the choice and uuid:
+    TableauChoix.push({
+      choice: choices[i],
+      uuid: choices_uuid[i],
+    });
+  }
+
+  let answersObject; //Object to store the answers
+
+  //Build the object to send to supabase:
+  if (questionType == "Identify the sound") {
+    answersObject = {
+      sound: sound,
+      choices: TableauChoix,
+      correct_answer: correctAnswer,
+    };
+  } else {
+    answersObject = {
+      choices: TableauChoix,
+      correct_answer: correctAnswer,
+    };
+  }
+
+  const choicesJson = JSON.stringify(answersObject); //Stringify the object
+
+  const supabase = createClient(); //Access the Supabase
+  //INSERT INTO questions
+  const { error: questionError } = await supabase
+    .from("questions")
+    .update({
+      text: title,
+      answers: choicesJson,
+    })
+    .eq("id", questionId);
+  if (questionError) {
+    console.error("[createQuestionAction | Insert question]", questionError);
+    return;
+  }
+  revalidatePath(`/application/quizzes/${quizzSlug}/edit/questions`); //Revalidate the page
 };
