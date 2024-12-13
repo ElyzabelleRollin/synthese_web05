@@ -14,7 +14,7 @@ const QuestionType = ({ type, description, action }) => {
       <div className={styles.btn}>
         <Tertiarybutton text="Add this type of question" iconright="ArrowRight" theme="dark" clickaction={action} />
       </div>
-    </div>
+    </div> 
   );
 };
 
