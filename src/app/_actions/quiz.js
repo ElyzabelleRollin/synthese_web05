@@ -67,9 +67,9 @@ export const averageScore = async (quizId) => {
 
   // Fetch all the scores for the quiz:
   const { data, error } = await supabase
-    .from("results")
-    .select("result")
-    .eq("quiz_id", quizId);
+  .from("results")
+  .select("result")
+  .eq("quiz_id", quizId);
   if (error) {
     console.log("[AVERAGE SCORE]:", error);
   }
