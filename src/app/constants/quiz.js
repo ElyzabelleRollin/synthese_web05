@@ -1,1 +1,1 @@
-export const NB_QUIZ_PAGE = 4;
+export const NB_QUIZ_PAGE = 5;

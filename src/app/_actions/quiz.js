@@ -124,3 +124,16 @@ export const getNbQuestions = async (quizId) => {
   if (error) console.log("[GET NB QUESTIONS:]", error);
   return questions.length;
 };
+
+export const fetchQuizzes = async (min, max, searchQuery) => {
+  const supabase = createClient();
+
+  const { data: quizzes } = await supabase
+    .from("quizzes")
+    .select("*")
+    // .ilike("name", `%${searchQuery}%`)
+    .range(min, max);
+
+  // console.log("[FETCH QUIZZES]" , quizzes)
+  return quizzes;
+};
