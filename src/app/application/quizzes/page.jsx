@@ -3,7 +3,6 @@ import { createClient } from "@/app/_lib/supabase/server";
 import React from "react";
 import QuizzesList from "@/app/_components/quizzes/QuizzesList";
 import SearchBar from "@/app/_components/searchbar/SearchBar";
-import { NB_QUIZ_PAGE } from "@/app/constants/quiz"
 import Footer from "@/app/_components/footer/footer";
 import styles from "@/app/_components/quizzes/QuizzesPage.module.css";
 import Tertiarybutton from "@/app/_components/tertiarybutton/tertiarybutton";
@@ -18,8 +17,7 @@ const QuizzesPage = async ({ searchParams }) => {
   const { data: quizzes } = await supabase
     .from("quizzes")
     .select("*")
-    .ilike("name", `%${searchQuery}%`)
-    .range(0, NB_QUIZ_PAGE)
+    .ilike("name", `%${searchQuery}%`);
 
   // Fetch profiles based on the search query in the username column:
   const { data: profiles } = await supabase

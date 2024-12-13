@@ -19,7 +19,6 @@ const SearchBar = () => {
 			params.delete("query"); // Remove "query" if empty
 		}
 		router.push(`?${params.toString()}`, { scroll: false }); // Update the URL with new parameters
-    setSearch("");
 	};
 
 	return (
