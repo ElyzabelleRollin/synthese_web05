@@ -61,7 +61,7 @@ const primarybutton = ({
 					) : null}
 				</Link>
 			) : (
-				<button className={styles.link} onClick={clickaction ? clickaction : null}>
+				<button className={styles.link} onClick={clickaction ? clickaction : null} type={clickaction ? "button" : "submit"}>
 					{iconleft ? (
 						<div className={`${styles.iconleft} ${styles.icon}`}>
 							{iconleft === "ArrowRight" ? (

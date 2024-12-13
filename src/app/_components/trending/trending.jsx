@@ -21,7 +21,7 @@ const trending = async () => {
 			<div className={styles.titlebar}>
 				<h2 className={styles.title}>Trending quizzes</h2>
 				<div className={styles.button}>
-					<Tertiarybutton text="View more" iconright="ArrowRight" theme="dark" />
+					<Tertiarybutton text="View more" iconright="ArrowRight" theme="dark" link={"/application/quizzes"}/>
 				</div>
 			</div>
 			<div className={styles.list}>

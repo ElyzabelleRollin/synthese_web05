@@ -113,7 +113,6 @@ const Profile = async ({ params }) => {
       </div>
       <div>
         <DisplayCreatedQuizzes quizzes={quizzes} userId={userId} />
-        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId} />
       </div>
       <div>
         <DisplayQuizzes quizzes={playedQuizzes} />

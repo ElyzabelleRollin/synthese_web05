@@ -1,0 +1,154 @@
+.playQuiz {
+	display: flex;
+	flex-direction: column;
+	height: 85vh;
+	padding-top: 8vh;
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 6vh;
+		justify-content: center;
+		padding: 0 15vw;
+        height: 50vh;
+	}
+
+	.questionTitle {
+        padding: 0 6vw;
+		font-size: 3rem;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	.playsoundbtn {
+		display: flex;
+		margin: 0 auto;
+		width: 8rem;
+		height: 8rem;
+		background-color: var(--foreground);
+		border-radius: 8rem;
+
+		& .playicon {
+			margin: auto;
+			width: 5rem;
+			height: 5rem;
+		}
+
+		&:hover {
+			cursor: pointer;
+			background-color: color-mix(in srgb, var(--foreground) 70%, #000 30%);
+		}
+	}
+
+	& .answersList {
+		display: flex;
+		flex-direction: row;
+        gap: 4rem;
+		justify-content: center;
+        border-radius: 2rem;
+        padding: 1rem;
+        background-color: var(--background);
+        box-shadow: 0 -0.2rem 1rem rgba(0, 0, 0, 0.3);
+	}
+
+	& .answerCard {
+		position: relative;
+        z-index: 3;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		height: fit-content;
+		width: 8rem;
+        margin-bottom: 2rem;
+		pointer-events: none;
+
+		& .letter {
+			font-size: 2rem;
+			font-weight: 700;
+		}
+
+		& .input {
+            pointer-events: all;
+			position: absolute;
+			bottom: 1rem;
+			right: 1rem;
+			width: 2rem;
+			aspect-ratio: 1/1;
+
+            &:hover {
+                cursor: pointer;
+            }
+		}
+		& .inputText {
+            pointer-events: all;
+			position: absolute;
+			top: 0.3rem;
+			right: 0;
+			width: 2rem;
+			aspect-ratio: 1/1;
+
+            &:hover {
+                cursor: pointer;
+            }
+		}
+
+		& .img {
+			width: 8rem;
+			height: 8rem;
+			border-radius: 2rem;
+            object-fit: cover;
+		}
+	}
+
+    & .buttonContainer {
+        margin: auto 0;
+        margin-left: 4rem;
+    }
+
+	.bottombar {
+		display: flex;
+		flex-direction: row;
+		padding: 2vh 10vw;
+		border-radius: 2rem 2rem 0 0;
+		margin-top: auto;
+		box-shadow: 0 -0.2rem 1rem rgba(0, 0, 0, 0.3);
+
+		& .progressline {
+			position: relative;
+			width: 70vw;
+			height: 1rem;
+			margin: auto;
+
+			& .linefill {
+				position: absolute;
+				z-index: 2;
+				height: 100%;
+				border-radius: 1rem;
+				background-color: var(--foreground);
+			}
+			& .linebg {
+				position: absolute;
+				z-index: 1;
+				height: 100%;
+				width: 100%;
+				border-radius: 1rem;
+				background-color: color-mix(
+					in srgb,
+					var(--foreground) 10%,
+					var(--background) 90%
+				);
+			}
+		}
+
+		& .progresstxt {
+			width: 10vw;
+
+			& .text {
+				width: 100%;
+				text-align: right;
+				font-size: 3rem;
+				font-weight: 700;
+			}
+		}
+	}
+}

@@ -55,7 +55,7 @@ const header = async () => {
         </li>
         <li className={styles.item}>
           <Primarybutton
-            text="Launch a quiz"
+            text="Find a quiz"
             theme="dark"
             link={"/application/quizzes"}
           />
