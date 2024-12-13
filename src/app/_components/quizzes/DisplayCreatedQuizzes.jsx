@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { deleteQuiz } from "@/app/_actions/delete";
+import { deleteQuizByQuizId } from "@/app/_actions/delete";
 import { getNbQuestions } from "@/app/_actions/quiz";
 import Primarybutton from "../primarybutton/primarybutton";
 import Tertiarybutton from "../tertiarybutton/tertiarybutton";
@@ -107,3 +107,4 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
   );
 };
 export default DisplayCreatedQuizzes;
+
