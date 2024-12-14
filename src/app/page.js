@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="homepage">
       <Hero/>
-      <Trending/>
+      {/* <Trending/> */}
       <Fiftyfifty type="left" title={"Create, Play, and Learn"} text={"Whether you're a teacher designing lessons, a student reviewing for exams, or a group of friends looking for entertainment, our platform has everything you need to create and enjoy custom quizzes."} img={PplPlaying}/>
       <Fiftyfifty type="right" title={"Challenge Your Knowledge"} text={"Dive into fun, interactive quizzes that bring families, friends, and classrooms together. Test your skills, learn something new, and rise to the top of the leaderboard!"} img={Challenge} />
       {/* <Loader/> */}

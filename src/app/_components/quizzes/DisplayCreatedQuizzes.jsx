@@ -73,6 +73,7 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
                   <Primarybutton
                     text="Edit"
                     theme="dark"
+                    iconright="Edit"
                     link={`/application/quizzes/${quiz.slug}/edit`}
                   />
 
@@ -91,6 +92,7 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
                       <Tertiarybutton
                         text="Play"
                         theme="dark"
+                        iconright="ArrowRight"
                         link={`/application/quizzes/${quiz.slug}`}
                       />
                     </div>

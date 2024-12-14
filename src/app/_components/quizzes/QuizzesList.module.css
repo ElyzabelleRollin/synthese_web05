@@ -4,4 +4,6 @@
     grid-template-rows: 1fr;
     gap: 2rem;
     margin-bottom: 10vw;
+    height: fit-content;
+    overflow: visible !important;
 }

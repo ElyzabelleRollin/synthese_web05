@@ -49,7 +49,7 @@ const header = async () => {
         <li className={styles.item}>
           {user && (
             <form action={logout}>
-              {user && <Secondarybutton text="Logout" theme="dark" />}
+              {user && <Secondarybutton text="Logout" iconleft="Logout" theme="dark" />}
             </form>
           )}
         </li>
@@ -57,6 +57,7 @@ const header = async () => {
           <Primarybutton
             text="Find a quiz"
             theme="dark"
+            iconright={"ArrowRight"}
             link={"/application/quizzes"}
           />
         </li>

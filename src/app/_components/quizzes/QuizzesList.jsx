@@ -54,7 +54,6 @@ const QuizzesList = ({ searchQuery, quizzes }) => {
       next={loadMoreQuizzes} // function to call when more data is needed
       hasMore={hasMoreQuizzes}
       loader={<h4>Loading...</h4>} // Loading spinner or message
-      height={400} // Height of the scrollable area
       endMessage={<p>Yay! You have seen it all</p>} // End of the list message
     >
       {items.length > 0 ? (
