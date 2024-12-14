@@ -12,8 +12,7 @@ const HeroQuizzes = () => {
                 <h1 className={styles.title}>Choose Your Quiz Adventure!</h1>
                 <p className={styles.text}>Step into the world of fun and learning! Explore a variety of exciting quizzes designed to challenge your mind and spark your curiosity. Whether you're competing with friends, testing your knowledge, or just having a good time, there’s a quiz waiting for everyone. Ready to dive in? Let the games begin!</p>
                 <div className={styles.buttons}>
-                    <PrimaryButton text="Find a quiz" iconright="ArrowRight" theme="light" link="/application/quizzes"/>
-                    <SecondaryButton text="Create your own quiz!" iconright="ArrowRight" theme="light" link={"/application/quizzes/create"}/>
+                    <PrimaryButton text="Create your own quiz!" iconright="ArrowRight" theme="light" link={"/application/quizzes/create"}/>
                 </div>
             </div>
         </section>
