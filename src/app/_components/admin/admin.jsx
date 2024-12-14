@@ -56,7 +56,7 @@ const Admin = ({ quizzes, userEmail }) => {
 	var theme = '';
 	return (
 		<div className={styles.admin}>
-			<h1 className={styles.title}>Options d'admin</h1>
+			<h1 className={styles.title}>Admin Panel</h1>
 			<nav>
 				<ul className={styles.nav}>
 					<li>
