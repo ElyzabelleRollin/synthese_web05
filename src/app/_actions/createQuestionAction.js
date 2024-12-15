@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "../_lib/supabase/server";
 import { redirect } from "next/navigation";
+import { set } from "zod";
 
 //Action to add a question to a quizz:
 export const createQuestionAction = async (formData) => {
@@ -141,6 +142,5 @@ export const createQuestionActionFinish = async (formData) => {
   if (questionError)
     console.error("[createQuestionAction | Insert question]", questionError);
 
-  console.log(user.id);
   redirect(`/application/profiles/${user.id}`); //Redirect to the user's profile
 };

@@ -29,14 +29,18 @@ const EditQuizzPage = async ({ params }) => {
 
   //fetch the xp from the profile of the user
   const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('xp')
-    .eq('id', user.id)
+    .from("profiles")
+    .select("xp")
+    .eq("id", user.id)
     .single();
 
   return (
     <div>
-      <CreateAQuizToggle quizzSlug={quizzSlug} questions={questions} userXp={profile.xp} />
+      <CreateAQuizToggle
+        quizzSlug={quizzSlug}
+        questions={questions}
+        userXp={profile.xp}
+      />
     </div>
   );
 };

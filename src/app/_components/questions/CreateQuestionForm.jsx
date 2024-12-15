@@ -37,10 +37,6 @@ const CreateQuestionForm = ({
     }
   };
 
-  function errorMessage() {
-    console.log("Error");
-  }
-
   //---fonction pour supprimer un choix de réponse du state.
   //---choices.filter = pour filtrer les choix de réponse et supprimer le choix
   //   de réponse associé au bouton cliqué.
@@ -57,20 +53,13 @@ const CreateQuestionForm = ({
     setChoices(newChoices);
   };
 
-  // const do2shits = (formData) => {
-  //   createQuestionAction(formData);
-  //   onSelectQuestionType();
-  // };
-  // const do2shits2 = (formData) => {
-  //   createQuestionActionFinish(formData);
-  //   onSelectQuestionType();
-  // };
-
   const handleSubmit = (formData) => {
-    isFormFinished
-      ? createQuestionActionFinish(formData)
-      : createQuestionAction(formData);
-    onSelectQuestionType();
+    if (isFormFinished) {
+      createQuestionActionFinish(formData); // Handle the finished action
+    } else {
+      createQuestionAction(formData); // Handle intermediate action
+    }
+    onSelectQuestionType(); // Trigger question type selection
   };
 
   //Play the sound
