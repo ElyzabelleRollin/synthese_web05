@@ -5,6 +5,8 @@ import FormModifyUsername from "@/app/_components/profile/FormModifyUsername";
 import styles from "@/app/_components/profile/profile.module.css";
 import DisplayQuizzes from "@/app/_components/quizzes/DisplayQuizzes";
 import DisplayCreatedQuizzes from "@/app/_components/quizzes/DisplayCreatedQuizzes";
+import { resolve } from "styled-jsx/css";
+import DisplayBadges from "@/app/_components/badges/DisplayBadges";
 
 const wait = (delay) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
@@ -54,6 +56,8 @@ const Profile = async ({ params }) => {
     .select("*, quizzes(*)")
     .eq("user_id", userId);
 
+
+
   return (
     <div className={styles.profilepage}>
       <div className={styles.profile}>
@@ -99,16 +103,19 @@ const Profile = async ({ params }) => {
             <div className={styles.titles}>
               <p>Member since</p>
               <p>Email</p>
+              <p>XP</p>
             </div>
             <div className={styles.data}>
               <p>{user.created_at.split("T")[0]}</p>
               <p>{user.email}</p>
+              <p>{user.xp}</p>
             </div>
           </div>
         </div>
 
         <div className={styles.rightpanel}>
           <FormModifyUsername />
+          <DisplayBadges userId={userId} />
         </div>
       </div>
       <div>
