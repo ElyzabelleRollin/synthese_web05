@@ -157,7 +157,7 @@ const CreateQuestionForm = ({
                 <input
                   type="hidden"
                   name="sound"
-                  value={sound ? `https://utfs.io/f/${sound}` : null}
+                  value={sound ? `https://utfs.io/f/${sound}` : ""}
                   required
                 />
               </>
