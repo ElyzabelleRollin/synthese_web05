@@ -12,7 +12,7 @@
         flex-wrap: wrap;
         width: 50vw;
         min-width: 20rem;
-        background-color: var(--foreground);
+        background-color: var(--primary2);
         color: var(--background);
         
         & .content {

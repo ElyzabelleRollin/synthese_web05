@@ -9,9 +9,8 @@
     aspect-ratio: 1/1;
     padding: 2rem;
     border-radius: 1rem;
-    background-color: var(--background);
+    /* background-color: var(--background); */
     box-shadow: 0 0 1rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
-    z-index: -2;
 
     & .img{
         position: absolute;
@@ -30,7 +29,6 @@
         line-height: 2.4rem;
         font-weight: 800;
         margin-bottom: 1.5rem;
-        z-index: 1;
     }
 
     & .description{
@@ -39,12 +37,10 @@
         font-weight: 400;
         margin-bottom: 1rem;
         text-wrap: wrap;
-        z-index: 1;
     }
 
     & .btn{
         margin-top: auto;
         margin-bottom: 2rem;
-        z-index: 1;
     }
 }
