@@ -57,8 +57,19 @@ const CreateQuestionForm = ({
     setChoices(newChoices);
   };
 
-  const do2shits = (formData) => {
-    createQuestionAction(formData);
+  // const do2shits = (formData) => {
+  //   createQuestionAction(formData);
+  //   onSelectQuestionType();
+  // };
+  // const do2shits2 = (formData) => {
+  //   createQuestionActionFinish(formData);
+  //   onSelectQuestionType();
+  // };
+
+  const handleSubmit = (formData) => {
+    isFormFinished
+      ? createQuestionActionFinish(formData)
+      : createQuestionAction(formData);
     onSelectQuestionType();
   };
 
@@ -76,13 +87,8 @@ const CreateQuestionForm = ({
     <div className={styles.createquestionform}>
       <form
         className={styles.form}
-        action={
-          choices.length >= 2
-            ? isFormFinished
-              ? createQuestionActionFinish
-              : do2shits
-            : errorMessage
-        }
+        action={choices.length >= 2 && handleSubmit}
+        preventDefault
       >
         <div className={styles.backbtn}>
           <Tertiarybutton

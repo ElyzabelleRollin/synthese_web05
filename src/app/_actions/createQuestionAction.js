@@ -129,10 +129,7 @@ export const createQuestionActionFinish = async (formData) => {
     .select("id")
     .eq("slug", quizzSlug)
     .single();
-  if (error) {
-    console.error("[createQuestionAction | Get quizz]", error);
-    return;
-  }
+  if (error) console.error("[createQuestionAction | Get quizz]", error);
 
   //INSERT INTO questions
   const { error: questionError } = await supabase.from("questions").insert({
@@ -141,9 +138,9 @@ export const createQuestionActionFinish = async (formData) => {
     quizz_id: quizz.id,
     type: questionType,
   });
-  if (questionError) {
+  if (questionError)
     console.error("[createQuestionAction | Insert question]", questionError);
-    return;
-  }
+
+  console.log(user.id);
   redirect(`/application/profiles/${user.id}`); //Redirect to the user's profile
 };

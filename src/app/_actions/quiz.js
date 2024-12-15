@@ -1,5 +1,6 @@
 //Imports:
 "use server";
+import { redirect } from "next/navigation";
 import { createClient } from "../_lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
@@ -199,5 +200,5 @@ export const updateQuestion = async (formData) => {
     console.error("[createQuestionAction | Insert question]", questionError);
     return;
   }
-  revalidatePath(`/application/quizzes/${quizzSlug}/edit/${questionId}`); //Revalidate the page
+  redirect(`/application/quizzes/${quizzSlug}/edit`); //Revalidate the page
 };
