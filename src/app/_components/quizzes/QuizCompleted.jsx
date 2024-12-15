@@ -17,8 +17,8 @@ const QuizCompleted = ({ score, questionsLength, userID, average, earnedXp }) =>
 					? `${average} out of ${questionsLength}`
 					: `0 out of ${questionsLength}`}
 			</p>
-			<p>
-				You gained {earnedXp} XP
+			<p className={styles.earnedXp}>
+				You gained: <span className={styles.xp}>{earnedXp} XP</span>
 			</p>
 			<div className={styles.buttons}>
 				<Secondarybutton text="Go back to the quizzes" iconleft="ArrowLeft" theme="dark" link="/application/quizzes" />

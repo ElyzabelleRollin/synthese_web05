@@ -114,7 +114,7 @@ const Profile = async ({ params }) => {
         </div>
 
         <div className={styles.rightpanel}>
-          <FormModifyUsername />
+          <FormModifyUsername name={user.username} />
           <DisplayBadges userId={userId} />
         </div>
       </div>
