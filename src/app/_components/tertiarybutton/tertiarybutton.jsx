@@ -60,7 +60,7 @@ const tertiarybutton = ({
 						</div>
 					) : null}
 				</Link>
-			) : (
+			) : ( 
 				<button className={styles.link} onClick={clickaction ? clickaction : null} type={clickaction ? "button" : "submit"}>
 					{iconleft ? (
 						<div className={`${styles.iconleft} ${styles.icon}`}>
