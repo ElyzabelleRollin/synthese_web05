@@ -26,52 +26,59 @@ const header = async () => {
     profile = data;
   }
 
-	return (
-		<div className={styles.header}>
-			<Link href="/" className={styles.logo}>
-				<img src="https://utfs.io/f/7ixYXIUQkVedUo8zBoZYmcDdAI86bMeKsjlPa0RLOGXuotWf" alt="hoothoot logo" className={styles.logo} />
-			</Link>
-			<nav className={styles.nav}>
-				<li className={styles.item}>
-					{!user && <Secondarybutton text="Login" iconright="Login" theme="dark" link={"/auth/login"} />}
-				</li>
-				<li className={styles.item}>
-					{user && (
-						<form action={logout}>
-							{user && <Secondarybutton text="Logout" iconright="Logout" theme="dark" />}
-						</form>
-					)}
-				</li>
-				<li className={styles.item}>
-					<Secondarybutton
-						text="Find a quiz"
-						iconright="ArrowRight"
-						theme="dark"
-						link={"/application/quizzes"}
-					/>
-				</li>
-				{/* Only users with 1000 xp or more can see the create quiz button */}
+  return (
+    <div className={styles.header}>
+      <Link href="/" className={styles.logo}>
+        <img src="https://utfs.io/f/7ixYXIUQkVedUo8zBoZYmcDdAI86bMeKsjlPa0RLOGXuotWf" alt="hoothoot logo" className={styles.img} />
+      </Link>
+      <nav className={styles.nav}>
         <li className={styles.item}>
-          {profile && profile.xp >= 1000 ? (
-            <Primarybutton
-              text="Create a quiz"
-              iconright="ArrowRight"
+          {!user && (
+            <Secondarybutton text="Login" theme="dark" link={"/auth/login"} />
+          )}
+        </li>
+        <li className={styles.item}>
+          {profile && profile.role === "admin" ? (
+            <Secondarybutton
+              text="Admin"
               theme="dark"
-              link={"/application/quizzes/create"}
+              link="/application/admin"
             />
           ) : null}
         </li>
+        <li className={styles.item}>
+          {user && (
+            <form action={logout}>
+              {user && <Secondarybutton text="Logout" iconleft="Logout" theme="dark" />}
+            </form>
+          )}
+        </li>
+        <li className={styles.item}>
+          <Primarybutton
+            text="Find a quiz"
+            theme="dark"
+            iconright={"ArrowRight"}
+            link={"/application/quizzes"}
+          />
+        </li>
 
-				<li className={styles.item}>
-					{user && (
-						<Link href={`/application/profiles/${user.id}`} className={styles.avatar}>
-							<img src={profile.avatar} alt={profile.username} className={styles.img} />
-						</Link>
-					)}
-				</li>
-			</nav>
-		</div>
-	);
+        <li className={styles.item}>
+          {user && (
+            <Link
+              href={`/application/profiles/${user.id}`}
+              className={styles.avatar}
+            >
+              <img
+                src={profile.avatar}
+                alt={profile.username}
+                className={styles.img}
+              />
+            </Link>
+          )}
+        </li>
+      </nav>
+    </div>
+  );
 };
 
 export default header;
