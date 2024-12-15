@@ -22,23 +22,37 @@ const CreateAQuizToggle = ({ quizzSlug, questions }) => {
 	return (
 		<div className={styles.questiontypescontainer}>
 			{show && (
-				<div className={styles.questiontypes}>
-					<QuestionType
-						type="Normal multiple choice"
-						description="You have to choose the correct answer"
-						action={() => handleClick('Normal multiple choice')} //Allow to access the multiple choice type form
-					/>
-					<QuestionType
-						type="Find the intruder"
-						description="You have to find the intruder"
-						action={() => handleClick('Find the intruder')} //Allow to access the find the intruder type form
-					/>
-					<QuestionType
-						type="Identify the sound"
-						description="A sound is played. You have to identify the sound"
-						action={() => handleClick('Identify the sound')} //Allow to access the identify the sound type form
-					/>
-				</div>
+				<>
+					<div className={styles.questiontypes}>
+						<QuestionType
+							type="Normal multiple choice"
+							description="You have to choose the correct answer"
+							action={() => handleClick('Normal multiple choice')} //Allow to access the multiple choice type form
+						/>
+						<QuestionType
+							type="Find the intruder"
+							description="You have to find the intruder"
+							action={() => handleClick('Find the intruder')} //Allow to access the find the intruder type form
+						/>
+						<QuestionType
+							type="Identify the sound"
+							description="A sound is played. You have to identify the sound"
+							action={() => handleClick('Identify the sound')} //Allow to access the identify the sound type form
+						/>
+					</div>
+					<div className={styles.questionsEdit}>
+						<h3 className={styles.editTitle}>Edit</h3>
+						<figure className={styles.line}></figure>
+						{questions.map((question, i) => (
+							<div className={styles.number}>
+								<Link key={i} href={`/application/quizzes/${quizzSlug}/edit/${question.id}`}>
+									{i + 1}
+								</Link>
+							</div>
+						))}
+						<figure className={`${styles.number} ${styles.fig} ${questions.length === 0 && styles.empty}`}></figure>
+					</div>
+				</>
 			)}
 			{!show && (
 				<CreateQuestionForm
@@ -47,11 +61,6 @@ const CreateAQuizToggle = ({ quizzSlug, questions }) => {
 					onSelectQuestionType={toggle} //Allow to go back to the question types
 				/>
 			)}
-			{questions.map((question, i) => (
-				<Link key={i} href={`/application/quizzes/${quizzSlug}/edit/${question.id}`}>
-					{i + 1}
-				</Link>
-			))}
 		</div>
 	);
 };
