@@ -3,3 +3,35 @@
     gap: 2rem;
     margin-bottom: 2rem;
 }
+
+.num{
+    position: absolute;
+
+    &.inactive{
+        animation: down .6s forwards ;
+    }
+    &.active{
+        animation: up .6s forwards ;
+    }
+}
+
+@keyframes up{
+    from {
+        transform: scale(1);
+        color: var(--foreground);
+    }
+    to {
+        transform: scale(1.5);
+        color: red;
+    }
+}
+@keyframes down{
+    from {
+        transform: scale(1.5);
+        color: red;
+    }
+    to {
+        transform: scale(1);
+        color: var(--foreground);
+    }
+}
