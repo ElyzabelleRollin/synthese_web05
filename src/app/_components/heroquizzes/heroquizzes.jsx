@@ -7,7 +7,7 @@ const HeroQuizzes = () => {
 
     return (
         <section className={styles.heroQuizzes}>
-            <img src="https://placehold.co/1920x1080" alt="hero background" className={styles.herobg} />
+            <img src="https://utfs.io/f/OJp1c0WpBPn044zNChP2dNPhVZpEjKqvARmbMJkY57cLWaws" alt="hero background" className={styles.herobg} />
             <div className={styles.content}>
                 <h1 className={styles.title}>Choose Your Quiz Adventure!</h1>
                 <p className={styles.text}>Step into the world of fun and learning! Explore a variety of exciting quizzes designed to challenge your mind and spark your curiosity. Whether you're competing with friends, testing your knowledge, or just having a good time, there’s a quiz waiting for everyone. Ready to dive in? Let the games begin!</p>
