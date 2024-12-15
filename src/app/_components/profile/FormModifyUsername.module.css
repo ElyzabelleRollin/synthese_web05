@@ -1,0 +1,36 @@
+.form{
+    display: flex;
+    width: 100%;
+    padding: 0 5%;
+    margin-bottom: 2rem;
+
+    & .input {
+		width: 50%;
+		margin-bottom: 2rem;
+		color: var(--foreground);
+		background-color: transparent;
+		border-bottom: 2px solid var(--foreground);
+		opacity: 1;
+
+		&::placeholder {
+			color: var(--foreground);
+		}
+
+		&:placeholder-shown {
+			opacity: 0.5;
+		}
+
+		&:focus {
+			outline: none;
+			opacity: 1;
+
+			&::placeholder {
+				color: transparent;
+			}
+		}
+	}
+
+    & .button{
+        margin-left: auto;
+    }
+}

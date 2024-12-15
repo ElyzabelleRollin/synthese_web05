@@ -116,7 +116,9 @@ const Profile = async ({ params }) => {
         </div>
 
         <div className={styles.rightpanel}>
-          {userConnected.id === userId && <FormModifyUsername />}
+          {userConnected.id === userId && (
+            <FormModifyUsername name={user.username} />
+          )}
           <DisplayBadges userId={userId} />
         </div>
       </div>

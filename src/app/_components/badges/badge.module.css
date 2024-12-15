@@ -1,0 +1,39 @@
+.badge{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+    margin-top: 2rem;
+
+    &:first-of-type{
+        margin-top: 0;
+    }
+
+    &.inactive{
+        opacity: 0.5;
+    }
+    &.active{
+        opacity: 1;
+    }
+}
+
+.img{
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+}
+
+.infos{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    & .title{
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    & .unlocked{
+        color: green;
+    }
+}
