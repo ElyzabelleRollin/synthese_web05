@@ -57,7 +57,7 @@ const QuizzesPage = async ({ searchParams }) => {
                     <Tertiarybutton
                       text="View Profile"
                       theme="dark"
-                      Link={`/profiles/${profile.username}`}
+                      link={`/application/profiles/${profile.id}`}
                     />
                   </div>
                 </div>
