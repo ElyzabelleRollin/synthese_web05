@@ -22,7 +22,7 @@ const EditQuestions = async ({ params }) => {
   return (
     <div>
       {question && (
-        <div>
+        <div style={{ padding: "0 10vw" }}>
           {question.type === "Normal multiple choice" && (
             <EditMultipleChoices
               questionInfos={question}

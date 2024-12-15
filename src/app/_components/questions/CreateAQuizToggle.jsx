@@ -20,7 +20,7 @@ const CreateAQuizToggle = ({ quizzSlug, questions }) => {
 	}
 
 	return (
-		<div className={styles.questiontypescontainer}>
+		<div className={`${styles.questiontypescontainer} ${show && styles.show}`}>
 			{show && (
 				<>
 					<div className={styles.questiontypes}>

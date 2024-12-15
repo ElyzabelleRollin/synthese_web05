@@ -7,7 +7,10 @@
 	margin: auto;
 	height: 85vh;
 	padding: 0 10vw;
-	padding-bottom: 15vh;
+    
+    &.show{
+        padding-bottom: 15vh;
+    }
 
 	.questiontypes {
 		display: grid;
