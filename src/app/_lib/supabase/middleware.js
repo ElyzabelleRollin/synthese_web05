@@ -51,7 +51,8 @@ export async function updateSession(request) {
     (!user || banned) && // If the user is not logged in or banned
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/auth") &&
-    !request.nextUrl.pathname.startsWith("/api/uploadthing")
+    !request.nextUrl.pathname.startsWith("/api/uploadthing") &&
+    request.nextUrl.pathname !== "/"
   ) {
     const url = request.nextUrl.clone();
 

@@ -1,20 +1,18 @@
 //Imports:
-'use client';
-import React, { useEffect, useState } from 'react';
-import { addQuizScore } from '@/app/_actions/quiz';
-import { fetchAverage } from '@/app/_actions/quiz';
-import QuizCompleted from '../quizzes/QuizCompleted';
-import styles from './QuestionsList.module.css';
-import Primarybutton from '../primarybutton/primarybutton';
-import { addXp } from '@/app/_actions/badges';
+"use client";
+import React, { useEffect, useState } from "react";
+import { addQuizScore } from "@/app/_actions/quiz";
+import QuizCompleted from "../quizzes/QuizCompleted";
+import styles from "./QuestionsList.module.css";
+import Primarybutton from "../primarybutton/primarybutton";
+import { addXp } from "@/app/_actions/badges";
 
 //Component that allows you to play a quiz
 //Shows the questions one by one
 const QuestionsList = ({ questions, quiz, userID }) => {
-  const [userAnswers, setUserAnswers] = useState(questions.map(() => '')); // State to store user's answers
+  const [userAnswers, setUserAnswers] = useState(questions.map(() => "")); // State to store user's answers
   const [quizCompleted, setQuizCompleted] = useState(false); // State to track quiz completion
   const [score, setScore] = useState(0); // State to store score
-  const [average, setAverage] = useState(null); // State to store the average score
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Track current question
   const [earnedXp, setEarnedXp] = useState(0);
 
@@ -26,18 +24,16 @@ const QuestionsList = ({ questions, quiz, userID }) => {
   };
 
   // Function to handle form submission:
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+  const handleSubmit = () => {
     let calculatedScore = 0; // Initialize calculated score
-    // Calculate score:
+    // Calculate score
     questions.forEach((question, index) => {
       const answers = JSON.parse(question.answers); // Parse answers
       // Check if the user's answer is correct:
       if (userAnswers[index] === answers.correct_answer) calculatedScore++; // Increment score if correct
     });
     setScore(calculatedScore); // Set score in state
-    await addQuizScore(calculatedScore, quiz.id); // Add quiz score to database
-    setAverage(await fetchAverage(quiz.id)); // Fetch average score for the quiz
+    addQuizScore(calculatedScore, quiz.id); // Add quiz score to database
     setQuizCompleted(true); // Set quizCompleted to true
   };
 
@@ -45,11 +41,11 @@ const QuestionsList = ({ questions, quiz, userID }) => {
   const playSound = (sound) => {
     // Check if sound is available:
     if (!sound) {
-      console.error('No sound available to play!');
+      console.error("No sound available to play!");
       return;
     }
     const audio = new Audio(sound); // Create audio element
-    audio.play().catch((err) => console.error('Error playing audio:', err)); // Play audio
+    audio.play().catch((err) => console.error("Error playing audio:", err)); // Play audio
   };
 
   // Function to go to the next question:
@@ -58,7 +54,6 @@ const QuestionsList = ({ questions, quiz, userID }) => {
     if (currentQuestionIndex < questions.length - 1)
       setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
-
 
   //Calculate the score in percentage
   const calculatePercentage = (score, total) => {
@@ -74,11 +69,10 @@ const QuestionsList = ({ questions, quiz, userID }) => {
     }
   }, [quizCompleted, score, questions.length]);
 
-
   return (
     <div className={styles.playQuiz}>
       {!quizCompleted ? (
-        <form onSubmit={handleSubmit}>
+        <form action={handleSubmit}>
           {questions.map((question, index) => {
             if (index !== currentQuestionIndex) return null; // Show only the current question
             const answers = JSON.parse(question.answers);
@@ -86,7 +80,7 @@ const QuestionsList = ({ questions, quiz, userID }) => {
               <div className={styles.form} key={question.id}>
                 <h2 className={styles.questionTitle}>{question.text}</h2>
                 <div className={styles.questionElement}>
-                  {question.type === 'Identify the sound' && (
+                  {question.type === "Identify the sound" && (
                     <button
                       className={styles.playsoundbtn}
                       type="button"
@@ -100,7 +94,11 @@ const QuestionsList = ({ questions, quiz, userID }) => {
                         className={styles.playicon}
                       >
                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></g>
                         <g id="SVGRepo_iconCarrier">
                           <path
                             d="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z"
@@ -115,30 +113,42 @@ const QuestionsList = ({ questions, quiz, userID }) => {
                   {answers.choices.map((answer, idx) => (
                     <li className={styles.answerCard} key={idx}>
                       <span className={styles.letter}>
-                        {idx == 0 ? 'A.' : idx == 1 ? 'B.' : idx == 2 ? 'C.' : idx == 3 ? 'D.' : 'E.'}
+                        {idx == 0
+                          ? "A."
+                          : idx == 1
+                          ? "B."
+                          : idx == 2
+                          ? "C."
+                          : idx == 3
+                          ? "D."
+                          : "E."}
                       </span>
-                      {question.type === 'Identify the sound' || question.type === 'Find the intruder'
-                        ? (
-                          <input
-                            type="radio"
-                            className={styles.input}
-                            name={`question-${index}`}
-                            value={answer.uuid}
-                            onChange={() => handleAnswerChange(index, answer.uuid)}
-                            checked={userAnswers[index] === answer.uuid}
-                          />
-                        ) : (
-                          <input
-                            type="radio"
-                            className={styles.inputText}
-                            name={`question-${index}`}
-                            value={answer.uuid}
-                            onChange={() => handleAnswerChange(index, answer.uuid)}
-                            checked={userAnswers[index] === answer.uuid}
-                          />
-                        )}
-                      {question.type === 'Identify the sound' ||
-                        question.type === 'Find the intruder' ? (
+                      {question.type === "Identify the sound" ||
+                      question.type === "Find the intruder" ? (
+                        <input
+                          type="radio"
+                          className={styles.input}
+                          name={`question-${index}`}
+                          value={answer.uuid}
+                          onChange={() =>
+                            handleAnswerChange(index, answer.uuid)
+                          }
+                          checked={userAnswers[index] === answer.uuid}
+                        />
+                      ) : (
+                        <input
+                          type="radio"
+                          className={styles.inputText}
+                          name={`question-${index}`}
+                          value={answer.uuid}
+                          onChange={() =>
+                            handleAnswerChange(index, answer.uuid)
+                          }
+                          checked={userAnswers[index] === answer.uuid}
+                        />
+                      )}
+                      {question.type === "Identify the sound" ||
+                      question.type === "Find the intruder" ? (
                         <img src={answer.choice} className={styles.img} />
                       ) : (
                         <p>{answer.choice}</p>
@@ -149,13 +159,17 @@ const QuestionsList = ({ questions, quiz, userID }) => {
                     {currentQuestionIndex < questions.length - 1 && (
                       <Primarybutton
                         text="Next"
-                        theme={'dark'}
+                        theme={"dark"}
                         iconright="ArrowRight"
                         clickaction={goToNextQuestion}
                       />
                     )}
                     {currentQuestionIndex === questions.length - 1 && (
-                      <Primarybutton text="Submit" theme={'dark'} iconright="ArrowRight" />
+                      <Primarybutton
+                        text="Submit"
+                        theme={"dark"}
+                        iconright="ArrowRight"
+                      />
                     )}
                   </li>
                 </ul>
@@ -168,7 +182,7 @@ const QuestionsList = ({ questions, quiz, userID }) => {
           score={score}
           questionsLength={questions.length}
           userID={userID}
-          average={average}
+          average={quiz.average}
           earnedXp={earnedXp}
         />
       )}
@@ -176,7 +190,11 @@ const QuestionsList = ({ questions, quiz, userID }) => {
         <div className={styles.progressline}>
           <figure
             className={styles.linefill}
-            style={{ width: `${((currentQuestionIndex + 1) * 100) / questions.length}%` }}
+            style={{
+              width: `${
+                ((currentQuestionIndex + 1) * 100) / questions.length
+              }%`,
+            }}
           ></figure>
           <figure className={styles.linebg}></figure>
         </div>
