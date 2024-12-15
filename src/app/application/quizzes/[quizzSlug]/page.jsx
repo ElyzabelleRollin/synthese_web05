@@ -1,18 +1,19 @@
+//Imports:
 import React from "react";
 import QuestionsList from "../../../_components/questions/QuestionsList";
 import { createClient } from "@/app/_lib/supabase/server";
 
 //Page to play a quiz
 const QuizPage = async ({ params }) => {
-  const { quizzSlug } = params;
-  const supabase = createClient();
+  const { quizzSlug } = params; //Get the slug of the quiz
+  const supabase = createClient(); //Access the Supabase
 
   // Get the user
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Get the quiz
+  // Get the quiz:
   const { data: quiz, error } = await supabase
     .from("quizzes")
     .select("*")
@@ -20,7 +21,7 @@ const QuizPage = async ({ params }) => {
     .single();
   if (error) console.log("[GET QUIZ]", error);
 
-  // Get all the questions for the quiz
+  // Get all the questions for the quiz:
   const { data: questions, error: questionsError } = await supabase
     .from("questions")
     .select("*")
