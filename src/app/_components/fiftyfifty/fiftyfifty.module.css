@@ -3,12 +3,16 @@
     height: 110vh;
     margin: 0;
 
+    &:last-of-type{
+        margin-bottom: 5rem;
+    }
+
     & .contentcontainer {
         display: flex;
         flex-wrap: wrap;
         width: 50vw;
         min-width: 20rem;
-        background-color: var(--foreground);
+        background-color: var(--primary2);
         color: var(--background);
         
         & .content {

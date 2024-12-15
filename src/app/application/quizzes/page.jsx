@@ -1,8 +1,12 @@
 import { createClient } from "@/app/_lib/supabase/server";
 import React from "react";
-import Link from "next/link";
 import QuizzesList from "@/app/_components/quizzes/QuizzesList";
 import SearchBar from "@/app/_components/searchbar/SearchBar";
+import { NB_QUIZ_PAGE } from "@/app/constants/quiz";
+import Footer from "@/app/_components/footer/footer";
+import styles from "@/app/_components/quizzes/QuizzesPage.module.css";
+import Tertiarybutton from "@/app/_components/tertiarybutton/tertiarybutton";
+import HeroQuizzes from "@/app/_components/heroquizzes/heroquizzes";
 
 const QuizzesPage = async ({ searchParams }) => {
   const supabase = createClient();
@@ -12,7 +16,8 @@ const QuizzesPage = async ({ searchParams }) => {
   const { data: quizzes } = await supabase
     .from("quizzes")
     .select("*")
-    .ilike("name", `%${searchQuery}%`);
+    .ilike("name", `%${searchQuery}%`)
+    .range(0, NB_QUIZ_PAGE - 1);
 
   // Fetch profiles based on the search query in the username column
   const { data: profiles } = await supabase
@@ -21,32 +26,47 @@ const QuizzesPage = async ({ searchParams }) => {
     .ilike("username", `%${searchQuery}%`);
 
   return (
-    <div>
-      {/* Search bar */}
-      <SearchBar searchQuery={searchQuery} />
+    <div className={styles.quizzespage}>
+      <HeroQuizzes />
+      <div className={styles.content}>
+        {/* Search bar */}
+        <SearchBar searchQuery={searchQuery} />
 
-      {/* Display quizzes based on the search */}
-      {quizzes && quizzes.length > 0 ? (
-          <QuizzesList quizzes={quizzes}/>
-      ) : (
-        <p>No quizzes found</p>
-      )}
+        {/* Display quizzes based on the search */}
+        {quizzes && quizzes.length > 0 ? (
+          <QuizzesList quizzes={quizzes} searchQuery={searchQuery} />
+        ) : (
+          <p>No quizzes found</p>
+        )}
 
-      {/* Optionally, you can display profiles based on the search */}
-      {profiles && profiles.length > 0 && (
-        <div className="mt-4">
-          <h2>Profiles</h2>
-          <div className="grid grid-cols-3 gap-4">
-            {profiles.map((profile) => (
-              <div key={profile.id} className="border p-4 bg-slate-400">
-                <h3>{profile.username}</h3>
-                <p>{profile.bio}</p>
-                <Link href={`/profiles/${profile.username}`}>View Profile</Link>
-              </div>
-            ))}
+        {profiles && profiles.length > 0 && (
+          <div className={styles.profileslistcontainer}>
+            <h2 className={styles.sectiontitle}>Profiles</h2>
+            <div className={styles.profileslist}>
+              {profiles.map((profile) => (
+                <div key={profile.id} className={styles.profilecard}>
+                  <img
+                    src={profile.avatar}
+                    alt="user_avatar"
+                    className={styles.avatar}
+                  />
+                  <div className={styles.profileinfo}>
+                    <h3 className={styles.username}>{profile.username}</h3>
+                    {/* <p className={styles.bio}>{profile.bio}</p> */}
+                    <Tertiarybutton
+                      text="View Profile"
+                      theme="dark"
+                      link={`/application/profiles/${profile.id}`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      <Footer />
     </div>
   );
 };

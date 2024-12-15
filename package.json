@@ -12,10 +12,13 @@
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.1",
     "@uploadthing/react": "^7.1.1",
+    "lenis": "^1.1.18",
     "next": "14.2.16",
     "react": "^18",
     "react-dom": "^18",
-    "uploadthing": "^7.3.0"
+    "react-infinite-scroll-component": "^6.1.0",
+    "uploadthing": "^7.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "postcss": "^8",

@@ -2,10 +2,14 @@
     display: flex;
     align-items: center;
     height: 15vh;
-    margin-top: 5rem;
-    border-radius: 2rem;
+    border-radius: 2rem 2rem 0 0;
     box-shadow: 0 -.2rem 1rem rgba(0, 0, 0, 0.3);
     padding: 1rem 4vw;
+
+    & .logo{
+		height: 100%;
+		object-fit: contain;
+	}
 
     & .copyright{
         margin-left: auto;

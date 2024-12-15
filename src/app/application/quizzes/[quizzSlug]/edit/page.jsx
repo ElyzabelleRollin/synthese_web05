@@ -1,47 +1,48 @@
-"use client";
-import CreateQuestionForm from "@/app/_components/questions/CreateQuestionForm";
-import QuestionType from "@/app/_components/questions/QuestionType";
-import { UploadDropzone } from "@/utils/uploadthing";
+//Imports:
+import CreateAQuizToggle from "@/app/_components/questions/CreateAQuizToggle";
+import { createClient } from "@/app/_lib/supabase/server";
 
-const EditQuizzPage = ({ params }) => {
-    const quizzSlug = params.quizzSlug;
+//Page to edit a quiz:
+const EditQuizzPage = async ({ params }) => {
+  const quizzSlug = params.quizzSlug; //Get the slug of the quiz
+  const supabase = createClient(); //Access the Supabase
 
+  //Get the quiz id:
+  const { data: quiz, error } = await supabase
+    .from("quizzes")
+    .select("id")
+    .eq("slug", quizzSlug)
+    .single();
+  if (error) console.log("[GET QUIZ]", error);
 
-    return (
-        <div>
-            <QuestionType type="Normal multiple choice" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Find the intruder" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <QuestionType type="Identify the sound" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
+  //Get all the questions for the quiz:
+  const { data: questions, errorQuestions } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("quizz_id", quiz.id);
+  if (errorQuestions) console.log("[GET QUESTIONS]", error);
 
+  //Get the user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-            <CreateQuestionForm quizzSlug={quizzSlug} />
+  //fetch the xp from the profile of the user
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("xp")
+    .eq("id", user.id)
+    .single();
 
-
-            {/* <UploadDropzone
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                    // Do something with the response
-                    console.log("Files: ", res);
-                    alert("Upload Completed");
-                }}
-                onUploadError={(error) => {
-                    // Do something with the error.
-                    alert(`ERROR! ${error.message}`);
-                }}
-                onBeforeUploadBegin={(files) => {
-                    return files.map((file) => {
-                        const blob = file.slice(0, file.size, file.type);
-                        const newFile = new File(
-                            [blob],
-                            "monEmail." + file.name.split(".").pop(),
-                            { type: file.type }
-                        );
-                        return newFile;
-                    });
-                }}
-            /> */}
-        </div>
-    )
+  return (
+    <div>
+      <CreateAQuizToggle
+        quizzSlug={quizzSlug}
+        questions={questions}
+        userXp={profile.xp}
+      />
+    </div>
+  );
 };
 
 export default EditQuizzPage;

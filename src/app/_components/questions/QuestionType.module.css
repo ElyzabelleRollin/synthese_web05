@@ -1,0 +1,33 @@
+.questiontypecard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 16rem;
+    min-height: 16rem;
+    aspect-ratio: 1/1;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--background);
+    box-shadow: 0 0 1rem color-mix(in srgb, var(--foreground) 50%, var(--background) 50%);
+
+    & .title{
+        margin-top: 6rem;
+        font-size: 2.4rem;
+        line-height: 2.4rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+    }
+
+    & .description{
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        text-wrap: wrap;
+    }
+
+    & .btn{
+        margin-top: auto;
+        margin-bottom: 2rem;
+    }
+}

@@ -1,0 +1,48 @@
+.quizCompleted{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2rem;
+    height: 50vh;
+    aspect-ratio: 5/3;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: var(--background);
+    box-shadow: 0 -0.2rem 1rem rgba(0, 0, 0, 0.3);
+
+    & .title{
+        font-size: 3rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    & .score{
+        font-size: 2rem;
+        font-weight: 800;
+        text-align: center;
+        margin-top: 4rem;
+    }
+    
+    & .average{
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    & .earnedXp{
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 1.5rem;
+        
+        & .xp{
+            color: green;
+        }
+    }
+
+    & .buttons{
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+}

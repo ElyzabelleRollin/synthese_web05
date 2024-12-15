@@ -17,14 +17,16 @@
     }
 
     & .content{
-        width: 45vw;
+        width: 30vw;
         height: fit-content;
-        margin: auto 15vw;
+        margin: auto 10vw;
         color: var(--background);
 
         & .title{
             font-size: 4rem;
             font-weight: 600;
+            line-height: 4rem;
+            margin-bottom: 1.5rem;
         }
 
         & .text{

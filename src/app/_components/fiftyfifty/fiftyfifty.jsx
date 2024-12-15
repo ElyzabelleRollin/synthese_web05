@@ -3,11 +3,11 @@ import styles from './fiftyfifty.module.css'
 import PrimaryButton from '../primarybutton/primarybutton'
 import SecondaryButton from '../secondarybutton/secondarybutton'
 
-const fiftyfifty = ({ type, title, text }) => {
+const fiftyfifty = ({ type, title, text, img }) => {
   return (
     <section className={styles.fiftyfifty}>
       {type === "right" ? (
-        <img src="https://placehold.co/1080x1920" alt="" className={styles.img} />
+        <img src={img} alt="" className={styles.img} />
       ) : (
         <></>
       )}
@@ -16,13 +16,13 @@ const fiftyfifty = ({ type, title, text }) => {
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{text}</p>
           <div className={styles.buttons}>
-            <PrimaryButton text="Launch a quiz" theme="light"/>
-            <SecondaryButton text="Create your account" theme="light"/>
+            <PrimaryButton text="Find a quiz" iconright="ArrowRight" theme="light" link="/application/quizzes"/>
+            <SecondaryButton text="Create your account" theme="light" link={"/auth/login"}/>
           </div>
         </div>
       </div>
       {type === "left" ? (
-        <img src="https://placehold.co/1080x1920" alt="" className={styles.img} />
+        <img src={img} alt="" className={styles.img} />
       ) : (
         <></>
       )}

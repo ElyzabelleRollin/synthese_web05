@@ -1,15 +1,38 @@
+//Imports:
 import CreateQuizzForm from "@/app/_components/quizzes/CreateQuizzForm";
-import QuestionType from "@/app/_components/questions/QuestionType";
+import styles from "@/app/_components/quizzes/CreateQuizPage.module.css";
+import Footer from "@/app/_components/footer/footer";
+import { createClient } from "@/app/_lib/supabase/server";
+import { redirect } from "next/navigation";
 
-const CreateQuizzPage = () => {
-    return (
-        <div>
-            <h1>Create a new quizz</h1>
+//Page to create a new quiz:
+const CreateQuizPage = async () => {
+  //Access to the database
+  const supabase = createClient();
 
-            <CreateQuizzForm />
+  //Get the user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-        </div>
-    )
+  //fetch the xp from the profile of the user
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('xp')
+    .eq('id', user.id)
+    .single();
+
+  //if the user has less than 1000 xp, redirect to the home page
+  if (profile.xp < 1000) {
+    redirect("/");
+  }
+
+  return (
+    <div className={styles.createquizpage}>
+      <CreateQuizzForm />
+      <Footer />
+    </div>
+  );
 };
 
-export default CreateQuizzPage;
+export default CreateQuizPage;
