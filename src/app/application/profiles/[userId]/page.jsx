@@ -100,10 +100,12 @@ const Profile = async ({ params }) => {
             <div className={styles.titles}>
               <p>Member since</p>
               <p>Email</p>
+              <p>XP</p>
             </div>
             <div className={styles.data}>
               <p>{user.created_at.split("T")[0]}</p>
               <p>{user.email}</p>
+              <p>{user.xp}</p>
             </div>
           </div>
         </div>
