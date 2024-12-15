@@ -28,11 +28,18 @@ const QuizPage = async ({ params }) => {
     .eq("quizz_id", quiz.id);
   if (questionsError) console.log("[GET QUESTIONS]", questionsError);
 
+  //fetch the xp from the profile of the user
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('xp')
+    .eq('id', user.id)
+    .single();
+
   return (
     <div>
       {/* <h1>{quiz.name}</h1> */}
       {/* <p>{quiz.description}</p> */}
-      <QuestionsList questions={questions} quiz={quiz} userID={user.id} />
+      <QuestionsList questions={questions} quiz={quiz} userID={user.id} userXp={profile.xp} />
     </div>
   );
 };

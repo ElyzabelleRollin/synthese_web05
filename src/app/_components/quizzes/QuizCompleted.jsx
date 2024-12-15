@@ -4,7 +4,7 @@ import styles from './QuizCompleted.module.css';
 import Primarybutton from '../primarybutton/primarybutton';
 import Secondarybutton from '../secondarybutton/secondarybutton';
 
-const QuizCompleted = ({ score, questionsLength, userID, average }) => {
+const QuizCompleted = ({ score, questionsLength, userID, average, earnedXp }) => {
 	return (
 		<div className={styles.quizCompleted}>
 			<h2 className={styles.title}>Quiz Completed!</h2>
@@ -17,9 +17,12 @@ const QuizCompleted = ({ score, questionsLength, userID, average }) => {
 					? `${average} out of ${questionsLength}`
 					: `0 out of ${questionsLength}`}
 			</p>
+			<p>
+				You gained {earnedXp} XP
+			</p>
 			<div className={styles.buttons}>
-        <Secondarybutton text="Go back to the quizzes" iconleft="ArrowLeft" theme="dark" link="/application/quizzes"/>
-        <Primarybutton text="Go to your profile" iconright="ArrowRight" theme="dark" link={`/application/profiles/${userID}`}/>
+				<Secondarybutton text="Go back to the quizzes" iconleft="ArrowLeft" theme="dark" link="/application/quizzes" />
+				<Primarybutton text="Go to your profile" iconright="ArrowRight" theme="dark" link={`/application/profiles/${userID}`} />
 			</div>
 		</div>
 	);

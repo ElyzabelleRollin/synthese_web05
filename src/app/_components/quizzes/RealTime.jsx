@@ -15,7 +15,7 @@ const RealTime = ({ userId, setCurrentScore }) => {
           event: "UPDATE",
           schema: "public",
           table: "quizzes",
-          // filter: `created_by=eq.${userId}`
+          filter: `created_by=eq.${userId}`
         },
         (payload) => {
           console.log(payload); // les modifications s'y trouvent
@@ -26,11 +26,11 @@ const RealTime = ({ userId, setCurrentScore }) => {
       )
       .subscribe();
 
-        // on se désabonne de l'écouteur d'événement quand la composante quitte le navigateur
-        return () => {
-            supabase.removeChannel(channel);
-        };
-    }, [supabase]);
+    // on se désabonne de l'écouteur d'événement quand la composante quitte le navigateur
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase]);
 }
 
 export default RealTime;

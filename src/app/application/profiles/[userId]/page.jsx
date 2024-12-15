@@ -5,6 +5,7 @@ import FormModifyUsername from "@/app/_components/profile/FormModifyUsername";
 import styles from "@/app/_components/profile/profile.module.css";
 import DisplayQuizzes from "@/app/_components/quizzes/DisplayQuizzes";
 import DisplayCreatedQuizzes from "@/app/_components/quizzes/DisplayCreatedQuizzes";
+import DisplayBadges from "@/app/_components/badges/DisplayBadges";
 
 const wait = (delay) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
@@ -109,6 +110,7 @@ const Profile = async ({ params }) => {
 
         <div className={styles.rightpanel}>
           <FormModifyUsername />
+          <DisplayBadges userId={userId} />
         </div>
       </div>
       <div>
