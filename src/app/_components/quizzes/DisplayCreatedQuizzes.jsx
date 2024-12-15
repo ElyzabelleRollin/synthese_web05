@@ -9,7 +9,7 @@ import styles from "./DisplayCreatedQuizzes.module.css";
 import ScoreQuizzes from "./ScoreQuizzes";
 import RealTime from "./RealTime";
 
-const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
+const DisplayCreatedQuizzes = ({ quizzes, creatorId, userId }) => {
   const [questionsCount, setQuestionsCount] = useState({});
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
     <div className={styles.createdlist}>
       <h2 className={styles.title}>Quizzes created</h2>
       {/* here add realtime component */}
-      <RealTime userId={userId} setCurrentScore={setCurrentScore} />
+      <RealTime userId={creatorId} setCurrentScore={setCurrentScore} />
       {quizzes && quizzes.length > 0 ? (
         <div className={styles.createdquizzes}>
           {quizzes.map((quiz) => (
@@ -68,37 +68,39 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
                   )}
                 </>
               )}
-              {quiz.created_by == userId && (
-                <div className={styles.buttons}>
-                  <Primarybutton
-                    text="Edit"
-                    theme="dark"
-                    iconright="Edit"
-                    link={`/application/quizzes/${quiz.slug}/edit`}
-                  />
+              <div className={styles.buttons}>
+                {quiz.created_by == userId && (
+                  <>
+                    <Primarybutton
+                      text="Edit"
+                      theme="dark"
+                      iconright="Edit"
+                      link={`/application/quizzes/${quiz.slug}/edit`}
+                    />
 
-                  <form action={() => deleteQuiz(quiz.id)}>
-                    <div className={styles.deletebtn}>
-                      <Primarybutton
-                        text="Delete"
-                        iconleft="TrashCan"
-                        theme="dark"
-                      />
-                    </div>
-                  </form>
-                  {/* If the quiz is not banned, show the link to the quiz */}
-                  {!quiz.banned && (
-                    <div className={styles.play}>
-                      <Tertiarybutton
-                        text="Play"
-                        theme="dark"
-                        iconright="ArrowRight"
-                        link={`/application/quizzes/${quiz.slug}`}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
+                    <form action={() => deleteQuiz(quiz.id)}>
+                      <div className={styles.deletebtn}>
+                        <Primarybutton
+                          text="Delete"
+                          iconleft="TrashCan"
+                          theme="dark"
+                        />
+                      </div>
+                    </form>
+                  </>
+                )}
+                {/* If the quiz is not banned, show the link to the quiz */}
+                {!quiz.banned && (
+                  <div className={styles.play}>
+                    <Tertiarybutton
+                      text="Play"
+                      theme="dark"
+                      iconright="ArrowRight"
+                      link={`/application/quizzes/${quiz.slug}`}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -109,4 +111,3 @@ const DisplayCreatedQuizzes = ({ quizzes, userId }) => {
   );
 };
 export default DisplayCreatedQuizzes;
-

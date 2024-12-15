@@ -1,6 +1,5 @@
 import { createClient } from "@/app/_lib/supabase/server";
 import React from "react";
-import Link from "next/link";
 import QuizzesList from "@/app/_components/quizzes/QuizzesList";
 import SearchBar from "@/app/_components/searchbar/SearchBar";
 import { NB_QUIZ_PAGE } from "@/app/constants/quiz";

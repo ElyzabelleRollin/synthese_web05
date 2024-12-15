@@ -14,22 +14,25 @@ const wait = (delay) => {
 const Profile = async ({ params }) => {
   const { userId } = await params; //Get the userId from the URL
 
-  console.log(userId);
-  const superbase = createClient(); //Access to the database
+  const supabase = createClient(); //Access to the database
 
-  const profileRequest = superbase
+  const {
+    data: { user: userConnected },
+  } = await supabase.auth.getUser();
+
+  const profileRequest = supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
 
-  const quizzesRequest = superbase
+  const quizzesRequest = supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
 
-  const playedQuizzRequest = superbase
+  const playedQuizzRequest = supabase
     .from("results")
     .select("*, quizzes(*)")
     .eq("user_id", userId);
@@ -38,19 +41,19 @@ const Profile = async ({ params }) => {
   // console.log(user);
 
   // Get profile information of the user:
-  const { data: user } = await superbase
+  const { data: user } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
 
-  const { data: quizzes, error } = await superbase
+  const { data: quizzes, error } = await supabase
     .from("quizzes")
     .select("*")
     .eq("created_by", userId);
   if (error) console.log(error);
 
-  const { data: playedQuizzes } = await superbase
+  const { data: playedQuizzes } = await supabase
     .from("results")
     .select("*, quizzes(*)")
     .eq("user_id", userId);
@@ -100,12 +103,10 @@ const Profile = async ({ params }) => {
             <div className={styles.titles}>
               <p>Member since</p>
               <p>Email</p>
-              <p>XP</p>
             </div>
             <div className={styles.data}>
               <p>{user.created_at.split("T")[0]}</p>
               <p>{user.email}</p>
-              <p>{user.xp}</p>
             </div>
           </div>
         </div>
@@ -116,7 +117,11 @@ const Profile = async ({ params }) => {
         </div>
       </div>
       <div>
-        <DisplayCreatedQuizzes quizzes={quizzes} userId={userId} />
+        <DisplayCreatedQuizzes
+          quizzes={quizzes}
+          creatorId={userId}
+          userId={userConnected.id}
+        />
       </div>
       <div>
         <DisplayQuizzes quizzes={playedQuizzes} />
