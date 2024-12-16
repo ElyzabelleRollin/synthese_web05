@@ -1,0 +1,26 @@
+.notfound{
+    display: flex;
+    height: 85vh;
+    width: 100vw;
+    
+    & .content{
+        margin: auto;
+    }
+
+    & .title{
+        font-size: 3rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    & .text{
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    & .button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
